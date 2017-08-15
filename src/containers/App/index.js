@@ -13,8 +13,6 @@ const App = () =>
         <img src={logotype} className="logotype" alt="synthform.tv" />
       </a>
     </div>
-
-    <main />
   </div>;
 
 export default App;
