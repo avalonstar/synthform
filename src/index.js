@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 import store, { history } from './store';
 import registerServiceWorker from './registerServiceWorker';
@@ -17,8 +17,10 @@ render(
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <main>
-        <Route exact path="/displays/base" component={BaseDisplay} />
-        <Route component={App} />
+        <Switch>
+          <Route exact path="/displays/base" component={BaseDisplay} />
+          <Route component={App} />
+        </Switch>
       </main>
     </ConnectedRouter>
   </Provider>,
