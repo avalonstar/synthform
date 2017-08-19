@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Map } from 'immutable';
+import { List } from 'immutable';
 
 import * as messageActionCreators from 'modules/messages';
+import { default as ChatMessage } from './ChatMessage';
 
 const propTypes = {
   channel: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  messages: PropTypes.instanceOf(Map)
+  messages: PropTypes.instanceOf(List)
 };
 
 class Chat extends Component {
@@ -18,11 +19,7 @@ class Chat extends Component {
     return (
       <div>
         {this.props.messages.map(data => {
-          return (
-            <div>
-              {data}
-            </div>
-          );
+          return <ChatMessage key={data.get('timestamp')} {...data.toJS()} />;
         })}
       </div>
     );
@@ -36,7 +33,7 @@ function mapStateToProps(state, props) {
   return {
     isFetching: state.messages.get('isFetching'),
     error: state.messages.get('error'),
-    messages: channelMessages ? channelMessages.get('messages') : Map()
+    messages: channelMessages ? channelMessages.get('messages') : List()
   };
 }
 

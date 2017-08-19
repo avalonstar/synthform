@@ -8,7 +8,11 @@ export function listenToMessages(channel, cb, errorCb) {
     'value',
     snapshot => {
       const messages = snapshot.val();
-      cb(messages);
+      const payload = _.uniqBy(
+        _.orderBy(messages, 'timestamp', 'asc'),
+        'timestamp'
+      );
+      cb(payload);
     },
     errorCb
   );
