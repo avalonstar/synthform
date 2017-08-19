@@ -1,7 +1,7 @@
 import { fromJS } from 'immutable';
 
+import { addListener } from 'modules/listeners';
 import { listenToMessages } from 'helpers/api';
-import { addListener } from './listeners';
 
 const SETTING_MESSAGE_LISTENER = 'SETTING_MESSAGE_LISTENER';
 const SETTING_MESSAGE_LISTENER_ERROR = 'SETTING_MESSAGE_LISTENER_ERROR';

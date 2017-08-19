@@ -2,34 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { List } from 'immutable';
+import { Map } from 'immutable';
 
-import * as messageActionCreators from 'redux/modules/messages';
+import * as messageActionCreators from 'modules/messages';
 
 const propTypes = {
   channel: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  messages: PropTypes.instanceOf(List)
+  messages: PropTypes.instanceOf(Map)
 };
 
 class Chat extends Component {
   render() {
-    return <div />;
+    return (
+      <div>
+        {this.props.messages.map(data => {
+          return (
+            <div>
+              {data}
+            </div>
+          );
+        })}
+      </div>
+    );
   }
 }
 
 Chat.propTypes = propTypes;
 
-function mapStateToProps({ messages }, props) {
-  const channelMessages = messages.get(props.channel);
+function mapStateToProps(state, props) {
+  const channelMessages = state.messages.get(props.channel);
   return {
-    isFetching: messages.get('isFetching'),
-    error: messages.get('error'),
-    messages: channelMessages ? channelMessages.get('messages') : List()
+    isFetching: state.messages.get('isFetching'),
+    error: state.messages.get('error'),
+    messages: channelMessages ? channelMessages.get('messages') : Map()
   };
 }
 
-export default connect(mapStateToProps, dispatch =>
-  bindActionCreators(messageActionCreators, dispatch)
-)(Chat);
+function mapDispatchToProps(dispatch) {
+  let actions = bindActionCreators({ messageActionCreators });
+  return { ...actions, dispatch };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat);
