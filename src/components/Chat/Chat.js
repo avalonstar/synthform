@@ -7,6 +7,8 @@ import { List } from 'immutable';
 import * as messageActionCreators from 'modules/messages';
 import { default as ChatMessage } from './ChatMessage';
 
+import './Chat.css';
+
 const propTypes = {
   channel: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
@@ -17,7 +19,7 @@ const propTypes = {
 class Chat extends Component {
   render() {
     return (
-      <div>
+      <div className="c">
         {this.props.messages.map(data => {
           return <ChatMessage key={data.get('timestamp')} {...data.toJS()} />;
         })}
@@ -29,16 +31,16 @@ class Chat extends Component {
 Chat.propTypes = propTypes;
 
 function mapStateToProps(state, props) {
-  const channelMessages = state.messages.get(props.channel);
+  const messages = state.messages.get(props.channel);
   return {
     isFetching: state.messages.get('isFetching'),
     error: state.messages.get('error'),
-    messages: channelMessages ? channelMessages.get('messages') : List()
+    messages: messages ? messages.get('messages') : List()
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  let actions = bindActionCreators({ messageActionCreators });
+  const actions = bindActionCreators({ messageActionCreators });
   return { ...actions, dispatch };
 }
 
