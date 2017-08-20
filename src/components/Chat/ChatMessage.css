@@ -1,0 +1,14 @@
+.cm {
+  margin-bottom: 6px;
+  line-height: 24px;
+}
+
+.cm-username {
+  font-weight: 600;
+}
+
+.cm-message {
+}
+.cm-message > img {
+  vertical-align: middle;
+}
