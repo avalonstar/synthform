@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
 import * as eventActionCreators from 'modules/events';
+import { default as TickerItem } from './TickerItem';
 
 const propTypes = {
   channel: PropTypes.string.isRequired,
@@ -18,11 +19,7 @@ class Ticker extends Component {
     return (
       <div className="t">
         {this.props.events.map(data => {
-          return (
-            <div>
-              {data}
-            </div>
-          );
+          return <TickerItem key={data.get('timestamp')} data={data.toJS()} />;
         })}
       </div>
     );
