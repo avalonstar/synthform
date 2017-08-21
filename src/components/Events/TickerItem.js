@@ -9,7 +9,7 @@ import {
   SubscriptionEvent,
   SubstreakEvent,
   TipEvent
-} from './TickerEvents';
+} from './TickerEvent';
 
 const propTypes = {
   data: PropTypes.object
