@@ -34,7 +34,7 @@ function mapStateToProps(state, props) {
   const events = state.events.get(props.channel);
   return {
     isFetching: state.events.get('isFetching'),
-    error: state.messages.get('error'),
+    error: state.events.get('error'),
     events: events ? events.get('events') : List()
   };
 }
