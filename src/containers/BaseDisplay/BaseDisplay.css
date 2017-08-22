@@ -1,16 +1,42 @@
 .display {
   display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr 1fr 1fr;
 
   position: absolute;
   overflow: hidden;
   width: 1600px;
   height: 900px;
-
-  outline: 1px solid red;
 }
 
 .display .c {
   position: absolute;
   right: 0;
   height: 400px;
+}
+
+.upper-thirds {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+.middle-thirds {
+  grid-column: 1 / span 3;
+  grid-row: 2;
+  align-self: center;
+}
+.lower-thirds {
+  grid-column: 1 / span 3;
+  grid-row: 3;
+  align-self: end;
+}
+
+.display .t {
+}
+
+/* Debug. */
+.display,
+.upper-thirds,
+.middle-thirds,
+.lower-thirds {
+  outline: 1px solid red;
 }

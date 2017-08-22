@@ -35,7 +35,6 @@ class BaseDisplay extends Component {
           {'middle thirds'}
         </div>
         <div className="lower-thirds">
-          {'lower thirds'}
           <Ticker channel="avalonstar" />
         </div>
       </div>
