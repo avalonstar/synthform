@@ -7,6 +7,8 @@ import { List } from 'immutable';
 import * as eventActionCreators from 'modules/events';
 import { default as TickerItem } from './TickerItem';
 
+import './Ticker.css';
+
 const propTypes = {
   channel: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,

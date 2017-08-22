@@ -11,6 +11,15 @@ const cheerPropTypes = {
   bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
+const substreakPropTypes = {
+  length: PropTypes.string.isRequired
+};
+
+const tipPropTypes = {
+  currency: PropTypes.string.isRequired,
+  amount: PropTypes.string.isRequired
+};
+
 export function AutoHostEvent(props) {
   return (
     <div className="ti-piece">
@@ -68,7 +77,10 @@ export function SubstreakEvent(props) {
   return (
     <div className="ti-piece">
       <span className="ti-event">
-        {props.event}
+        <span className="ti-number">
+          {props.length}
+        </span>
+        {' months'}
       </span>
     </div>
   );
@@ -78,7 +90,10 @@ export function TipEvent(props) {
   return (
     <div className="ti-piece">
       <span className="ti-event">
-        {props.event}
+        <span className="ti-number">
+          {props.currency}
+          {props.amount}
+        </span>
       </span>
     </div>
   );
@@ -89,5 +104,5 @@ CheerEvent.propTypes = Object.assign(propTypes, cheerPropTypes);
 FollowEvent.propTypes = propTypes;
 HostEvent.propTypes = propTypes;
 SubscriptionEvent.propTypes = propTypes;
-SubstreakEvent.propTypes = propTypes;
-TipEvent.propTypes = propTypes;
+SubstreakEvent.propTypes = substreakPropTypes;
+TipEvent.propTypes = tipPropTypes;

@@ -1,0 +1,11 @@
+.ti {
+}
+
+.ti-actor {
+  font-weight: 400;
+}
+
+.ti-event {
+  font-weight: 700;
+  text-transform: uppercase;
+}

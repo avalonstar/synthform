@@ -1,0 +1,9 @@
+.t {
+  outline: 1px solid red;
+
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}

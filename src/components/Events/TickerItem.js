@@ -11,6 +11,8 @@ import {
   TipEvent
 } from './TickerEvent';
 
+import './TickerItem.css';
+
 const propTypes = {
   data: PropTypes.object
 };
@@ -32,11 +34,11 @@ class TickerItem extends Component {
     return (
       <div className="ti-container" data-event={data.event}>
         <div className="ti">
-          <div className="ti-piece">
-            {getEventType(data)[data.event]}
-          </div>
           <div className="ti-actor">
             {data.username}
+          </div>
+          <div className="ti-piece">
+            {getEventType(data)[data.event]}
           </div>
         </div>
       </div>
