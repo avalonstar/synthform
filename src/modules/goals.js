@@ -115,10 +115,8 @@ export default function goals(state = initialState, action) {
       return state.merge({
         isFetchingSubCount: false,
         error: '',
-        [action.channel]: {
-          lastUpdated: action.lastUpdated,
-          subCount: action.subCount
-        }
+        lastUpdated: action.lastUpdated,
+        subCount: action.subCount
       });
     case SETTING_SUBPOINT_LISTENER:
       return state.merge({
@@ -133,10 +131,8 @@ export default function goals(state = initialState, action) {
       return state.merge({
         isFetchingSubPoints: false,
         error: '',
-        [action.channel]: {
-          lastUpdated: action.lastUpdated,
-          subPoints: action.subPoints
-        }
+        lastUpdated: action.lastUpdated,
+        subPoints: action.subPoints
       });
     default:
       return state;

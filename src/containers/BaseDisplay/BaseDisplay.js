@@ -5,9 +5,14 @@ import { connect } from 'react-redux';
 
 import { setAndHandleEventListener } from 'modules/events';
 import { setAndHandleMessageListener } from 'modules/messages';
+import {
+  setAndHandleSubCountListener,
+  setAndHandleSubPointListener
+} from 'modules/goals';
 
 import Chat from 'components/Chat';
 import Ticker from 'components/Events';
+import SubPointGoal from 'components/Goals';
 
 import './BaseDisplay.css';
 
@@ -16,13 +21,17 @@ const channel = 'avalonstar';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   setAndHandleEventListener: PropTypes.func.isRequired,
-  setAndHandleMessageListener: PropTypes.func.isRequired
+  setAndHandleMessageListener: PropTypes.func.isRequired,
+  setAndHandleSubCountListener: PropTypes.func.isRequired,
+  setAndHandleSubPointListener: PropTypes.func.isRequired
 };
 
 class BaseDisplay extends Component {
   componentDidMount() {
     this.props.setAndHandleEventListener(channel);
     this.props.setAndHandleMessageListener(channel);
+    this.props.setAndHandleSubCountListener(channel);
+    this.props.setAndHandleSubPointListener(channel);
   }
   render() {
     return (
@@ -32,7 +41,7 @@ class BaseDisplay extends Component {
           <Chat channel="avalonstar" />
         </div>
         <div className="middle-thirds">
-          {'middle thirds'}
+          <SubPointGoal channel="avalonstar" />
         </div>
         <div className="lower-thirds">
           <Ticker channel="avalonstar" />
@@ -44,8 +53,13 @@ class BaseDisplay extends Component {
 
 BaseDisplay.propTypes = propTypes;
 
-function mapStateToProps({ events, messages }) {
-  const isFetching = [events.get('isFetching'), messages.get('isFetching')];
+function mapStateToProps(state) {
+  const isFetching = [
+    state.events.get('isFetching'),
+    state.messages.get('isFetching'),
+    state.goals.get('isFetchingSubCount'),
+    state.goals.get('isFetchingSubPoints')
+  ];
   return {
     isFetching: isFetching.every(Boolean)
   };
@@ -55,7 +69,9 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       setAndHandleEventListener,
-      setAndHandleMessageListener
+      setAndHandleMessageListener,
+      setAndHandleSubCountListener,
+      setAndHandleSubPointListener
     },
     dispatch
   );
