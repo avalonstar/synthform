@@ -30,7 +30,7 @@ function settingEventListenerSuccess(channel, events, lastUpdated) {
   };
 }
 
-export function setAndHandleEventListener(channel, limit = 15) {
+export function setAndHandleEventListener(channel, limit = 20) {
   return function(dispatch, getState) {
     if (getState().listeners.events === true) {
       return;
