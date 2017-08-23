@@ -100,7 +100,7 @@ const initialState = fromJS({
   error: ''
 });
 
-export default function goals(state = initialState, action) {
+export default function subscriptions(state = initialState, action) {
   switch (action.type) {
     case SETTING_SUBCOUNT_LISTENER:
       return state.merge({

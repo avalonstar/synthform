@@ -8,7 +8,7 @@ import { setAndHandleMessageListener } from 'modules/messages';
 import {
   setAndHandleSubCountListener,
   setAndHandleSubPointListener
-} from 'modules/goals';
+} from 'modules/subscriptions';
 
 import Chat from 'components/Chat';
 import Ticker from 'components/Events';
@@ -57,8 +57,8 @@ function mapStateToProps(state) {
   const isFetching = [
     state.events.get('isFetching'),
     state.messages.get('isFetching'),
-    state.goals.get('isFetchingSubCount'),
-    state.goals.get('isFetchingSubPoints')
+    state.subscriptions.get('isFetchingSubCount'),
+    state.subscriptions.get('isFetchingSubPoints')
   ];
   return {
     isFetching: isFetching.every(Boolean)
