@@ -70,10 +70,8 @@ export default function events(state = initialState, action) {
       return state.merge({
         isFetching: false,
         error: '',
-        [action.channel]: {
-          lastUpdated: action.lastUpdated,
-          events: action.events
-        }
+        lastUpdated: action.lastUpdated,
+        events: action.events
       });
     default:
       return state;

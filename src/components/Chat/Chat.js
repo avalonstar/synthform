@@ -31,11 +31,10 @@ class Chat extends Component {
 Chat.propTypes = propTypes;
 
 function mapStateToProps(state, props) {
-  const messages = state.messages.get(props.channel);
   return {
     isFetching: state.messages.get('isFetching'),
     error: state.messages.get('error'),
-    messages: messages ? messages.get('messages') : List()
+    messages: state.messages.get('messages') || List()
   };
 }
 

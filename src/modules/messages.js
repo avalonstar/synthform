@@ -69,10 +69,8 @@ export default function messages(state = initialState, action) {
       return state.merge({
         isFetching: false,
         error: '',
-        [action.channel]: {
-          lastUpdated: action.lastUpdated,
-          messages: action.messages
-        }
+        lastUpdated: action.lastUpdated,
+        messages: action.messages
       });
     default:
       return state;

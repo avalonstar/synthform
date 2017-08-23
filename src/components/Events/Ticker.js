@@ -30,12 +30,11 @@ class Ticker extends Component {
 
 Ticker.propTypes = propTypes;
 
-function mapStateToProps(state, props) {
-  const events = state.events.get(props.channel);
+function mapStateToProps(state) {
   return {
     isFetching: state.events.get('isFetching'),
     error: state.events.get('error'),
-    events: events ? events.get('events') : List()
+    events: state.events.get('events') || List()
   };
 }
 
