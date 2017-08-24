@@ -38,13 +38,13 @@ class BaseDisplay extends Component {
       <div className="display">
         <div className="upper-thirds">
           {'upper thirds'}
-          <Chat channel="avalonstar" />
+          <Chat />
         </div>
         <div className="middle-thirds">
-          <SubPointGoal channel="avalonstar" />
+          <SubPointGoal />
         </div>
         <div className="lower-thirds">
-          <Ticker channel="avalonstar" />
+          <Ticker />
         </div>
       </div>
     );

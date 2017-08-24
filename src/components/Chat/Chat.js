@@ -10,7 +10,6 @@ import { default as ChatMessage } from './ChatMessage';
 import './Chat.css';
 
 const propTypes = {
-  channel: PropTypes.string.isRequired,
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
   messages: PropTypes.instanceOf(List)

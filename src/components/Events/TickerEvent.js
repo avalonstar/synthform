@@ -34,7 +34,8 @@ export function CheerEvent(props) {
   return (
     <div className="ti-piece">
       <span className="ti-event">
-        {props.event}
+        {props.bits}
+        {' Bits'}
       </span>
       <div className="ti-cheermote">
         <img alt={props.bits} src={getCheermoteURL(props.bits)} />
