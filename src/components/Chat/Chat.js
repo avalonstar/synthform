@@ -29,7 +29,7 @@ class Chat extends Component {
 
 Chat.propTypes = propTypes;
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     isFetching: state.messages.get('isFetching'),
     error: state.messages.get('error'),
