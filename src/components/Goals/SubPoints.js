@@ -5,8 +5,11 @@ import { bindActionCreators } from 'redux';
 
 import * as subscriptionActionCreators from 'modules/subscriptions';
 
+const defaultProps = {
+  subPoints: 0
+};
 const propTypes = {
-  subPoints: PropTypes.number.isRequired
+  subPoints: PropTypes.number
 };
 
 class SubPointGoal extends Component {
@@ -26,6 +29,7 @@ class SubPointGoal extends Component {
   }
 }
 
+SubPointGoal.defaultProps = defaultProps;
 SubPointGoal.propTypes = propTypes;
 
 function mapStateToProps(state) {
