@@ -12,10 +12,10 @@ const cheerPropTypes = {
 };
 
 const substreakDefaultProps = {
-  length: '1'
+  length: 1
 };
 const substreakPropTypes = {
-  length: PropTypes.string
+  length: PropTypes.number
 };
 
 const tipDefaultProps = {
