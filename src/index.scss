@@ -2,6 +2,7 @@
 @import '~normalize.css';
 
 // Helpers.
+@import 'helpers/css/variables.scss';
 @import 'helpers/css/fonts.scss';
 
 // Foundational styles.
@@ -12,5 +13,5 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-family: $sans-serif;
 }
