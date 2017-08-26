@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "feather-icons": "^3.2.2",
     "firebase": "^4.3.0",
     "firebase-admin": "^5.2.1",
     "husky": "^0.14.3",
