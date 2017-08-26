@@ -24,11 +24,11 @@ class Ticker extends Component {
 
   render() {
     return (
-      <div className="t">
+      <ol className="t">
         {this.props.events.map(data => {
           return <TickerItem key={data.get('timestamp')} data={data.toJS()} />;
         })}
-      </div>
+      </ol>
     );
   }
 }

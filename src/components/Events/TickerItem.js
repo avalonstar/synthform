@@ -32,7 +32,7 @@ class TickerItem extends Component {
   render() {
     const { data } = this.props;
     return (
-      <div className="ti-container" data-event={data.event}>
+      <li className="ti-container" data-event={data.event}>
         <div className="ti">
           <div className="ti-actor">
             {data.username}
@@ -41,7 +41,7 @@ class TickerItem extends Component {
             {getEventType(data)[data.event]}
           </div>
         </div>
-      </div>
+      </li>
     );
   }
 }
