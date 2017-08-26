@@ -23,7 +23,7 @@
     "redux-thunk": "^2.2.0"
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
+    "src/**/*.{js,jsx,json,scss}": [
       "prettier --single-quote --write",
       "git add"
     ]
