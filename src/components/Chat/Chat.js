@@ -24,11 +24,11 @@ class Chat extends Component {
 
   render() {
     return (
-      <div className="c">
+      <ul className="c">
         {this.props.messages.map(data => {
           return <ChatMessage key={data.get('timestamp')} {...data.toJS()} />;
         })}
-      </div>
+      </ul>
     );
   }
 }

@@ -52,7 +52,7 @@ const Username = ({ displayName, username, color }) => {
 class ChatMessage extends Component {
   render() {
     return (
-      <div className="cm">
+      <li className="cm">
         <div className="cm-badges" />
         <Username
           displayName={this.props.display_name}
@@ -60,7 +60,7 @@ class ChatMessage extends Component {
           color={this.props.color}
         />
         <Message message={this.props.message} />
-      </div>
+      </li>
     );
   }
 }
