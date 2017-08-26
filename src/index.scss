@@ -1,0 +1,12 @@
+// Normalize.
+@import '~normalize.css';
+
+// Helpers.
+@import 'helpers/css/fonts.scss';
+
+// Foundational styles.
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
