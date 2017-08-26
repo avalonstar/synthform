@@ -1,14 +1,50 @@
 import { fromJS } from 'immutable';
 
 import { addListener } from 'modules/listeners';
-import { listenToSubCount, listenToSubPoints } from 'helpers/api';
+import {
+  listenToLatestSubscriber,
+  listenToSubCount,
+  listenToSubPoints
+} from 'helpers/api';
 
+const SETTING_LATEST_SUBSCRIBER_LISTENER = 'SETTING_LATEST_SUBSCRIBER_LISTENER';
+const SETTING_LATEST_SUBSCRIBER_LISTENER_ERROR =
+  'SETTING_LATEST_SUBSCRIBER_LISTENER_ERROR';
+const SETTING_LATEST_SUBSCRIBER_LISTENER_SUCCESS =
+  'SETTING_LATEST_SUBSCRIBER_LISTENER_SUCCESS';
 const SETTING_SUBPOINT_LISTENER = 'SETTING_SUBPOINT_LISTENER';
 const SETTING_SUBPOINT_LISTENER_ERROR = 'SETTING_SUBPOINT_LISTENER_ERROR';
 const SETTING_SUBPOINT_LISTENER_SUCCESS = 'SETTING_SUBPOINT_LISTENER_SUCCESS';
 const SETTING_SUBCOUNT_LISTENER = 'SETTING_SUBCOUNT_LISTENER';
 const SETTING_SUBCOUNT_LISTENER_ERROR = 'SETTING_SUBCOUNT_LISTENER_ERROR';
 const SETTING_SUBCOUNT_LISTENER_SUCCESS = 'SETTING_SUBCOUNT_LISTENER_SUCCESS';
+
+function settingLatestSubscriberListener() {
+  return {
+    type: SETTING_LATEST_SUBSCRIBER_LISTENER
+  };
+}
+
+function settingLatestSubscriberListenerError(error) {
+  console.warn(error);
+  return {
+    type: SETTING_LATEST_SUBSCRIBER_LISTENER_ERROR,
+    error: 'Error fetching latest subscriber.'
+  };
+}
+
+function settingLatestSubscriberListenerSuccess(
+  channel,
+  subscriber,
+  lastUpdated
+) {
+  return {
+    type: SETTING_LATEST_SUBSCRIBER_LISTENER_SUCCESS,
+    channel,
+    subscriber,
+    lastUpdated
+  };
+}
 
 function settingSubCountListener() {
   return {
@@ -56,6 +92,27 @@ function settingSubPointListenerSuccess(channel, subPoints, lastUpdated) {
   };
 }
 
+export function setAndHandleLatestSubscriberListener(channel) {
+  return function(dispatch, getState) {
+    if (getState().listeners.latest === true) {
+      return;
+    }
+
+    dispatch(addListener('latestSubscriber'));
+    dispatch(settingLatestSubscriberListener());
+
+    listenToLatestSubscriber(
+      channel,
+      payload => {
+        dispatch(
+          settingLatestSubscriberListenerSuccess(channel, payload, Date.now())
+        );
+      },
+      error => dispatch(settingLatestSubscriberListenerError(error))
+    );
+  };
+}
+
 export function setAndHandleSubCountListener(channel) {
   return function(dispatch, getState) {
     if (getState().listeners.subcount === true) {
@@ -95,6 +152,7 @@ export function setAndHandleSubPointListener(channel) {
 }
 
 const initialState = fromJS({
+  isFetchingLatestSubscriber: false,
   isFetchingSubCount: false,
   isFetchingSubPoints: false,
   error: ''
@@ -102,6 +160,22 @@ const initialState = fromJS({
 
 export default function subscriptions(state = initialState, action) {
   switch (action.type) {
+    case SETTING_LATEST_SUBSCRIBER_LISTENER:
+      return state.merge({
+        isFetchingLatestSubscriber: true
+      });
+    case SETTING_LATEST_SUBSCRIBER_LISTENER_ERROR:
+      return state.merge({
+        isFetchingLatestSubscriber: false,
+        error: action.error
+      });
+    case SETTING_LATEST_SUBSCRIBER_LISTENER_SUCCESS:
+      return state.merge({
+        isFetchingLatestSubscriber: false,
+        error: '',
+        lastUpdated: action.lastUpdated,
+        latest: action.subscriber
+      });
     case SETTING_SUBCOUNT_LISTENER:
       return state.merge({
         isFetchingSubCount: true

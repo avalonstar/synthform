@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import Chat from 'components/Chat';
 import Ticker from 'components/Events';
 import SubPointGoal from 'components/Goals';
+import LatestSubscriber from 'components/Labels';
 
 import './BaseDisplay.css';
 
@@ -18,6 +19,7 @@ class BaseDisplay extends Component {
       <div className="display">
         <div className="upper-thirds">
           <SubPointGoal />
+          <LatestSubscriber />
         </div>
         <div className="middle-thirds">
           <Chat />
@@ -36,6 +38,7 @@ function mapStateToProps(state) {
   const isFetching = [
     state.events.get('isFetching'),
     state.messages.get('isFetching'),
+    state.subscriptions.get('isFetchingLatestSubscriber'),
     state.subscriptions.get('isFetchingSubCount'),
     state.subscriptions.get('isFetchingSubPoints')
   ];
