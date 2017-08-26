@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
-import * as messageActionCreators from 'modules/messages';
+import { channel } from 'configurations/constants';
+import { setAndHandleMessageListener } from 'modules/messages';
 import { default as ChatMessage } from './ChatMessage';
 
 import './Chat.css';
@@ -12,10 +13,15 @@ import './Chat.css';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  messages: PropTypes.instanceOf(List)
+  messages: PropTypes.instanceOf(List),
+  setAndHandleMessageListener: PropTypes.func.isRequired
 };
 
 class Chat extends Component {
+  componentDidMount() {
+    this.props.setAndHandleMessageListener(channel);
+  }
+
   render() {
     return (
       <div className="c">
@@ -38,8 +44,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = bindActionCreators({ messageActionCreators });
-  return { ...actions, dispatch };
+  return bindActionCreators({ setAndHandleMessageListener }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);

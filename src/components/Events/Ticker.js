@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
-import * as eventActionCreators from 'modules/events';
+import { channel } from 'configurations/constants';
+import { setAndHandleEventListener } from 'modules/events';
 import { default as TickerItem } from './TickerItem';
 
 import './Ticker.css';
@@ -12,10 +13,15 @@ import './Ticker.css';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   error: PropTypes.string.isRequired,
-  events: PropTypes.instanceOf(List)
+  events: PropTypes.instanceOf(List),
+  setAndHandleEventListener: PropTypes.func.isRequired
 };
 
 class Ticker extends Component {
+  componentDidMount() {
+    this.props.setAndHandleEventListener(channel);
+  }
+
   render() {
     return (
       <div className="t">
@@ -38,8 +44,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = bindActionCreators({ eventActionCreators });
-  return { ...actions, dispatch };
+  return bindActionCreators({ setAndHandleEventListener }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticker);

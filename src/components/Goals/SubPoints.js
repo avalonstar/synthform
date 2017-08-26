@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import * as subscriptionActionCreators from 'modules/subscriptions';
+import { channel } from 'configurations/constants';
+import { setAndHandleSubPointListener } from 'modules/subscriptions';
 
 const defaultProps = {
   subPoints: 0
 };
 const propTypes = {
-  subPoints: PropTypes.number
+  subPoints: PropTypes.number,
+  setAndHandleSubPointListener: PropTypes.func.isRequired
 };
 
 class SubPointGoal extends Component {
@@ -18,6 +20,10 @@ class SubPointGoal extends Component {
     this.state = {
       goal: 300
     };
+  }
+
+  componentDidMount() {
+    this.props.setAndHandleSubPointListener(channel);
   }
 
   render() {
@@ -41,8 +47,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  const actions = bindActionCreators({ subscriptionActionCreators });
-  return { ...actions, dispatch };
+  return bindActionCreators({ setAndHandleSubPointListener }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubPointGoal);

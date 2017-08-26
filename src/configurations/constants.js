@@ -12,3 +12,5 @@ export const tmiIdentity = {
   username: 'synthformer',
   password: 'oauth:sf2bdj907ubkgumu0xej9w91fns0fh'
 };
+
+export const channel = 'avalonstar';
