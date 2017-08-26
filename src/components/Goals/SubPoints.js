@@ -6,12 +6,13 @@ import { bindActionCreators } from 'redux';
 import { channel } from 'configurations/constants';
 import { setAndHandleSubPointListener } from 'modules/subscriptions';
 
-const defaultProps = {
-  subPoints: 0
-};
 const propTypes = {
   subPoints: PropTypes.number,
   setAndHandleSubPointListener: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  subPoints: 0
 };
 
 class SubPointGoal extends Component {

@@ -6,12 +6,13 @@ import { bindActionCreators } from 'redux';
 import { channel } from 'configurations/constants';
 import { setAndHandleSubCountListener } from 'modules/subscriptions';
 
-const defaultProps = {
-  subPoints: 0
-};
 const propTypes = {
   subCount: PropTypes.number,
   setAndHandleSubCountListener: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  subPoints: 0
 };
 
 class SubCountGoal extends Component {

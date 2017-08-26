@@ -11,20 +11,22 @@ const cheerPropTypes = {
   bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
+const substreakPropTypes = {
+  length: PropTypes.number
+};
+
 const substreakDefaultProps = {
   length: 1
 };
-const substreakPropTypes = {
-  length: PropTypes.number
+
+const tipPropTypes = {
+  currency: PropTypes.string,
+  amount: PropTypes.string
 };
 
 const tipDefaultProps = {
   currency: '$',
   amount: '0'
-};
-const tipPropTypes = {
-  currency: PropTypes.string,
-  amount: PropTypes.string
 };
 
 export function AutoHostEvent(props) {
@@ -112,7 +114,7 @@ CheerEvent.propTypes = Object.assign(propTypes, cheerPropTypes);
 FollowEvent.propTypes = propTypes;
 HostEvent.propTypes = propTypes;
 SubscriptionEvent.propTypes = propTypes;
-SubstreakEvent.defaultProps = substreakDefaultProps;
 SubstreakEvent.propTypes = substreakPropTypes;
-TipEvent.defaultProps = tipDefaultProps;
+SubstreakEvent.defaultProps = substreakDefaultProps;
 TipEvent.propTypes = tipPropTypes;
+TipEvent.defaultProps = tipDefaultProps;
