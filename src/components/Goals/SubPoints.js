@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Motion, spring } from 'react-motion';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleSubPointListener } from 'modules/subscriptions';
+
+import './SubPoints.css';
 
 const propTypes = {
   subPoints: PropTypes.number,
@@ -14,6 +17,48 @@ const propTypes = {
 const defaultProps = {
   subPoints: 0
 };
+
+const indicatorPropTypes = {
+  progress: PropTypes.number
+};
+
+const labelPropTypes = {
+  points: PropTypes.number,
+  goal: PropTypes.number
+};
+
+function Indicator(props) {
+  return (
+    <Motion defaultStyle={{ x: 0 }} style={{ x: spring(props.progress) }}>
+      {({ x }) =>
+        <div className="spg-bar">
+          <div
+            className="spg-indicator"
+            data-progress={props.progress}
+            style={{ width: `${x}%` }}
+          />
+        </div>}
+    </Motion>
+  );
+}
+
+function Label(props) {
+  return (
+    <div className="spg-label">
+      <span className="spg-title">
+        {'SUBPOINTS'}
+      </span>
+      <div className="spg-progress">
+        <span className="spg-points">
+          {props.points}
+        </span>
+        <span className="spg-goal">
+          /{props.goal}
+        </span>
+      </div>
+    </div>
+  );
+}
 
 class SubPointGoal extends Component {
   constructor(props) {
@@ -28,9 +73,13 @@ class SubPointGoal extends Component {
   }
 
   render() {
+    const points = this.props.subPoints;
+    const goal = this.state.goal;
+    const progress = points / goal * 100;
     return (
       <div className="spg">
-        {this.props.subPoints}/{this.state.goal}
+        <Indicator progress={progress} />
+        <Label points={points} goal={goal} />
       </div>
     );
   }
@@ -38,6 +87,8 @@ class SubPointGoal extends Component {
 
 SubPointGoal.defaultProps = defaultProps;
 SubPointGoal.propTypes = propTypes;
+Indicator.propTypes = indicatorPropTypes;
+Label.propTypes = labelPropTypes;
 
 function mapStateToProps(state) {
   return {
