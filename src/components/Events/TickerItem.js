@@ -15,19 +15,19 @@ import {
 import './TickerItem.css';
 
 const propTypes = {
-  data: PropTypes.object,
-  delay: PropTypes.number
+  data: PropTypes.object.isRequired,
+  delay: PropTypes.number.isRequired
 };
 
 const getEventType = eventData => ({
-  autohost: <AutoHostEvent {...eventData} />,
-  cheer: <CheerEvent {...eventData} />,
-  follow: <FollowEvent {...eventData} />,
-  host: <HostEvent {...eventData} />,
-  subscription: <SubscriptionEvent {...eventData} />,
-  resubscription: <SubscriptionEvent {...eventData} />,
-  substreak: <SubstreakEvent {...eventData} />,
-  tip: <TipEvent {...eventData} />
+  autohost: AutoHostEvent({ ...eventData }),
+  cheer: CheerEvent({ ...eventData }),
+  follow: FollowEvent({ ...eventData }),
+  host: HostEvent({ ...eventData }),
+  subscription: SubscriptionEvent({ ...eventData }),
+  resubscription: SubscriptionEvent({ ...eventData }),
+  substreak: SubstreakEvent({ ...eventData }),
+  tip: TipEvent({ ...eventData })
 });
 
 class TickerItem extends Component {

@@ -84,8 +84,8 @@ class SubPointGoal extends Component {
     const progress = points / goal * 100;
     return (
       <div className="spg">
-        <Indicator progress={progress} />
-        <Label points={points} goal={goal} />
+        {Indicator({ progress: progress })}
+        {Label({ points: points, goal: goal })}
       </div>
     );
   }
