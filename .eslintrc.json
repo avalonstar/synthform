@@ -1,24 +1,6 @@
 {
-  "env": {
-    "es6": true,
-    "node": true,
-    "browser": true
-  },
-  "parserOptions": {
-    "sourceType": "module"
-  },
-  "parser": "babel-eslint",
-  "plugins": [
-    "react"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
-  ],
+  "extends": "airbnb",
   "rules": {
-    "no-console": 0,
-    "react/no-multi-comp": [1, { "ignoreStateless": true }],
-    "react/prefer-stateless-function": 1,
-    "react/sort-comp": 1
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
   }
 }
