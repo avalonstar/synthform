@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Motion, spring } from 'react-motion';
 
 import {
   AutoHostEvent,
@@ -14,7 +15,8 @@ import {
 import './TickerItem.css';
 
 const propTypes = {
-  data: PropTypes.object
+  data: PropTypes.object,
+  delay: PropTypes.number
 };
 
 const getEventType = eventData => ({
@@ -32,16 +34,23 @@ class TickerItem extends Component {
   render() {
     const { data } = this.props;
     return (
-      <li className="ti-container" data-event={data.event}>
-        <div className="ti">
-          <div className="ti-actor">
-            {data.username}
-          </div>
-          <div className="ti-piece">
-            {getEventType(data)[data.event]}
-          </div>
-        </div>
-      </li>
+      <Motion defaultStyle={{ y: 100 }} style={{ y: spring(this.props.delay) }}>
+        {({ y }) =>
+          <li
+            className="ti-container"
+            style={{ transform: `translate3d(0, ${y}%, 0)` }}
+            data-event={data.event}
+          >
+            <div className="ti">
+              <div className="ti-actor">
+                {data.username}
+              </div>
+              <div className="ti-piece">
+                {getEventType(data)[data.event]}
+              </div>
+            </div>
+          </li>}
+      </Motion>
     );
   }
 }

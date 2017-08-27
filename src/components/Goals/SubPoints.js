@@ -19,12 +19,12 @@ const defaultProps = {
 };
 
 const indicatorPropTypes = {
-  progress: PropTypes.number
+  progress: PropTypes.number.isRequired
 };
 
 const labelPropTypes = {
-  points: PropTypes.number,
-  goal: PropTypes.number
+  points: PropTypes.number.isRequired,
+  goal: PropTypes.number.isRequired
 };
 
 function Indicator(props) {
@@ -44,19 +44,25 @@ function Indicator(props) {
 
 function Label(props) {
   return (
-    <div className="spg-label">
-      <span className="spg-title">
-        {'SUBPOINTS'}
-      </span>
-      <div className="spg-progress">
-        <span className="spg-points">
-          {props.points}
-        </span>
-        <span className="spg-goal">
-          /{props.goal}
-        </span>
-      </div>
-    </div>
+    <Motion
+      defaultStyle={{ points: 0 }}
+      style={{ points: spring(props.points) }}
+    >
+      {({ points }) =>
+        <div className="spg-label">
+          <span className="spg-title">
+            {'SUBPOINTS'}
+          </span>
+          <div className="spg-progress">
+            <span className="spg-points">
+              {Math.round(points)}
+            </span>
+            <span className="spg-goal">
+              /{props.goal}
+            </span>
+          </div>
+        </div>}
+    </Motion>
   );
 }
 

@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  subPoints: 0
+  subCount: 0
 };
 
 class SubCountGoal extends Component {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function getCheermoteURL(amount) {
+function getCheermoteURL(amount) {
   if (_.inRange(amount, 1, 99)) {
     return 'https://static-cdn.jtvnw.net/bits/dark/animated/gray/1';
   } else if (_.inRange(amount, 100, 999)) {
@@ -11,7 +11,9 @@ export function getCheermoteURL(amount) {
     return 'https://static-cdn.jtvnw.net/bits/dark/animated/blue/1';
   } else if (_.inRange(amount, 10000, 99999)) {
     return 'https://static-cdn.jtvnw.net/bits/dark/animated/red/1';
-  } else {
-    return 'https://static-cdn.jtvnw.net/bits/dark/animated/gold/1';
   }
+
+  return 'https://static-cdn.jtvnw.net/bits/dark/animated/gold/1';
 }
+
+export { getCheermoteURL as default };

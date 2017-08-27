@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { PropTypes } from 'prop-types';
+import { Component } from 'react';
+import PropTypes from 'prop-types';
 
 const propTypes = {
-  initial: PropTypes.number,
-  children: React.PropTypes.node.isRequired
+  initial: PropTypes.number.isRequired,
+  children: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -11,9 +11,12 @@ const defaultProps = {
 };
 
 class Delay extends Component {
-  state = {
-    value: this.props.initial
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.initial
+    };
+  }
 
   componentDidMount() {
     this.refresh(this.props);
@@ -24,7 +27,7 @@ class Delay extends Component {
   }
 
   refresh(props) {
-    let { value, period } = props;
+    const { value, period } = props;
     setTimeout(
       () =>
         this.setState({

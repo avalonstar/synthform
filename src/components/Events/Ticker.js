@@ -6,7 +6,9 @@ import { List } from 'immutable';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleEventListener } from 'modules/events';
-import { default as TickerItem } from './TickerItem';
+
+import Delay from 'components/Delay';
+import TickerItem from './TickerItem';
 
 import './Ticker.css';
 
@@ -25,8 +27,17 @@ class Ticker extends Component {
   render() {
     return (
       <ol className="t">
-        {this.props.events.map(data => {
-          return <TickerItem key={data.get('timestamp')} data={data.toJS()} />;
+        {this.props.events.map((data, i) => {
+          return (
+            <Delay
+              key={data.get('timestamp')}
+              initial={100}
+              value={0}
+              period={i * 30}
+            >
+              {delayed => <TickerItem data={data.toJS()} delay={delayed} />}
+            </Delay>
+          );
         })}
       </ol>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { getCheermoteURL } from './utils';
+import getCheermoteURL from './utils';
 
 const propTypes = {
   event: PropTypes.string.isRequired
@@ -9,6 +9,10 @@ const propTypes = {
 
 const cheerPropTypes = {
   bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+};
+
+const cheerDefaultProps = {
+  bits: 0
 };
 
 const substreakPropTypes = {
@@ -110,7 +114,8 @@ export function TipEvent(props) {
 }
 
 AutoHostEvent.propTypes = propTypes;
-CheerEvent.propTypes = Object.assign(propTypes, cheerPropTypes);
+CheerEvent.propTypes = cheerPropTypes;
+CheerEvent.defaultProps = cheerDefaultProps;
 FollowEvent.propTypes = propTypes;
 HostEvent.propTypes = propTypes;
 SubscriptionEvent.propTypes = propTypes;

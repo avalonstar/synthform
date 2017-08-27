@@ -1,11 +1,15 @@
+@import 'helpers/css/variables.scss';
+
 .ti {
 }
 
 .ti-actor {
+  font-family: $font-gotham;
   font-weight: 400;
 }
 
 .ti-event {
+  font-family: $font-forza;
   font-weight: 700;
   text-transform: uppercase;
 }

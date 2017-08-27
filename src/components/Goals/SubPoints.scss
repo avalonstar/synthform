@@ -1,0 +1,30 @@
+@import 'helpers/css/variables.scss';
+
+.spg {
+  font-family: $font-miedinger;
+}
+
+.spg-bar {
+  width: 100%;
+  height: 14px;
+  border: 2px solid;
+}
+
+.spg-indicator {
+  height: 100%;
+  background: red;
+}
+
+.spg-label {
+  display: flex;
+}
+
+.spg-title {
+  flex: 1;
+}
+.spg-progress {
+}
+
+.spg-points {
+  font-weight: 500;
+}
