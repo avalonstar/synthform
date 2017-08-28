@@ -6,6 +6,8 @@ import { listenToEvents } from 'helpers/api';
 const SETTING_EVENT_LISTENER = 'SETTING_EVENT_LISTENER';
 const SETTING_EVENT_LISTENER_ERROR = 'SETTING_EVENT_LISTENER_ERROR';
 const SETTING_EVENT_LISTENER_SUCCESS = 'SETTING_EVENT_LISTENER_SUCCESS';
+const ADD_EVENT_TO_NOTIFIER = 'ADD_EVENT_TO_NOTIFIER';
+const REMOVE_EVENT_FROM_NOTIFIER = 'REMOVE_EVENT_FROM_NOTIFIER';
 
 function settingEventListener() {
   return {
@@ -21,17 +23,30 @@ function settingEventListenerError(error) {
   };
 }
 
-function settingEventListenerSuccess(channel, events, lastUpdated) {
+function settingEventListenerSuccess(channel, payload, lastUpdated) {
   return {
     type: SETTING_EVENT_LISTENER_SUCCESS,
     channel,
-    events,
+    payload,
     lastUpdated
   };
 }
 
+function addEventToNotifier(event) {
+  return {
+    type: ADD_EVENT_TO_NOTIFIER,
+    event
+  };
+}
+
+export function removeEventFromNotifier() {
+  return {
+    type: REMOVE_EVENT_FROM_NOTIFIER
+  };
+}
+
 export function setAndHandleEventListener(channel, limit = 20) {
-  return function(dispatch, getState) {
+  return function execute(dispatch, getState) {
     if (getState().listeners.events === true) {
       return;
     }
@@ -42,8 +57,9 @@ export function setAndHandleEventListener(channel, limit = 20) {
     listenToEvents(
       channel,
       limit,
-      events => {
-        dispatch(settingEventListenerSuccess(channel, events, Date.now()));
+      payload => {
+        dispatch(settingEventListenerSuccess(channel, payload, Date.now()));
+        dispatch(addEventToNotifier(payload[0]));
       },
       error => dispatch(settingEventListenerError(error))
     );
@@ -52,7 +68,8 @@ export function setAndHandleEventListener(channel, limit = 20) {
 
 const initialState = fromJS({
   isFetching: false,
-  error: ''
+  error: '',
+  notifierPool: []
 });
 
 export default function events(state = initialState, action) {
@@ -71,7 +88,15 @@ export default function events(state = initialState, action) {
         isFetching: false,
         error: '',
         lastUpdated: action.lastUpdated,
-        events: action.events
+        events: action.payload
+      });
+    case ADD_EVENT_TO_NOTIFIER:
+      return state.merge({
+        notifierPool: state.get('notifierPool').push(action.event)
+      });
+    case REMOVE_EVENT_FROM_NOTIFIER:
+      return state.merge({
+        notifierPool: state.get('notifierPool').delete(0)
       });
     default:
       return state;
