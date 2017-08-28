@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { LatestSubscriber, SocialMedia } from 'components/Labels';
 import Chat from 'components/Chat';
 import SubPointGoal from 'components/Goals';
-import Ticker from 'components/Events';
+import { Notifier, Ticker } from 'components/Events';
 
 import './BaseDisplay.css';
 
@@ -25,6 +25,7 @@ class BaseDisplay extends Component {
           <Chat />
         </div>
         <div className="lower-thirds">
+          <Notifier />
           <SocialMedia />
           <Ticker />
         </div>
