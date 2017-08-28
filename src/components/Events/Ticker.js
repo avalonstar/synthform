@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
+import { ChevronRight } from 'react-feather';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleEventListener } from 'modules/events';
@@ -27,6 +28,9 @@ class Ticker extends Component {
   render() {
     return (
       <ol className="t">
+        <li className="t-cap">
+          <ChevronRight color="#fff" size={24} />
+        </li>
         {this.props.events.map((data, i) => {
           return (
             <Delay

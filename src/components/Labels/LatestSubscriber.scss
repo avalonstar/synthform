@@ -1,0 +1,36 @@
+@import 'helpers/css/variables.scss';
+
+.ls {
+  display: flex;
+  align-items: center;
+  padding: 0 8px;
+  background: linear-gradient(#23292f, #1a1f23);
+  border-radius: 4px;
+  box-shadow: inset 0 1px 0 #353d46, 0 1px 2px #090a0c;
+  color: #f3f5f6;
+  font-size: 14px;
+}
+
+.ls-title {
+  padding: 6px 10px 6px 0;
+  color: #738596;
+  font-family: $font-forza;
+  font-weight: 700;
+}
+
+.ls-actor {
+  font-family: $font-gotham;
+  font-weight: 700;
+  flex: 1;
+}
+
+.ls-length {
+  padding: 2px 4px 0px;
+  box-shadow: 0 0 0 1px #586674;
+  border-radius: 2px;
+  font-family: $font-miedinger;
+
+  span {
+    font-size: 10px;
+  }
+}

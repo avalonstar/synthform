@@ -3,9 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
+import { ChevronRight } from 'react-feather';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleLatestSubscriberListener } from 'modules/subscriptions';
+
+import './LatestSubscriber.css';
 
 const propTypes = {
   username: PropTypes.string,
@@ -14,22 +17,42 @@ const propTypes = {
   setAndHandleLatestSubscriberListener: PropTypes.func.isRequired
 };
 
+const defaultProps = {
+  username: '',
+  length: '',
+  prime: false
+};
+
 class LatestSubscriber extends Component {
   componentDidMount() {
     this.props.setAndHandleLatestSubscriberListener(channel);
   }
+
   render() {
+    const { username, length, prime } = this.props;
     return (
-      <div>
-        {this.props.username}
-        {this.props.length}
-        {this.props.prime}
+      <div className="label ls">
+        <ChevronRight color="#738596" size={16} />
+        <div className="ls-title">
+          {'Latest'}
+        </div>
+        <div className="ls-actor">
+          {username}
+        </div>
+        {length &&
+          <div className="ls-length">
+            <span>
+              {'\u2715'}
+            </span>
+            {length}
+          </div>}
       </div>
     );
   }
 }
 
 LatestSubscriber.propTypes = propTypes;
+LatestSubscriber.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   const subscriber = state.subscriptions.get('latest') || Map();

@@ -1,15 +1,25 @@
 @import 'helpers/css/variables.scss';
 
 .ti {
+  color: #e8ebed;
+  padding: 14px 8px 14px 18px;
 }
 
 .ti-actor {
+  padding-bottom: 1px;
   font-family: $font-gotham;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 700;
+
+  &::first-letter {
+    padding-top: 2px;
+  }
 }
 
-.ti-event {
+.ti-piece {
+  color: #697a8c;
   font-family: $font-forza;
+  font-size: 16px;
   font-weight: 700;
   text-transform: uppercase;
 }

@@ -10,6 +10,7 @@
 }
 
 .display .c {
+  display: none;
   position: absolute;
   right: 0;
   height: 400px;
@@ -19,6 +20,8 @@
 .upper-thirds {
   grid-column: 1 / span 3;
   grid-row: 1;
+
+  background: linear-gradient(6deg, rgba(#090a0c, 0) 75%, rgba(#090a0c, 0.6));
 }
 .middle-thirds {
   grid-column: 1 / span 3;
@@ -31,7 +34,23 @@
   align-self: end;
 }
 
+.upper-thirds {
+  display: grid;
+  padding: 20px;
+
+  grid-auto-columns: 156px;
+  grid-auto-rows: 42px;
+}
+
 .display .t {
+}
+
+.upper-thirds .spg {
+  grid-column: 9 / 11;
+}
+.upper-thirds .ls {
+  grid-column: 9 / 11;
+  margin-top: 8px;
 }
 
 /* Debug. */
@@ -39,5 +58,5 @@
 .upper-thirds,
 .middle-thirds,
 .lower-thirds {
-  outline: 1px solid red;
+  // outline: 1px solid red;
 }

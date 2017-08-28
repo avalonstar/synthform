@@ -1,5 +1,5 @@
 .t {
-  outline: 1px solid red;
+  background: #090a0c;
 
   position: relative;
   display: flex;
@@ -10,4 +10,9 @@
   padding: 0;
 
   list-style: none;
+}
+
+.t-cap {
+  background: #121417;
+  padding: 12px 8px 12px 10px;
 }
