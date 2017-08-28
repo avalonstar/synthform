@@ -5,17 +5,22 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
 import { channel } from 'configurations/constants';
-import { setAndHandleEventListener } from 'modules/events';
+import {
+  setAndHandleEventListener,
+  removeEventFromNotifier
+} from 'modules/events';
+
+import Notification from './Notification';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
-  events: PropTypes.instanceOf(List),
-  setAndHandleEventListener: PropTypes.func.isRequired
+  notifierPool: PropTypes.instanceOf(List),
+  setAndHandleEventListener: PropTypes.func.isRequired,
+  removeEventFromNotifier: PropTypes.func.isRequired
 };
 
 const defaultProps = {
-  events: List()
+  notifierPool: List()
 };
 
 class Notifier extends Component {
@@ -24,11 +29,14 @@ class Notifier extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.events.get(0) !== this.props.events.get(0);
+    return nextProps.notifierPool.get(0) !== this.props.notifierPool.get(0);
   }
 
   render() {
-    return <div />;
+    return (
+      !this.props.isFetching &&
+      <Notification event={this.props.notifierPool.get(0)} />
+    );
   }
 }
 
@@ -38,8 +46,7 @@ Notifier.defaultProps = defaultProps;
 function mapStateToProps(state) {
   return {
     isFetching: state.events.get('isFetching'),
-    error: state.events.get('error'),
-    events: state.events.get('events') || List()
+    notifierPool: state.events.get('notifierPool')
   };
 }
 
