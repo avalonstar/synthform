@@ -32,7 +32,7 @@ class Ticker extends Component {
     return (
       <ol className="t">
         <li className="t-cap">
-          <ChevronRight color="#fff" size={24} />
+          <ChevronRight color="#02fa7b" size={24} />
         </li>
         {this.props.events.map((data, i) =>
           <Delay
