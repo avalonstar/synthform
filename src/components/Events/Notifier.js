@@ -24,6 +24,14 @@ const defaultProps = {
 };
 
 class Notifier extends Component {
+  constructor(props) {
+    super(props);
+
+    this.onComplete = () => {
+      this.props.removeEventFromNotifier();
+    };
+  }
+
   componentDidMount() {
     this.props.setAndHandleEventListener(channel);
   }
@@ -35,7 +43,10 @@ class Notifier extends Component {
   render() {
     return (
       !this.props.isFetching &&
-      <Notification event={this.props.notifierPool.get(0)} />
+      <Notification
+        event={this.props.notifierPool.get(0)}
+        onComplete={this.onComplete}
+      />
     );
   }
 }
@@ -51,7 +62,13 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setAndHandleEventListener }, dispatch);
+  return bindActionCreators(
+    {
+      setAndHandleEventListener,
+      removeEventFromNotifier
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifier);

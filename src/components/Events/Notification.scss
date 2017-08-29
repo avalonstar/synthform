@@ -1,0 +1,59 @@
+@import 'helpers/css/variables.scss';
+
+.ntf {
+  display: flex;
+  margin: 20px;
+  overflow: hidden;
+
+  border-radius: 4px;
+  box-shadow: 0 14px 28px rgba(#090a0c, 0.25), 0 10px 10px rgba(#090a0c, 0.22);
+  color: #1a1f23;
+  font-family: $font-gotham;
+}
+
+.ntf-image {
+  background: linear-gradient(#1a1f23, #121417);
+  padding: 18px;
+}
+
+.ntf-content {
+  background: #fff;
+}
+
+.ntf-header {
+  padding: 18px 18px 12px;
+  color: #4f5c69;
+  font-size: 18px;
+}
+
+.ntf-message {
+  padding: 0 18px 18px;
+  color: #738596;
+  font-size: 14px;
+}
+
+.ntf-footer {
+  display: flex;
+  align-items: baseline;
+  padding: 12px 18px;
+  border-top: 1px solid #dce0e5;
+  background: #e8ebed;
+  color: #607080;
+  font-family: $font-forza;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  .ntf-fl {
+    flex: 1;
+  }
+  svg {
+    color: #a2adb9;
+    position: relative;
+    top: 1px;
+  }
+  .ntf-fr {
+    padding-left: 4px;
+    color: #a2adb9;
+    font-weight: 400;
+  }
+}
