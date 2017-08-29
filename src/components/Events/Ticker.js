@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Motion, spring } from 'react-motion';
 import { List } from 'immutable';
 import { ChevronRight } from 'react-feather';
 
@@ -27,7 +28,8 @@ class Ticker extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isVisible: false
+      isVisible: false,
+      timer: 1000 * 60 * 5
     };
 
     this.timerExpired = () => {
@@ -57,26 +59,34 @@ class Ticker extends Component {
 
   render() {
     return (
-      <ol className="t">
-        <li className="t-cap">
-          <ChevronRight color="#02fa7b" size={24} />
-        </li>
-        {this.props.events.map((data, i) =>
-          <Delay
-            key={data.get('timestamp')}
-            initial={100}
-            value={0}
-            period={i * 30}
-          >
-            {delayValue =>
-              <TickerItem
-                data={data.toJS()}
-                delayValue={delayValue}
-                onChange={this.resetTimer}
-              />}
-          </Delay>
-        )}
-      </ol>
+      <Motion
+        defaultStyle={{ y: 100 }}
+        style={{ y: spring(this.state.isVisible ? 0 : 100) }}
+      >
+        {({ y }) =>
+          <ol className="t" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+            <li className="t-cap">
+              <ChevronRight color="#02fa7b" size={24} />
+            </li>
+            {this.props.isFetching
+              ? ''
+              : this.props.events.map((data, i) =>
+                  <Delay
+                    key={data.get('timestamp')}
+                    initial={100}
+                    value={0}
+                    period={i * 30}
+                  >
+                    {delayValue =>
+                      <TickerItem
+                        data={data.toJS()}
+                        delayValue={delayValue}
+                        onChange={this.resetTimer}
+                      />}
+                  </Delay>
+                )}
+          </ol>}
+      </Motion>
     );
   }
 }
