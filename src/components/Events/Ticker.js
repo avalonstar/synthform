@@ -24,8 +24,35 @@ const defaultProps = {
 };
 
 class Ticker extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isVisible: false
+    };
+
+    this.timerExpired = () => {
+      this.setState({ isVisible: false });
+    };
+
+    this.activateTimer = () => {
+      this.timer = setTimeout(() => {
+        this.timerExpired();
+      }, this.state.timer);
+      setTimeout(() => this.setState({ isVisible: true }), 500);
+    };
+
+    this.resetTimer = () => {
+      this.activateTimer();
+      this.deactivateTimer();
+    };
+  }
+
   componentDidMount() {
     this.props.setAndHandleEventListener(channel);
+  }
+
+  deactivateTimer() {
+    clearTimeout(this.timer);
   }
 
   render() {
@@ -41,7 +68,12 @@ class Ticker extends Component {
             value={0}
             period={i * 30}
           >
-            {delayed => <TickerItem data={data.toJS()} delay={delayed} />}
+            {delayValue =>
+              <TickerItem
+                data={data.toJS()}
+                delayValue={delayValue}
+                onChange={this.resetTimer}
+              />}
           </Delay>
         )}
       </ol>

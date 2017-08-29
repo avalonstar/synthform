@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+import classNames from 'classnames';
+import moment from 'moment';
 
 import {
   AutoHostEvent,
@@ -15,8 +17,11 @@ import {
 import './TickerItem.css';
 
 const propTypes = {
-  data: PropTypes.object.isRequired,
-  delay: PropTypes.number.isRequired
+  data: PropTypes.shape({
+    event: PropTypes.string.isRequired
+  }).isRequired,
+  delayValue: PropTypes.number.isRequired,
+  onChange: PropTypes.func.isRequired
 };
 
 const getEventType = eventData => ({
@@ -31,17 +36,27 @@ const getEventType = eventData => ({
 });
 
 class TickerItem extends Component {
+  componentDidMount() {
+    this.props.onChange();
+  }
+
   render() {
     const { data } = this.props;
+    const itemClasses = classNames('ti', {
+      'ti-current': moment().isSame(data.timestamp, 'day')
+    });
     return (
-      <Motion defaultStyle={{ y: 100 }} style={{ y: spring(this.props.delay) }}>
+      <Motion
+        defaultStyle={{ y: 100 }}
+        style={{ y: spring(this.props.delayValue) }}
+      >
         {({ y }) =>
           <li
             className="ti-container"
             style={{ transform: `translate3d(0, ${y}%, 0)` }}
             data-event={data.event}
           >
-            <div className="ti">
+            <div className={itemClasses}>
               <div className="ti-actor">
                 {data.username}
               </div>

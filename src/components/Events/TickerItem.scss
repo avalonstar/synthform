@@ -1,8 +1,15 @@
 @import 'helpers/css/variables.scss';
 
 .ti {
+  border-radius: 4px;
+  box-shadow: inset 0 0 0 1px #121417;
   color: #e8ebed;
-  padding: 14px 8px 14px 18px;
+  padding: 10px 16px 11px;
+  margin: 4px 0px 4px 4px;
+
+  &:not(.ti-current) {
+    opacity: 0.5;
+  }
 }
 
 .ti-actor {
