@@ -9,6 +9,7 @@ import { channel } from 'configurations/constants';
 import { setAndHandleLatestSubscriberListener } from 'modules/subscriptions';
 
 import './LatestSubscriber.css';
+import crown from './prime.png';
 
 const propTypes = {
   username: PropTypes.string,
@@ -39,6 +40,10 @@ class LatestSubscriber extends Component {
         <div className="ls-actor">
           {username}
         </div>
+        {prime &&
+          <div className="ls-prime">
+            <img src={crown} alt="Prime" />
+          </div>}
         {length &&
           <div className="ls-length">
             <span>

@@ -31,7 +31,18 @@
   flex: 1;
 }
 
+.ls-prime {
+  border-radius: 2px;
+  background: #019cdc;
+  padding: 1px 4px 0px;
+
+  img {
+    width: 16px;
+  }
+}
+
 .ls-length {
+  margin-left: 6px;
   padding: 2px 4px 0px;
   box-shadow: 0 0 0 1px #586674;
   border-radius: 2px;
