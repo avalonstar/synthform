@@ -51,6 +51,7 @@ class Ticker extends Component {
 
   componentDidMount() {
     this.props.setAndHandleEventListener(channel);
+    this.activateTimer();
   }
 
   deactivateTimer() {
