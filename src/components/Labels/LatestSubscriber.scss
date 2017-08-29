@@ -3,17 +3,23 @@
 .ls {
   display: flex;
   align-items: center;
-  padding: 0 8px;
-  background: linear-gradient(#23292f, #1a1f23);
+  padding-right: 8px;
+  overflow: hidden;
+
+  background: linear-gradient(#2c333a, #23292f);
   border-radius: 4px;
-  // box-shadow: inset 0 1px 0 #353d46, 0 1px 2px #090a0c;
   box-shadow: 0 1px 3px rgba(#090a0c, 0.12), 0 1px 2px rgba(#090a0c, 0.24);
   color: #f3f5f6;
   font-size: 14px;
 }
 
 .ls-title {
-  padding: 6px 10px 6px 0;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 8px 8px;
+  margin-right: 10px;
+
+  background: linear-gradient(#23292f, #1a1f23);
   color: #738596;
   font-family: $font-forza;
   font-weight: 700;

@@ -23,11 +23,13 @@
 
   background: linear-gradient(6deg, rgba(#090a0c, 0) 75%, rgba(#090a0c, 0.6));
 }
+
 .middle-thirds {
   grid-column: 1 / span 3;
   grid-row: 2;
   align-self: center;
 }
+
 .lower-thirds {
   grid-column: 1 / span 3;
   grid-row: 3;
@@ -54,16 +56,26 @@
 .lower-thirds {
   display: grid;
   grid-auto-columns: 156px;
+  grid-auto-rows: 68px;
+}
+
+.lower-thirds .sm {
+  grid-column: 1 / 4;
+  grid-row: 4;
+  align-self: center;
+  z-index: 100;
 }
 
 .lower-thirds .t {
   grid-column: 1 / 12;
-  z-index: -1;
+  grid-row: 4;
+  z-index: 200;
 }
 
 .lower-thirds .n {
   grid-column: 1 / 4;
-  z-index: 100;
+  grid-row: 1 / 4;
+  z-index: 300;
 }
 
 /* Debug. */

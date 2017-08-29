@@ -32,8 +32,8 @@ class LatestSubscriber extends Component {
     const { username, length, prime } = this.props;
     return (
       <div className="label ls">
-        <ChevronRight color="#738596" size={16} />
         <div className="ls-title">
+          <ChevronRight color="#02fa7b" size={16} />
           {'Latest'}
         </div>
         <div className="ls-actor">
