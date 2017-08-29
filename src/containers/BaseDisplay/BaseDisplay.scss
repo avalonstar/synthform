@@ -42,15 +42,28 @@
   grid-auto-rows: 42px;
 }
 
-.display .t {
-}
-
 .upper-thirds .spg {
   grid-column: 9 / 11;
 }
+
 .upper-thirds .ls {
   grid-column: 9 / 11;
   margin-top: 8px;
+}
+
+.lower-thirds {
+  display: grid;
+  grid-auto-columns: 156px;
+}
+
+.lower-thirds .t {
+  grid-column: 1 / 12;
+  z-index: -1;
+}
+
+.lower-thirds .n {
+  grid-column: 1 / 4;
+  z-index: 100;
 }
 
 /* Debug. */
