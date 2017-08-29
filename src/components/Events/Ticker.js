@@ -15,9 +15,12 @@ import './Ticker.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
   events: PropTypes.instanceOf(List),
   setAndHandleEventListener: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  events: List()
 };
 
 class Ticker extends Component {
@@ -31,30 +34,28 @@ class Ticker extends Component {
         <li className="t-cap">
           <ChevronRight color="#fff" size={24} />
         </li>
-        {this.props.events.map((data, i) => {
-          return (
-            <Delay
-              key={data.get('timestamp')}
-              initial={100}
-              value={0}
-              period={i * 30}
-            >
-              {delayed => <TickerItem data={data.toJS()} delay={delayed} />}
-            </Delay>
-          );
-        })}
+        {this.props.events.map((data, i) =>
+          <Delay
+            key={data.get('timestamp')}
+            initial={100}
+            value={0}
+            period={i * 30}
+          >
+            {delayed => <TickerItem data={data.toJS()} delay={delayed} />}
+          </Delay>
+        )}
       </ol>
     );
   }
 }
 
 Ticker.propTypes = propTypes;
+Ticker.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
     isFetching: state.events.get('isFetching'),
-    error: state.events.get('error'),
-    events: state.events.get('events') || List()
+    events: state.events.get('events')
   };
 }
 
