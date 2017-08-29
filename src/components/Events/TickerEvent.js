@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import getCheermoteURL from './utils';
+import { getCheermoteURL, getLoyaltyBadgeURL } from './utils';
 
 const propTypes = {
   event: PropTypes.string.isRequired

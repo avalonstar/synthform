@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-function getCheermoteURL(amount) {
+export function getCheermoteURL(amount) {
   if (_.inRange(amount, 1, 99)) {
     return 'https://static-cdn.jtvnw.net/bits/dark/animated/gray/1';
   } else if (_.inRange(amount, 100, 999)) {
@@ -16,4 +16,16 @@ function getCheermoteURL(amount) {
   return 'https://static-cdn.jtvnw.net/bits/dark/animated/gold/1';
 }
 
-export { getCheermoteURL as default };
+export function getLoyaltyBadgeURL(length) {
+  if (_.inRange(length, 1, 2)) {
+    return 'https://static-cdn.jtvnw.net/badges/v1/95296b56-7b07-4def-916f-be81c38db832/2';
+  } else if (_.inRange(length, 3, 5)) {
+    return 'https://static-cdn.jtvnw.net/badges/v1/baccca33-a2de-49c9-b10e-670bc719ab15/2';
+  } else if (_.inRange(length, 6, 11)) {
+    return 'https://static-cdn.jtvnw.net/badges/v1/caea609c-65c4-4bf4-896e-c9255a1f145d/2';
+  } else if (_.inRange(length, 12, 23)) {
+    return 'https://static-cdn.jtvnw.net/badges/v1/0cc3ed00-7912-4e12-9cc4-fc32baf3f7f6/2';
+  }
+
+  return 'https://static-cdn.jtvnw.net/badges/v1/6ad8ed8e-271d-4775-81f6-a1842701e245/2';
+}

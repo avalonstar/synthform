@@ -93,7 +93,7 @@ function settingSubPointListenerSuccess(channel, subPoints, lastUpdated) {
 }
 
 export function setAndHandleLatestSubscriberListener(channel) {
-  return function(dispatch, getState) {
+  return function execute(dispatch, getState) {
     if (getState().listeners.latest === true) {
       return;
     }
@@ -114,7 +114,7 @@ export function setAndHandleLatestSubscriberListener(channel) {
 }
 
 export function setAndHandleSubCountListener(channel) {
-  return function(dispatch, getState) {
+  return function execute(dispatch, getState) {
     if (getState().listeners.subcount === true) {
       return;
     }
@@ -133,7 +133,7 @@ export function setAndHandleSubCountListener(channel) {
 }
 
 export function setAndHandleSubPointListener(channel) {
-  return function(dispatch, getState) {
+  return function execute(dispatch, getState) {
     if (getState().listeners.subpoint === true) {
       return;
     }

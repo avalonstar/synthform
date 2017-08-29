@@ -21,17 +21,17 @@ function settingMessageListenerError(error) {
   };
 }
 
-function settingMessageListenerSuccess(channel, messages, lastUpdated) {
+function settingMessageListenerSuccess(channel, payload, lastUpdated) {
   return {
     type: SETTING_MESSAGE_LISTENER_SUCCESS,
     channel,
-    messages,
+    payload,
     lastUpdated
   };
 }
 
 export function setAndHandleMessageListener(channel) {
-  return function(dispatch, getState) {
+  return function execute(dispatch, getState) {
     if (getState().listeners.messages === true) {
       return;
     }
@@ -41,8 +41,8 @@ export function setAndHandleMessageListener(channel) {
 
     listenToMessages(
       channel,
-      messages => {
-        dispatch(settingMessageListenerSuccess(channel, messages, Date.now()));
+      payload => {
+        dispatch(settingMessageListenerSuccess(channel, payload, Date.now()));
       },
       error => dispatch(settingMessageListenerError(error))
     );
