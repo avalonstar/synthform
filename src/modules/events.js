@@ -9,6 +9,8 @@ const SETTING_EVENT_LISTENER_SUCCESS = 'SETTING_EVENT_LISTENER_SUCCESS';
 const ADD_EVENT_TO_NOTIFIER = 'ADD_EVENT_TO_NOTIFIER';
 const REMOVE_EVENT_FROM_NOTIFIER = 'REMOVE_EVENT_FROM_NOTIFIER';
 
+const blacklistedEvents = ['follow', 'cheer', 'autohost'];
+
 function settingEventListener() {
   return {
     type: SETTING_EVENT_LISTENER
@@ -59,7 +61,9 @@ export function setAndHandleEventListener(channel, limit = 20) {
       limit,
       payload => {
         dispatch(settingEventListenerSuccess(channel, payload, Date.now()));
-        dispatch(addEventToNotifier(payload[0]));
+        if (!blacklistedEvents.includes(payload[0].event)) {
+          dispatch(addEventToNotifier(payload[0]));
+        }
       },
       error => dispatch(settingEventListenerError(error))
     );
