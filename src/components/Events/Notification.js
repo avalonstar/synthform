@@ -84,7 +84,7 @@ class Notification extends Component {
   render() {
     const data = this.props.event;
     return !data.event
-      ? <div />
+      ? <div className="n n-empty" />
       : <div className="n">
           {getEventType(data, this.state.isVisible)[data.event]}
           <Sound
