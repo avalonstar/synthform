@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { ref } from 'configurations/constants';
 
-export function listenToEvents(channel, limit, cb, errorCb) {
+export default function listenToEvents(channel, limit, cb, errorCb) {
   return ref.child(`events/${channel}`).limitToLast(limit).on(
     'value',
     snapshot => {

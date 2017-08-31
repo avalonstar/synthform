@@ -6,15 +6,18 @@ import { List } from 'immutable';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleMessageListener } from 'modules/messages';
-import { default as ChatMessage } from './ChatMessage';
+import ChatMessage from './ChatMessage';
 
 import './Chat.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  error: PropTypes.string.isRequired,
   messages: PropTypes.instanceOf(List),
   setAndHandleMessageListener: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  messages: List()
 };
 
 class Chat extends Component {
@@ -25,21 +28,21 @@ class Chat extends Component {
   render() {
     return (
       <ul className="c">
-        {this.props.messages.map(data => {
-          return <ChatMessage key={data.get('timestamp')} {...data.toJS()} />;
-        })}
+        {this.props.messages.map(data =>
+          <ChatMessage key={data.get('timestamp')} {...data.toJS()} />
+        )}
       </ul>
     );
   }
 }
 
 Chat.propTypes = propTypes;
+Chat.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
     isFetching: state.messages.get('isFetching'),
-    error: state.messages.get('error'),
-    messages: state.messages.get('messages') || List()
+    messages: state.messages.get('messages')
   };
 }
 

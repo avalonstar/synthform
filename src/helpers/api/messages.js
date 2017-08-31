@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 import { ref } from 'configurations/constants';
 
-export function listenToMessages(channel, cb, errorCb) {
+export default function listenToMessages(channel, cb, errorCb) {
   return ref.child(`messages/${channel}`).limitToLast(20).on(
     'value',
     snapshot => {

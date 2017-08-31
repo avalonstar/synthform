@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Map } from 'immutable';
 import { ChevronRight } from 'react-feather';
+import { Map } from 'immutable';
 
 import { channel } from 'configurations/constants';
 import { setAndHandleLatestSubscriberListener } from 'modules/subscriptions';
