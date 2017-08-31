@@ -25,6 +25,12 @@
   font-weight: 700;
 }
 
+.ls-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
 .ls-actor {
   font-family: $font-gotham;
   font-weight: 700;
