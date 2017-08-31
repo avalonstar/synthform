@@ -106,7 +106,7 @@ export function SubscriptionEvent(props) {
           {'Welcome to AVLN'}
         </strong>
         {
-          'and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
+          ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
         }
       </div>
       <div className="ntf-footer">
