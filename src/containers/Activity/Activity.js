@@ -12,7 +12,7 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired
 };
 
-function Activity() {
+function Layout() {
   return (
     <div className="activity">
       <div className="upper-thirds">
@@ -27,6 +27,10 @@ function Activity() {
       </div>
     </div>
   );
+}
+
+function Activity(props) {
+  return props.isFetching ? '' : Layout();
 }
 
 Activity.propTypes = propTypes;
