@@ -7,6 +7,7 @@ const SocialMedia = () =>
   <div className="sm">
     <div className="sm-node sm-cap">
       <ChevronRight size={18} color="#02fa7b" />
+      {'follow'}
     </div>
     <div className="sm-node sm-twitter">
       <Twitter size={18} color="#1da1f2" />
