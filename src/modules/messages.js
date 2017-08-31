@@ -14,10 +14,9 @@ function settingMessageListener() {
 }
 
 function settingMessageListenerError(error) {
-  console.warn(error);
   return {
     type: SETTING_MESSAGE_LISTENER_ERROR,
-    error: 'Error fetching messages.'
+    error: `Error fetching messages: ${error}`
   };
 }
 

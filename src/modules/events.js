@@ -18,10 +18,9 @@ function settingEventListener() {
 }
 
 function settingEventListenerError(error) {
-  console.warn(error);
   return {
     type: SETTING_EVENT_LISTENER_ERROR,
-    error: 'Error fetching events.'
+    error: `Error fetching events: ${error}`
   };
 }
 

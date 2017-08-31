@@ -1,0 +1,12 @@
+.intertitle {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  grid-template-rows: 1fr 1fr 1fr;
+
+  position: absolute;
+  overflow: hidden;
+  width: 1600px;
+  height: 900px;
+
+  background: #090a0c;
+}

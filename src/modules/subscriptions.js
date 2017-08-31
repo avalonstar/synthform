@@ -26,10 +26,9 @@ function settingLatestSubscriberListener() {
 }
 
 function settingLatestSubscriberListenerError(error) {
-  console.warn(error);
   return {
     type: SETTING_LATEST_SUBSCRIBER_LISTENER_ERROR,
-    error: 'Error fetching latest subscriber.'
+    error: `Error fetching latest subscriber: ${error}`
   };
 }
 
@@ -53,10 +52,9 @@ function settingSubCountListener() {
 }
 
 function settingSubCountListenerError(error) {
-  console.warn(error);
   return {
     type: SETTING_SUBCOUNT_LISTENER_ERROR,
-    error: 'Error fetching sub count.'
+    error: `Error fetching sub count: ${error}`
   };
 }
 
@@ -76,10 +74,9 @@ function settingSubPointListener() {
 }
 
 function settingSubPointListenerError(error) {
-  console.warn(error);
   return {
     type: SETTING_SUBPOINT_LISTENER_ERROR,
-    error: 'Error fetching sub points.'
+    error: `Error fetching sub points: ${error}`
   };
 }
 

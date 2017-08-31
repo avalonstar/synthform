@@ -9,13 +9,6 @@
   height: 900px;
 }
 
-.activity .c {
-  position: absolute;
-  right: 0;
-  height: 400px;
-  width: 400px;
-}
-
 .upper-thirds {
   grid-column: 1 / span 3;
   grid-row: 1;
@@ -75,12 +68,4 @@
   grid-column: 1 / 4;
   grid-row: 1 / 4;
   z-index: 300;
-}
-
-/* Debug. */
-.activity,
-.upper-thirds,
-.middle-thirds,
-.lower-thirds {
-  // outline: 1px solid red;
 }
