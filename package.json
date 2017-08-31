@@ -29,7 +29,7 @@
     "react-sound": "^0.8.0",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "tmi.js": "^1.2.1"
+    "tmi.js": "marcandrews/tmi.js#bugfix/packaging"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,scss}": [

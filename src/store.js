@@ -3,13 +3,14 @@ import { routerMiddleware, routerReducer } from 'react-router-redux';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 
-import * as reducers from 'modules';
+import * as reducers from './modules';
+import { tmiMiddleware } from './tmi';
 
 export const history = createHistory();
 
 const initialState = {};
 const enhancers = [];
-const middleware = [thunk, routerMiddleware(history)];
+const middleware = [thunk, routerMiddleware(history), tmiMiddleware];
 
 if (process.env.NODE_ENV === 'development') {
   const devToolsExtension = window.devToolsExtension;

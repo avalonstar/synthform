@@ -7048,9 +7048,9 @@ timers-browserify@^2.0.2:
   dependencies:
     setimmediate "^1.0.4"
 
-tmi.js@^1.2.1:
+tmi.js@marcandrews/tmi.js#bugfix/packaging:
   version "1.2.1"
-  resolved "https://registry.yarnpkg.com/tmi.js/-/tmi.js-1.2.1.tgz#6ba34538a00adc82aa6ee481a9b3649ff6111853"
+  resolved "https://codeload.github.com/marcandrews/tmi.js/tar.gz/447a4a0691411241e897fc0416bbb9224fedc1db"
   dependencies:
     request "2.74.0"
     ws "1.0.1"

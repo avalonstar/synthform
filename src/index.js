@@ -10,6 +10,7 @@ import Intertitle from 'containers/Intertitle';
 
 import store, { history } from './store';
 import registerServiceWorker from './registerServiceWorker';
+import initializeTmi from './tmi';
 
 import './index.css';
 
@@ -30,4 +31,5 @@ render(
   target
 );
 
+initializeTmi();
 registerServiceWorker();
