@@ -30,7 +30,7 @@ function Layout() {
 }
 
 function Activity(props) {
-  return props.isFetching ? '' : Layout();
+  return props.isFetching ? <div /> : Layout();
 }
 
 Activity.propTypes = propTypes;
