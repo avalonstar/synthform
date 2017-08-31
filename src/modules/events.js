@@ -60,8 +60,15 @@ export function setAndHandleEventListener(channel, limit = 20) {
       channel,
       limit,
       payload => {
+        let shouldNotify = getState().events.get('areNotificationsActive');
         dispatch(settingEventListenerSuccess(channel, payload, Date.now()));
-        if (!blacklistedEvents.includes(payload[0].event)) {
+        if (
+          getState().events.get('events').first().get('timestamp') ===
+          payload[0].timestamp
+        ) {
+          shouldNotify = false;
+        }
+        if (shouldNotify && !blacklistedEvents.includes(payload[0].event)) {
           dispatch(addEventToNotifier(payload[0]));
         }
       },
@@ -73,7 +80,8 @@ export function setAndHandleEventListener(channel, limit = 20) {
 const initialState = fromJS({
   isFetching: false,
   error: '',
-  notifierPool: []
+  notifierPool: [],
+  areNotificationsActive: true
 });
 
 export default function events(state = initialState, action) {

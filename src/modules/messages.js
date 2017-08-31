@@ -70,7 +70,7 @@ export default function messages(state = initialState, action) {
         isFetching: false,
         error: '',
         lastUpdated: action.lastUpdated,
-        messages: action.messages
+        messages: action.payload
       });
     default:
       return state;
