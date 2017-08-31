@@ -4,8 +4,9 @@ import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
 
+import Activity from 'containers/Activity';
 import App from 'containers/App';
-import BaseDisplay from 'containers/BaseDisplay';
+import Intertitle from 'containers/Intertitle';
 
 import store, { history } from './store';
 import registerServiceWorker from './registerServiceWorker';
@@ -19,7 +20,8 @@ render(
     <ConnectedRouter history={history}>
       <main>
         <Switch>
-          <Route exact path="/displays/base" component={BaseDisplay} />
+          <Route exact path="/displays/activity" component={Activity} />
+          <Route exact path="/displays/intertitle" component={Intertitle} />
           <Route component={App} />
         </Switch>
       </main>

@@ -1,4 +1,4 @@
-.display {
+.activity {
   display: grid;
   grid-template-columns: 20px 1fr 20px;
   grid-template-rows: 1fr 1fr 1fr;
@@ -9,8 +9,7 @@
   height: 900px;
 }
 
-.display .c {
-  display: none;
+.activity .c {
   position: absolute;
   right: 0;
   height: 400px;
@@ -79,7 +78,7 @@
 }
 
 /* Debug. */
-.display,
+.activity,
 .upper-thirds,
 .middle-thirds,
 .lower-thirds {
