@@ -28,7 +28,8 @@
     "react-scripts": "1.0.11",
     "react-sound": "^0.8.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "tmi.js": "^1.2.1"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,scss}": [
