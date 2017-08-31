@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import { ActivityCamera } from 'components/Cameras';
 import { LatestSubscriber, SocialMedia } from 'components/Labels';
 import SubPointGoal from 'components/Goals';
 import { Notifier, Ticker } from 'components/Events';
@@ -21,9 +22,10 @@ function Layout() {
       </div>
       <div className="middle-thirds" />
       <div className="lower-thirds">
+        <ActivityCamera />
         <Notifier />
-        <SocialMedia />
         <Ticker />
+        <SocialMedia />
       </div>
     </div>
   );
