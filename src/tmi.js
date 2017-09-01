@@ -2,21 +2,31 @@
 
 import tmi from 'tmi.js/src';
 
-import { channel } from 'configurations/constants';
+import { channel as clientChannel } from 'configurations/constants';
+import * as actions from 'modules/tmi';
 
 let client = null;
-
-export function tmiMiddleware(store) {
-  return next => action => {
-    return next(action);
-  };
-}
 
 export default function(store) {
   client = new tmi.client({
     options: { debug: true },
     connection: { secure: true },
-    channels: [`#${channel}`]
+    channels: [`#${clientChannel}`]
   });
   client.connect();
+
+  client.on('connecting', () => {
+    store.dispatch(actions.settingTmiConnection());
+  });
+
+  client.on('connected', () => {
+    store.dispatch(actions.settingTmiConnectionSuccess());
+  });
+
+  client.on('chat', (channel, userstate, message, self) => {
+    if (self) {
+      return;
+    }
+    store.dispatch(actions.returnLatestMessage(message, userstate));
+  });
 }

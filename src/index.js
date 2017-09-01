@@ -31,5 +31,5 @@ render(
   target
 );
 
-initializeTmi();
+initializeTmi(store);
 registerServiceWorker();
