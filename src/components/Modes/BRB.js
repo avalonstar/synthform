@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Motion, spring } from 'react-motion';
 import { Map } from 'immutable';
+
+import './BRB.css';
 
 const propTypes = {
   message: PropTypes.string,
@@ -45,9 +48,28 @@ class BRB extends Component {
 
   render() {
     return (
-      <div>
-        {this.state.isVisible ? 'visible! :D' : 'hidden. D:'}
-      </div>
+      <Motion
+        defaultStyle={{ opacity: 0, y: 100 }}
+        style={{
+          opacity: spring(this.state.isVisible ? 1 : 0),
+          y: spring(this.state.isVisible ? 0 : 100)
+        }}
+      >
+        {({ opacity, y }) =>
+          <div className="m brb-mode">
+            <div className="brb-doors">
+              <div
+                className="door top-door"
+                style={{ transform: `translate3d(0, -${y}%, 0)`, opacity }}
+              />
+              <div
+                className="door bottom-door"
+                style={{ transform: `translate3d(0, ${y}%, 0)`, opacity }}
+              />
+            </div>
+            {this.state.isVisible ? 'visible! :D' : 'hidden. D:'}
+          </div>}
+      </Motion>
     );
   }
 }

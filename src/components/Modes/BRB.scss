@@ -1,0 +1,17 @@
+.m {
+  position: absolute;
+  width: 1600px;
+  height: 900px;
+  z-index: -1;
+}
+
+.door {
+  width: 1600px;
+  background: rgba(#090a0c, 0.75);
+}
+.top-door {
+  height: 450px;
+}
+.bottom-door {
+  height: 450px;
+}
