@@ -27,6 +27,14 @@ export default function(store) {
     if (self) {
       return;
     }
-    store.dispatch(actions.returnLatestMessage(message, userstate));
+    store.dispatch(
+      actions.returnLatestMessage(message, {
+        displayName: userstate['display-name'],
+        isBroadcaster: userstate.username === clientChannel,
+        isMod: userstate.mod,
+        isSubscriber: userstate.subscriber,
+        username: userstate.username
+      })
+    );
   });
 }

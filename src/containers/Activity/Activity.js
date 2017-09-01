@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ActivityCamera } from 'components/Cameras';
+import { BRB } from 'components/Modes';
 import { LatestSubscriber, SocialMedia } from 'components/Labels';
-import SubPointGoal from 'components/Goals';
 import { Notifier, Ticker } from 'components/Events';
+import SubPointGoal from 'components/Goals';
 
 import './Activity.css';
 
@@ -16,6 +17,7 @@ const propTypes = {
 function Layout() {
   return (
     <div className="activity">
+      <BRB />
       <div className="upper-thirds">
         <SubPointGoal />
         <LatestSubscriber />

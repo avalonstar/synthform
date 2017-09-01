@@ -16,18 +16,21 @@ export function settingTmiConnectionSuccess() {
   };
 }
 
-export function returnLatestMessage(message, userstate) {
+export function returnLatestMessage(message, metadata) {
   return {
     type: RETURN_LATEST_MESSAGE,
     message,
-    userstate
+    metadata
   };
 }
 
 const initialState = fromJS({
   isConnecting: false,
   isConnected: false,
-  latestMessage: {}
+  latestMessage: {
+    message: '',
+    metadata: {}
+  }
 });
 
 export default function tmi(state = initialState, action) {
@@ -46,7 +49,7 @@ export default function tmi(state = initialState, action) {
       return state.merge({
         latestMessage: {
           message: action.message,
-          userstate: action.userstate
+          metadata: action.metadata
         }
       });
     default:
