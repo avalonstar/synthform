@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Motion, spring } from 'react-motion';
 import { Map } from 'immutable';
+import { ChevronRight } from 'react-feather';
 
 import './BRB.css';
 
@@ -49,25 +50,58 @@ class BRB extends Component {
   render() {
     return (
       <Motion
-        defaultStyle={{ opacity: 0, y: 100 }}
+        defaultStyle={{ opacity: 0, scale: 1.5, rotate: 5, y: 100 }}
         style={{
           opacity: spring(this.state.isVisible ? 1 : 0),
+          scale: spring(this.state.isVisible ? 1 : 1.5, {
+            stiffness: 120,
+            damping: 14
+          }),
+          rotate: spring(this.state.isVisible ? 0 : 10, {
+            stiffness: 120,
+            damping: 14
+          }),
           y: spring(this.state.isVisible ? 0 : 100)
         }}
       >
-        {({ opacity, y }) =>
+        {({ opacity, scale, rotate, y }) =>
           <div className="m brb-mode">
-            <div className="brb-doors">
-              <div
-                className="door top-door"
-                style={{ transform: `translate3d(0, -${y}%, 0)`, opacity }}
-              />
-              <div
-                className="door bottom-door"
-                style={{ transform: `translate3d(0, ${y}%, 0)`, opacity }}
-              />
+            <div
+              className="brb-dialog"
+              style={{
+                transform: `scale(${scale}) rotate(${rotate}deg)`,
+                opacity
+              }}
+            >
+              <div className="dlg-image">
+                <img
+                  src="https://static-cdn.jtvnw.net/emoticons/v1/266369/3.0"
+                  className="dlg-emote"
+                  alt="avalonBLANK"
+                />
+                <img
+                  src="https://static-cdn.jtvnw.net/emoticons/v1/200212/3.0"
+                  alt="TBTacoProps"
+                />
+              </div>
+              <div className="dlg-header">
+                <strong>{`Hang on! Don't go anywhere!`}</strong>
+              </div>
+              <div className="dlg-message">
+                {`Bryan had to step away for a second. Actually, when's the last time you stretched? I forgot the last time I did. Maybe you should get up. I see how your cat's looking at you. Wait no that's a taco. Welp.`}
+              </div>
+              <div className="dlg-footer">
+                <ChevronRight size={16} /> {'!brb on'}
+              </div>
             </div>
-            {this.state.isVisible ? 'visible! :D' : 'hidden. D:'}
+            <div
+              className="door top-door"
+              style={{ transform: `translate3d(0, -${y}%, 0)`, opacity }}
+            />
+            <div
+              className="door bottom-door"
+              style={{ transform: `translate3d(0, ${y}%, 0)`, opacity }}
+            />
           </div>}
       </Motion>
     );
