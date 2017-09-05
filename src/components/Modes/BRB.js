@@ -85,10 +85,10 @@ class BRB extends Component {
                 />
               </div>
               <div className="dlg-header">
-                <strong>{`Hang on! Don't go anywhere!`}</strong>
+                <strong>{`Hang on!`}</strong> {` Don't go anywhere!`}
               </div>
               <div className="dlg-message">
-                {`Bryan had to step away for a second. Actually, when's the last time you stretched? I forgot the last time I did. Maybe you should get up. I see how your cat's looking at you. Wait no that's a taco. Welp.`}
+                {`Bryan had to step away for a second. Or a minute. When's the last time you stretched? Maybe you should get up. I see how your cat's looking at you.`}
               </div>
               <div className="dlg-footer">
                 <ChevronRight size={16} /> {'!brb on'}
