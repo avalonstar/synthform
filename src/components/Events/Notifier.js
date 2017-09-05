@@ -30,7 +30,9 @@ class Notifier extends Component {
     super(props);
 
     this.onComplete = () => {
-      this.props.removeEventFromNotifier();
+      if (!this.props.debug) {
+        this.props.removeEventFromNotifier();
+      }
     };
   }
 
