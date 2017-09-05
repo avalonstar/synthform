@@ -46,7 +46,7 @@ export function removeEventFromNotifier() {
   };
 }
 
-export function setAndHandleEventListener(channel, limit = 20) {
+export function setAndHandleEventListener(channel, debug = false) {
   return function execute(dispatch, getState) {
     if (getState().listeners.events === true) {
       return;
@@ -57,7 +57,7 @@ export function setAndHandleEventListener(channel, limit = 20) {
 
     listenToEvents(
       channel,
-      limit,
+      debug,
       payload => {
         let shouldNotify = getState().events.get('areNotificationsActive');
         dispatch(settingEventListenerSuccess(channel, payload, Date.now()));
@@ -65,7 +65,7 @@ export function setAndHandleEventListener(channel, limit = 20) {
           getState().events.get('events').first().get('timestamp') ===
           payload[0].timestamp
         ) {
-          shouldNotify = false;
+          shouldNotify = true;
         }
         if (shouldNotify && !blacklistedEvents.includes(payload[0].event)) {
           dispatch(addEventToNotifier(payload[0]));

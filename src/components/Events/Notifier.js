@@ -16,11 +16,13 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   notifierPool: PropTypes.instanceOf(List),
   setAndHandleEventListener: PropTypes.func.isRequired,
-  removeEventFromNotifier: PropTypes.func.isRequired
+  removeEventFromNotifier: PropTypes.func.isRequired,
+  debug: PropTypes.bool
 };
 
 const defaultProps = {
-  notifierPool: List()
+  notifierPool: List(),
+  debug: false
 };
 
 class Notifier extends Component {
@@ -33,7 +35,7 @@ class Notifier extends Component {
   }
 
   componentDidMount() {
-    this.props.setAndHandleEventListener(channel);
+    this.props.setAndHandleEventListener(channel, this.props.debug);
   }
 
   shouldComponentUpdate(nextProps) {

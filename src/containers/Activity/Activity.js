@@ -11,10 +11,13 @@ import SubPointGoal from 'components/Goals';
 import './Activity.css';
 
 const propTypes = {
-  isFetching: PropTypes.bool.isRequired
+  isFetching: PropTypes.bool.isRequired,
+  location: PropTypes.shape({
+    search: PropTypes.string
+  }).isRequired
 };
 
-function Layout() {
+function Layout(debug) {
   return (
     <div className="activity">
       <BRB />
@@ -25,8 +28,8 @@ function Layout() {
       <div className="middle-thirds" />
       <div className="lower-thirds">
         <ActivityCamera />
-        <Notifier />
-        <Ticker />
+        <Notifier debug={debug} />
+        <Ticker debug={debug} />
         <SocialMedia />
       </div>
     </div>
@@ -34,7 +37,9 @@ function Layout() {
 }
 
 function Activity(props) {
-  return props.isFetching ? <div /> : Layout();
+  const query = new URLSearchParams(props.location.search);
+  const debug = query.get('debug') === 'true';
+  return props.isFetching ? <div /> : Layout(debug);
 }
 
 Activity.propTypes = propTypes;

@@ -17,11 +17,13 @@ import './Ticker.css';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List),
-  setAndHandleEventListener: PropTypes.func.isRequired
+  setAndHandleEventListener: PropTypes.func.isRequired,
+  debug: PropTypes.bool
 };
 
 const defaultProps = {
-  events: List()
+  events: List(),
+  debug: false
 };
 
 class Ticker extends Component {
@@ -50,7 +52,7 @@ class Ticker extends Component {
   }
 
   componentDidMount() {
-    this.props.setAndHandleEventListener(channel);
+    this.props.setAndHandleEventListener(channel, this.props.debug);
     this.activateTimer();
   }
 

@@ -2,8 +2,9 @@ import _ from 'lodash';
 
 import { ref } from 'configurations/constants';
 
-export default function listenToEvents(channel, limit, cb, errorCb) {
-  return ref.child(`events/${channel}`).limitToLast(limit).on(
+export default function listenToEvents(channel, debug, cb, errorCb) {
+  const eventRef = debug ? 'test/events' : 'events';
+  return ref.child(`${eventRef}/${channel}`).limitToLast(20).on(
     'value',
     snapshot => {
       const events = snapshot.val() || [];
