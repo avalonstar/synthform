@@ -15,13 +15,23 @@ import {
 } from './TickerEvent';
 
 import './TickerItem.css';
+import chillest from './chillest.svg';
+import dream from './dream.svg';
+import wigglers from './wigglers.svg';
 
 const propTypes = {
   data: PropTypes.shape({
-    event: PropTypes.string.isRequired
+    event: PropTypes.string.isRequired,
+    team: PropTypes.string
   }).isRequired,
   delayValue: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  data: {
+    team: null
+  }
 };
 
 const getEventType = eventData => ({
@@ -36,6 +46,23 @@ const getEventType = eventData => ({
 });
 
 class TickerItem extends Component {
+  constructor(props) {
+    super(props);
+
+    this.getTeamIcon = team => {
+      switch (team) {
+        case 'chillest':
+          return chillest;
+        case 'dream':
+          return dream;
+        case 'wigglers':
+          return wigglers;
+        default:
+          return null;
+      }
+    };
+  }
+
   componentDidMount() {
     this.props.onChange();
   }
@@ -43,7 +70,8 @@ class TickerItem extends Component {
   render() {
     const { data } = this.props;
     const itemClasses = classNames('ti', {
-      'ti-current': moment().isSame(data.timestamp, 'day')
+      'ti-current': moment().isSame(data.timestamp, 'day'),
+      'ti-has-team': data.team
     });
     return (
       <Motion
@@ -57,6 +85,10 @@ class TickerItem extends Component {
             data-event={data.event}
           >
             <div className={itemClasses}>
+              {data.team &&
+                <div className="ti-team">
+                  <img src={this.getTeamIcon(data.team)} alt={data.team} />
+                </div>}
               <div className="ti-actor">
                 {data.username}
               </div>
@@ -71,5 +103,6 @@ class TickerItem extends Component {
 }
 
 TickerItem.propTypes = propTypes;
+TickerItem.defaultProps = defaultProps;
 
 export default TickerItem;
