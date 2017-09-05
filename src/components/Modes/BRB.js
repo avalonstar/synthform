@@ -81,6 +81,7 @@ class BRB extends Component {
                 />
                 <img
                   src="https://static-cdn.jtvnw.net/emoticons/v1/200212/3.0"
+                  className="dlg-reaction"
                   alt="TBTacoProps"
                 />
               </div>
