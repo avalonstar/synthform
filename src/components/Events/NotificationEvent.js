@@ -36,12 +36,16 @@ const substreakPropTypes = {
 function NotificationWrapper(props) {
   return (
     <Motion
-      defaultStyle={{ y: 200 }}
+      defaultStyle={{ y: 200, rotate: 0 }}
       style={{
-        y: spring(props.isVisible ? 0 : 200, { stiffness: 120, damping: 14 })
+        y: spring(props.isVisible ? 0 : 200, { stiffness: 120, damping: 14 }),
+        rotate: spring(props.isVisible ? 360 : 0, {
+          stiffness: 180,
+          damping: 12
+        })
       }}
     >
-      {({ y }) =>
+      {({ y, rotate }) =>
         <div
           className="ntf"
           style={{ transform: `translate3d(0, ${y}%, 0)` }}
@@ -50,7 +54,9 @@ function NotificationWrapper(props) {
           <div className="ntf-image">
             <img
               src={props.url}
-              style={{ transform: `translate3d(0, ${y}%, 0)` }}
+              style={{
+                transform: `translate3d(0, ${y}%, 0) rotate(-${rotate}deg)`
+              }}
               alt=""
             />
           </div>
