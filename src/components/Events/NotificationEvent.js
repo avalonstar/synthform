@@ -36,7 +36,7 @@ const substreakPropTypes = {
 function NotificationWrapper(props) {
   return (
     <Motion
-      defaultStyle={{ y: 200, rotate: 0 }}
+      defaultStyle={{ y: 150, rotate: 0 }}
       style={{
         y: spring(props.isVisible ? 0 : 200, { stiffness: 120, damping: 14 }),
         rotate: spring(props.isVisible ? 360 : 0, {
@@ -80,9 +80,6 @@ export function HostEvent(props) {
           {props.username}
         </strong>
         {' thank you for the host!'}
-      </div>
-      <div className="ntf-message">
-        {`Thank you ${props.username} for bringing your viewers in! Now... if only we could see them.`}
       </div>
       <div className="ntf-footer">
         <div className="ntf-fl">
