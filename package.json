@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "7.x"
+    "node": "8.x"
   },
   "dependencies": {
     "classnames": "^2.2.5",
