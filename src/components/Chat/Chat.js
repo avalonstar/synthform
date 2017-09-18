@@ -4,16 +4,14 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
-import { channel } from 'configurations/constants';
-import { setAndHandleMessageListener } from 'modules/messages';
+import { listenToMessages } from 'actions/messages';
 import ChatMessage from './ChatMessage';
 
 import './Chat.css';
 
 const propTypes = {
-  isFetching: PropTypes.bool.isRequired,
   messages: PropTypes.instanceOf(List),
-  setAndHandleMessageListener: PropTypes.func.isRequired
+  listenToMessages: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -22,15 +20,15 @@ const defaultProps = {
 
 class Chat extends Component {
   componentDidMount() {
-    this.props.setAndHandleMessageListener(channel);
+    this.props.listenToMessages();
   }
 
   render() {
     return (
       <ul className="c">
-        {this.props.messages.map(data =>
+        {this.props.messages.map(data => (
           <ChatMessage key={data.get('timestamp')} {...data.toJS()} />
-        )}
+        ))}
       </ul>
     );
   }
@@ -41,13 +39,12 @@ Chat.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.messages.get('isFetching'),
     messages: state.messages.get('messages')
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setAndHandleMessageListener }, dispatch);
+  return bindActionCreators({ listenToMessages }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Chat);
