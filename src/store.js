@@ -5,7 +5,10 @@ import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 
 import * as reducers from './modules';
+
 import messages from './reducers/messages';
+import songs from './reducers/songs';
+
 import rootSaga from './sagas';
 
 export const history = createHistory();
@@ -27,7 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
 const store = createStore(
-  combineReducers({ ...reducers, messages, routing: routerReducer }),
+  combineReducers({ ...reducers, messages, songs, routing: routerReducer }),
   initialState,
   composedEnhancers
 );
