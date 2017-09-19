@@ -6,6 +6,7 @@
     "node": "8.x"
   },
   "dependencies": {
+    "axios": "^0.16.2",
     "classnames": "^2.2.5",
     "firebase": "^4.3.0",
     "firebase-admin": "^5.2.1",
