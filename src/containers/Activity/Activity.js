@@ -18,7 +18,7 @@ const propTypes = {
   }).isRequired
 };
 
-function Layout(debug) {
+function Layout(debugMode) {
   return (
     <div className="activity">
       <BRB />
@@ -29,8 +29,8 @@ function Layout(debug) {
       <div className="middle-thirds" />
       <div className="lower-thirds">
         <ActivityCamera />
-        <Notifier debug={debug} />
-        <Ticker debug={debug} />
+        <Notifier debugMode={debugMode} />
+        <Ticker debugMode={debugMode} />
         <SocialMedia />
         <SongNotifier />
       </div>
@@ -40,8 +40,8 @@ function Layout(debug) {
 
 function Activity(props) {
   const query = new URLSearchParams(props.location.search);
-  const debug = query.get('debug') === 'true';
-  return props.isFetching ? <div /> : Layout(debug);
+  const debugMode = query.get('debug') === 'true';
+  return props.isFetching ? <div /> : Layout(debugMode);
 }
 
 Activity.propTypes = propTypes;

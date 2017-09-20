@@ -17,12 +17,12 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List),
   request: PropTypes.func.isRequired,
-  debug: PropTypes.bool
+  debugMode: PropTypes.bool
 };
 
 const defaultProps = {
   events: List(),
-  debug: false
+  debugMode: false
 };
 
 class Ticker extends Component {
@@ -51,7 +51,7 @@ class Ticker extends Component {
   }
 
   componentDidMount() {
-    this.props.request(this.props.debug);
+    this.props.request(this.props.debugMode);
     this.activateTimer();
   }
 
@@ -110,7 +110,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      request: () => dispatch(eventFetch.request())
+      request: debugMode => dispatch(eventFetch.request(debugMode))
     },
     dispatch
   );
