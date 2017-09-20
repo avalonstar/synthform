@@ -25,7 +25,7 @@ class Uptime extends Component {
   }
 
   render() {
-    return <Timer startTime={this.props.startTime} />;
+    return this.props.startTime && <Timer startTime={this.props.startTime} />;
   }
 }
 

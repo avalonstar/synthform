@@ -4,12 +4,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
-const propTypes = {
-  startTime: PropTypes.number
-};
+import './UptimeTimer.css';
 
-const defaultProps = {
-  startTime: Date.now()
+const propTypes = {
+  startTime: PropTypes.number.isRequired
 };
 
 class Timer extends Component {
@@ -70,11 +68,15 @@ class Timer extends Component {
   }
 
   render() {
-    return <div>{this.state.time}</div>;
+    return (
+      <div className="ut">
+        <span className="ut-text">{'!uptime'}</span>
+        <span className="ut-timer">{this.state.time}</span>
+      </div>
+    );
   }
 }
 
 Timer.propTypes = propTypes;
-Timer.defaultProps = defaultProps;
 
 export default Timer;

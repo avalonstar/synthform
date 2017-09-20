@@ -1,1 +1,16 @@
+@import 'helpers/css/variables.scss';
 
+.ut {
+  font-family: $font-gotham;
+}
+
+.ut-text {
+  color: #697a8c;
+  font-size: 14px;
+  font-weight: 400;
+  padding-right: 4px;
+}
+
+.ut-timer {
+  font-weight: 600;
+}

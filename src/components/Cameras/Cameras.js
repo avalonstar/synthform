@@ -10,7 +10,12 @@ export function ActivityCamera() {
     <div className="cs cs-activity">
       <div className="cam" />
       <div className="cam-padding">
-        <Video size={16} /> {'LIVE'} <Uptime />
+        <div className="cam-cpl">
+          <Video size={16} /> {'LIVE'}
+        </div>
+        <div className="cam-cpr">
+          <Uptime />
+        </div>
       </div>
     </div>
   );
