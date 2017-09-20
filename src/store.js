@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 
 import rootSaga from './sagas';
@@ -13,7 +12,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const initialState = {};
 const enhancers = [];
-const middleware = [thunk, sagaMiddleware, routerMiddleware(history)];
+const middleware = [sagaMiddleware, routerMiddleware(history)];
 
 if (process.env.NODE_ENV === 'development') {
   const { devToolsExtension } = window;
