@@ -1,13 +1,17 @@
-import { fork } from 'redux-saga/effects';
+import { all, fork } from 'redux-saga/effects';
 
 import eventSagas from './events';
 import messageSagas from './messages';
 import songSagas from './songs';
 import subscriptionSagas from './subscriptions';
+import uptimeSagas from './uptime';
 
 export default function* rootSaga() {
-  yield fork(eventSagas);
-  yield fork(messageSagas);
-  yield fork(songSagas);
-  yield fork(subscriptionSagas);
+  yield all([
+    fork(eventSagas),
+    fork(messageSagas),
+    fork(songSagas),
+    fork(subscriptionSagas),
+    fork(uptimeSagas)
+  ]);
 }
