@@ -10,5 +10,6 @@ export const tmiConnect = {
 };
 
 export const tmiReceive = {
-  success: (message, metadata) => action(TMI_RECEIVE, { message, metadata })
+  success: (message, metadata) =>
+    action(TMI_RECEIVE.SUCCESS, { message, metadata })
 };
