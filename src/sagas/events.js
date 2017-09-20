@@ -2,12 +2,17 @@ import axios from 'axios';
 import io from 'socket.io-client';
 
 import { eventChannel } from 'redux-saga';
-import { call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
 import { channel } from 'configurations/constants';
 
-const { eventFetch } = actions;
+const { eventFetch, eventNotifier } = actions;
+
+let debugMode = false;
+
+const blacklistedEvents = ['follow', 'cheer', 'autohost'];
+const getShouldNotify = state => state.events.get('notificationsActive');
 
 const connect = () => {
   const socket = io('http://localhost:3001');
@@ -20,9 +25,11 @@ const connect = () => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on(`api.${channel}.events`, data => {
+    const requestPath = debugMode ? 'testevents' : 'events';
+    socket.on(`api.${channel}.${requestPath}`, data => {
       emit(eventFetch.success(data, Date.now()));
     });
+
     socket.on('disconnect', () => {
       // TODO: Handle this.
     });
@@ -31,16 +38,24 @@ const subscribe = socket =>
   });
 
 function* read(socket) {
-  const channel = yield call(subscribe, socket);
+  const evc = yield call(subscribe, socket);
   while (true) {
-    const action = yield take(channel);
+    const action = yield take(evc);
     yield put(action);
+  }
+}
+
+function* triggerNotification() {
+  while (true) {
+    const action = yield take(actions.EVENT_FETCH.SUCCESS);
+    yield put(eventNotifier.add(action.payload[0]));
   }
 }
 
 function* fetchEvents() {
   try {
-    const uri = `http://localhost:3001/api/${channel}/events/`;
+    const requestPath = debugMode ? 'testEvents' : 'events';
+    const uri = `http://localhost:3001/api/${channel}/${requestPath}/`;
     const response = yield call(axios.get, uri);
     yield put(eventFetch.success(response.data.data));
   } catch (error) {
@@ -49,7 +64,8 @@ function* fetchEvents() {
 }
 
 function* watchEventFetchRequest() {
-  yield take(actions.EVENT_FETCH.REQUEST);
+  const request = yield take(actions.EVENT_FETCH.REQUEST);
+  debugMode = request.debugMode;
   yield call(fetchEvents);
 
   const socket = yield call(connect);
@@ -59,5 +75,5 @@ function* watchEventFetchRequest() {
 }
 
 export default function* eventSagas() {
-  yield fork(watchEventFetchRequest);
+  yield all([fork(watchEventFetchRequest), fork(triggerNotification)]);
 }

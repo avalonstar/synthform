@@ -2,11 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 
-import {
-  HostEvent,
-  SubscriptionEvent,
-  SubstreakEvent
-} from './NotificationEvent';
+import { HostEvent, SubscriptionEvent, ResubEvent } from './NotificationEvent';
 
 import './Notification.css';
 
@@ -30,7 +26,7 @@ const defaultProps = {
 const getEventType = (eventData, visibility) => ({
   host: HostEvent({ ...eventData, visibility }),
   subscription: SubscriptionEvent({ ...eventData, visibility }),
-  substreak: SubstreakEvent({ ...eventData, visibility })
+  resub: ResubEvent({ ...eventData, visibility })
 });
 
 class Notification extends Component {
@@ -83,16 +79,18 @@ class Notification extends Component {
 
   render() {
     const data = this.props.event;
-    return !data.event
-      ? <div className="n n-empty" />
-      : <div className="n">
-          {getEventType(data, this.state.isVisible)[data.event]}
-          <Sound
-            url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${data.event}.ogg`}
-            playStatus={this.state.playStatus}
-            onFinishedPlaying={this.handleSongFinishedPlaying}
-          />
-        </div>;
+    return !data.event ? (
+      <div className="n n-empty" />
+    ) : (
+      <div className="n">
+        {getEventType(data, this.state.isVisible)[data.event]}
+        <Sound
+          url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${data.event}.ogg`}
+          playStatus={this.state.playStatus}
+          onFinishedPlaying={this.handleSongFinishedPlaying}
+        />
+      </div>
+    );
   }
 }
 

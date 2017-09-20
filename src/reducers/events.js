@@ -4,7 +4,9 @@ import * as actions from 'actions/events';
 
 const initialState = fromJS({
   isFetching: false,
-  error: ''
+  error: '',
+  notifierPool: [],
+  notificationsActive: true
 });
 
 const events = (state = initialState, action) => {
@@ -23,6 +25,14 @@ const events = (state = initialState, action) => {
         isFetching: false,
         lastUpdated: action.lastUpdated,
         events: action.payload
+      });
+    case actions.EVENT_NOTIFIER_ADD:
+      return state.merge({
+        notifierPool: state.get('notifierPool').push(action.event)
+      });
+    case actions.EVENT_NOTIFIER_DELETE:
+      return state.merge({
+        notifierPool: state.get('notifierPool').delete(0)
       });
     default:
       return state;

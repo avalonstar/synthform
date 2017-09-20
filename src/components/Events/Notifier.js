@@ -4,25 +4,20 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
-import { channel } from 'configurations/constants';
-import {
-  setAndHandleEventListener,
-  removeEventFromNotifier
-} from 'modules/events';
+import { eventFetch, eventNotifier } from 'actions/events';
 
 import Notification from './Notification';
 
 const propTypes = {
-  isFetching: PropTypes.bool.isRequired,
   notifierPool: PropTypes.instanceOf(List),
-  setAndHandleEventListener: PropTypes.func.isRequired,
-  removeEventFromNotifier: PropTypes.func.isRequired,
-  debug: PropTypes.bool
+  request: PropTypes.func.isRequired,
+  deleteEventFromNotifier: PropTypes.func.isRequired,
+  debugMode: PropTypes.bool
 };
 
 const defaultProps = {
   notifierPool: List(),
-  debug: false
+  debugMode: false
 };
 
 class Notifier extends Component {
@@ -30,14 +25,14 @@ class Notifier extends Component {
     super(props);
 
     this.onComplete = () => {
-      if (!this.props.debug) {
-        this.props.removeEventFromNotifier();
+      if (!this.props.debugMode) {
+        this.props.deleteEventFromNotifier();
       }
     };
   }
 
   componentDidMount() {
-    this.props.setAndHandleEventListener(channel, this.props.debug);
+    this.props.request(this.props.debugMode);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -46,7 +41,6 @@ class Notifier extends Component {
 
   render() {
     return (
-      !this.props.isFetching &&
       <Notification
         event={this.props.notifierPool.get(0)}
         onComplete={this.onComplete}
@@ -60,7 +54,6 @@ Notifier.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.events.get('isFetching'),
     notifierPool: state.events.get('notifierPool')
   };
 }
@@ -68,8 +61,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      setAndHandleEventListener,
-      removeEventFromNotifier
+      request: debugMode => dispatch(eventFetch.request(debugMode)),
+      deleteEventFromNotifier: () => dispatch(eventNotifier.delete())
     },
     dispatch
   );
