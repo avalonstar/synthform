@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { ActivityCamera } from 'components/Cameras';
 import { BRB } from 'components/Modes';
 import { Notifier as SongNotifier } from 'components/Songs';
-import { LatestSubscriber, SocialMedia, Uptime } from 'components/Labels';
+import { LatestSubscriber, SocialMedia } from 'components/Labels';
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 
