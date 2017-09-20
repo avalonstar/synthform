@@ -96,7 +96,7 @@ export function TipEvent(props) {
       <span className="ti-event">
         <span className="ti-number">
           {props.currency}
-          {props.amount}
+          {props.amount} {' tip'}
         </span>
       </span>
     </div>

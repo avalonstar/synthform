@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 
-import { HostEvent, SubscriptionEvent, ResubEvent } from './NotificationEvent';
+import {
+  HostEvent,
+  SubscriptionEvent,
+  ResubEvent,
+  TipEvent
+} from './NotificationEvent';
 
 import './Notification.css';
 
@@ -26,7 +31,8 @@ const defaultProps = {
 const getEventType = (eventData, visibility) => ({
   host: HostEvent({ ...eventData, visibility }),
   subscription: SubscriptionEvent({ ...eventData, visibility }),
-  resub: ResubEvent({ ...eventData, visibility })
+  resub: ResubEvent({ ...eventData, visibility }),
+  tip: TipEvent({ ...eventData, visibility })
 });
 
 class Notification extends Component {

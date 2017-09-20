@@ -33,6 +33,14 @@ const resubPropTypes = {
   visibility: PropTypes.bool.isRequired
 };
 
+const tipPropTypes = {
+  event: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  currency: PropTypes.string.isRequired,
+  amount: PropTypes.number.isRequired,
+  visibility: PropTypes.bool.isRequired
+};
+
 function NotificationWrapper(props) {
   return (
     <Motion
@@ -140,8 +148,36 @@ export function ResubEvent(props) {
   );
 }
 
+export function TipEvent(props) {
+  return (
+    <NotificationWrapper
+      url="https://static-cdn.jtvnw.net/emoticons/v1/459215/2.0"
+      event={props.event}
+      isVisible={props.visibility}
+    >
+      <div className="ntf-header">
+        <strong>{props.username}</strong>
+        {' just tipped '}
+        <strong>
+          {props.currency}
+          {props.amount}
+          {'!'}
+        </strong>
+      </div>
+      <div className="ntf-message">
+        {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
+      </div>
+      <div className="ntf-footer">
+        <div className="ntf-fl">{'tip'}</div>
+        <Heart size={14} />
+      </div>
+    </NotificationWrapper>
+  );
+}
+
 NotificationWrapper.propTypes = wrapperPropTypes;
 NotificationWrapper.defaultProps = wrapperDefaultProps;
 HostEvent.propTypes = hostPropTypes;
 SubscriptionEvent.propTypes = subscriptionPropTypes;
 ResubEvent.propTypes = resubPropTypes;
+TipEvent.propTypes = tipPropTypes;
