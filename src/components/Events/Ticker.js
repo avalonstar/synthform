@@ -6,8 +6,7 @@ import { Motion, spring } from 'react-motion';
 import { List } from 'immutable';
 import { ChevronRight } from 'react-feather';
 
-import { channel } from 'configurations/constants';
-import { setAndHandleEventListener } from 'modules/events';
+import { eventFetch } from 'actions/events';
 
 import Delay from 'components/Delay';
 import TickerItem from './TickerItem';
@@ -17,7 +16,7 @@ import './Ticker.css';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List),
-  setAndHandleEventListener: PropTypes.func.isRequired,
+  request: PropTypes.func.isRequired,
   debug: PropTypes.bool
 };
 
@@ -52,7 +51,7 @@ class Ticker extends Component {
   }
 
   componentDidMount() {
-    this.props.setAndHandleEventListener(channel, this.props.debug);
+    this.props.request(this.props.debug);
     this.activateTimer();
   }
 
@@ -66,29 +65,33 @@ class Ticker extends Component {
         defaultStyle={{ y: 100 }}
         style={{ y: spring(this.state.isVisible ? 0 : 100) }}
       >
-        {({ y }) =>
+        {({ y }) => (
           <ol className="t" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
             <li className="t-cap">
               <ChevronRight color="#02fa7b" size={24} />
             </li>
-            {this.props.isFetching
-              ? ''
-              : this.props.events.map((data, i) =>
-                  <Delay
-                    key={data.get('timestamp')}
-                    initial={100}
-                    value={0}
-                    period={i * 30}
-                  >
-                    {delayValue =>
-                      <TickerItem
-                        data={data.toJS()}
-                        delayValue={delayValue}
-                        onChange={this.resetTimer}
-                      />}
-                  </Delay>
-                )}
-          </ol>}
+            {this.props.isFetching ? (
+              ''
+            ) : (
+              this.props.events.map((data, i) => (
+                <Delay
+                  key={data.get('timestamp')}
+                  initial={100}
+                  value={0}
+                  period={i * 30}
+                >
+                  {delayValue => (
+                    <TickerItem
+                      data={data.toJS()}
+                      delayValue={delayValue}
+                      onChange={this.resetTimer}
+                    />
+                  )}
+                </Delay>
+              ))
+            )}
+          </ol>
+        )}
       </Motion>
     );
   }
@@ -105,7 +108,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setAndHandleEventListener }, dispatch);
+  return bindActionCreators(
+    {
+      request: () => dispatch(eventFetch.request())
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticker);

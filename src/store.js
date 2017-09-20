@@ -6,8 +6,10 @@ import createHistory from 'history/createBrowserHistory';
 
 import * as reducers from './modules';
 
+import events from './reducers/events';
 import messages from './reducers/messages';
 import songs from './reducers/songs';
+import subscriptions from './reducers/subscriptions';
 
 import rootSaga from './sagas';
 
@@ -30,7 +32,14 @@ if (process.env.NODE_ENV === 'development') {
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
 const store = createStore(
-  combineReducers({ ...reducers, messages, songs, routing: routerReducer }),
+  combineReducers({
+    ...reducers,
+    events,
+    messages,
+    songs,
+    subscriptions,
+    routing: routerReducer
+  }),
   initialState,
   composedEnhancers
 );
