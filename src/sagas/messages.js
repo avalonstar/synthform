@@ -44,7 +44,7 @@ function* fetchMessages() {
     const response = yield call(axios.get, uri);
     yield put(messageFetch.success(response.data.data));
   } catch (error) {
-    yield put(messageFetch.error(error));
+    yield put(messageFetch.failure(error));
   }
 }
 
