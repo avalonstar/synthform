@@ -9,7 +9,7 @@ let client = null;
 
 export default function(store) {
   client = new tmi.client({
-    options: { debug: true },
+    options: { debug: false },
     connection: { secure: true },
     channels: [`#${clientChannel}`]
   });
