@@ -1,6 +1,6 @@
 import { fromJS } from 'immutable';
 
-import * as actions from 'actions/subscriptions';
+import * as actions from 'actions/tmi';
 
 const initialState = fromJS({
   isConnecting: false,
