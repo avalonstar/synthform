@@ -1,17 +1,11 @@
-import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import thunk from 'redux-thunk';
 import createHistory from 'history/createBrowserHistory';
 
-import * as reducers from './modules';
-
-import events from './reducers/events';
-import messages from './reducers/messages';
-import songs from './reducers/songs';
-import subscriptions from './reducers/subscriptions';
-
 import rootSaga from './sagas';
+import rootReducer from './reducers';
 
 export const history = createHistory();
 
@@ -30,19 +24,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
+const reducers = Object.assign(rootReducer, { routing: routerReducer });
 
-const store = createStore(
-  combineReducers({
-    ...reducers,
-    events,
-    messages,
-    songs,
-    subscriptions,
-    routing: routerReducer
-  }),
-  initialState,
-  composedEnhancers
-);
+const store = createStore(reducers, initialState, composedEnhancers);
 
 sagaMiddleware.run(rootSaga);
 
