@@ -4,14 +4,13 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
 
-import { channel } from 'configurations/constants';
-import { setAndHandleSubPointListener } from 'modules/subscriptions';
+import { subpointFetch } from 'actions/subscriptions';
 
 import './SubPoints.css';
 
 const propTypes = {
   subPoints: PropTypes.number,
-  setAndHandleSubPointListener: PropTypes.func.isRequired
+  request: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -30,14 +29,15 @@ const labelPropTypes = {
 function Indicator(props) {
   return (
     <Motion defaultStyle={{ x: 0 }} style={{ x: spring(props.progress) }}>
-      {({ x }) =>
+      {({ x }) => (
         <div className="spg-bar">
           <div
             className="spg-indicator"
             data-progress={props.progress}
             style={{ width: `${x}%` }}
           />
-        </div>}
+        </div>
+      )}
     </Motion>
   );
 }
@@ -48,20 +48,15 @@ function Label(props) {
       defaultStyle={{ points: 0 }}
       style={{ points: spring(props.points) }}
     >
-      {({ points }) =>
+      {({ points }) => (
         <div className="spg-label">
-          <span className="spg-title">
-            {'SUBPOINTS'}
-          </span>
+          <span className="spg-title">{'SUBPOINTS'}</span>
           <div className="spg-progress">
-            <span className="spg-points">
-              {Math.round(points)}
-            </span>
-            <span className="spg-goal">
-              /{props.goal}
-            </span>
+            <span className="spg-points">{Math.round(points)}</span>
+            <span className="spg-goal">/{props.goal}</span>
           </div>
-        </div>}
+        </div>
+      )}
     </Motion>
   );
 }
@@ -75,7 +70,7 @@ class SubPointGoal extends Component {
   }
 
   componentDidMount() {
-    this.props.setAndHandleSubPointListener(channel);
+    this.props.request();
   }
 
   render() {
@@ -105,7 +100,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setAndHandleSubPointListener }, dispatch);
+  return bindActionCreators(
+    {
+      request: () => dispatch(subpointFetch.request())
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubPointGoal);

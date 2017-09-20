@@ -1,14 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 
 import Chat from 'components/Chat';
 
 import './Intertitle.css';
-
-const propTypes = {
-  isFetching: PropTypes.bool.isRequired
-};
 
 function Layout() {
   return (
@@ -18,17 +12,8 @@ function Layout() {
   );
 }
 
-function Intertitle(props) {
-  return props.isFetching ? <div /> : Layout();
+function Intertitle() {
+  return Layout();
 }
 
-Intertitle.propTypes = propTypes;
-
-function mapStateToProps(state) {
-  const isFetching = [state.messages.get('isFetching')];
-  return {
-    isFetching: isFetching.every(Boolean)
-  };
-}
-
-export default connect(mapStateToProps)(Intertitle);
+export default Intertitle;

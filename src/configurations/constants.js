@@ -14,3 +14,4 @@ export const tmiIdentity = {
 };
 
 export const channel = 'avalonstar';
+export const nightbotID = '56bac6beb1c02f9d6f0ea767';

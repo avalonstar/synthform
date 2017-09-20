@@ -15,12 +15,12 @@ const cheerDefaultProps = {
   bits: 0
 };
 
-const substreakPropTypes = {
-  length: PropTypes.number
+const resubPropTypes = {
+  months: PropTypes.number
 };
 
-const substreakDefaultProps = {
-  length: 1
+const resubDefaultProps = {
+  months: 1
 };
 
 const tipPropTypes = {
@@ -36,9 +36,7 @@ const tipDefaultProps = {
 export function AutoHostEvent(props) {
   return (
     <div className="ti-piece">
-      <span className="ti-event">
-        {props.event}
-      </span>
+      <span className="ti-event">{props.event}</span>
     </div>
   );
 }
@@ -60,9 +58,7 @@ export function CheerEvent(props) {
 export function FollowEvent(props) {
   return (
     <div className="ti-piece">
-      <span className="ti-event">
-        {props.event}
-      </span>
+      <span className="ti-event">{props.event}</span>
     </div>
   );
 }
@@ -70,9 +66,7 @@ export function FollowEvent(props) {
 export function HostEvent(props) {
   return (
     <div className="ti-piece">
-      <span className="ti-event">
-        {props.event}
-      </span>
+      <span className="ti-event">{props.event}</span>
     </div>
   );
 }
@@ -80,20 +74,16 @@ export function HostEvent(props) {
 export function SubscriptionEvent(props) {
   return (
     <div className="ti-piece">
-      <span className="ti-event">
-        {props.event}
-      </span>
+      <span className="ti-event">{props.event}</span>
     </div>
   );
 }
 
-export function SubstreakEvent(props) {
+export function ResubEvent(props) {
   return (
     <div className="ti-piece">
       <span className="ti-event">
-        <span className="ti-number">
-          {props.length}
-        </span>
+        <span className="ti-number">{props.months}</span>
         {' months'}
       </span>
     </div>
@@ -106,7 +96,7 @@ export function TipEvent(props) {
       <span className="ti-event">
         <span className="ti-number">
           {props.currency}
-          {props.amount}
+          {props.amount} {' tip'}
         </span>
       </span>
     </div>
@@ -119,7 +109,7 @@ CheerEvent.defaultProps = cheerDefaultProps;
 FollowEvent.propTypes = propTypes;
 HostEvent.propTypes = propTypes;
 SubscriptionEvent.propTypes = propTypes;
-SubstreakEvent.propTypes = substreakPropTypes;
-SubstreakEvent.defaultProps = substreakDefaultProps;
+ResubEvent.propTypes = resubPropTypes;
+ResubEvent.defaultProps = resubDefaultProps;
 TipEvent.propTypes = tipPropTypes;
 TipEvent.defaultProps = tipDefaultProps;

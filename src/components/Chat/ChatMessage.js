@@ -10,14 +10,18 @@ const propTypes = {
     subscriber: PropTypes.string
   }),
   color: PropTypes.string,
-  display_name: PropTypes.string,
-  is_action: PropTypes.bool.isRequired,
-  message: PropTypes.string.isRequired,
+  displayName: PropTypes.string,
+  isAction: PropTypes.bool.isRequired,
+  message: PropTypes.string,
   mod: PropTypes.bool,
   role: PropTypes.string,
   subscriber: PropTypes.bool,
   turbo: PropTypes.bool,
   username: PropTypes.string.isRequired
+};
+
+const defaultProps = {
+  message: ''
 };
 
 const messagePropTypes = {
@@ -34,11 +38,12 @@ function formatMessage(markup) {
   return { __html: markup };
 }
 
-const Message = ({ message }) =>
+const Message = ({ message }) => (
   <div
     className="cm-message"
     dangerouslySetInnerHTML={formatMessage(message)}
-  />;
+  />
+);
 
 const Username = ({ displayName, username, color }) => {
   const name = displayName || username;
@@ -55,7 +60,7 @@ class ChatMessage extends Component {
       <li className="cm">
         <div className="cm-badges" />
         <Username
-          displayName={this.props.display_name}
+          displayName={this.props.displayName}
           username={this.props.username}
           color={this.props.color}
         />
@@ -66,6 +71,7 @@ class ChatMessage extends Component {
 }
 
 ChatMessage.propTypes = propTypes;
+ChatMessage.defaultProps = defaultProps;
 Message.propTypes = messagePropTypes;
 Username.propTypes = usernamePropTypes;
 

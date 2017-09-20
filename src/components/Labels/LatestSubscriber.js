@@ -6,15 +6,14 @@ import { TransitionMotion, spring } from 'react-motion';
 import { ChevronRight } from 'react-feather';
 import { Map } from 'immutable';
 
-import { channel } from 'configurations/constants';
-import { setAndHandleLatestSubscriberListener } from 'modules/subscriptions';
+import { latestSubscriberFetch } from 'actions/subscriptions';
 
 import './LatestSubscriber.css';
 import crown from './prime.png';
 
 const propTypes = {
   username: PropTypes.string,
-  setAndHandleLatestSubscriberListener: PropTypes.func.isRequired
+  request: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -71,7 +70,7 @@ function Content(props) {
       willEnter={willEnter}
       willLeave={willLeave}
     >
-      {content =>
+      {content => (
         <div
           className="ls-content"
           style={{
@@ -79,28 +78,27 @@ function Content(props) {
             opacity: content[0].style.opacity
           }}
         >
-          <div className="ls-actor">
-            {props.username}
-          </div>
-          {props.prime &&
+          <div className="ls-actor">{props.username}</div>
+          {props.prime && (
             <div className="ls-prime">
               <img src={crown} alt="Prime" />
-            </div>}
-          {props.length &&
+            </div>
+          )}
+          {props.length && (
             <div className="ls-length">
-              <span>
-                {'\u2715'}
-              </span>
+              <span>{'\u2715'}</span>
               {props.length}
-            </div>}
-        </div>}
+            </div>
+          )}
+        </div>
+      )}
     </TransitionMotion>
   );
 }
 
 class LatestSubscriber extends Component {
   componentDidMount() {
-    this.props.setAndHandleLatestSubscriberListener(channel);
+    this.props.request();
   }
 
   render() {
@@ -133,7 +131,12 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ setAndHandleLatestSubscriberListener }, dispatch);
+  return bindActionCreators(
+    {
+      request: () => dispatch(latestSubscriberFetch.request())
+    },
+    dispatch
+  );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LatestSubscriber);

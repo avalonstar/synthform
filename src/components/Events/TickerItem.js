@@ -10,7 +10,7 @@ import {
   FollowEvent,
   HostEvent,
   SubscriptionEvent,
-  SubstreakEvent,
+  ResubEvent,
   TipEvent
 } from './TickerEvent';
 
@@ -40,8 +40,7 @@ const getEventType = eventData => ({
   follow: FollowEvent({ ...eventData }),
   host: HostEvent({ ...eventData }),
   subscription: SubscriptionEvent({ ...eventData }),
-  resubscription: SubscriptionEvent({ ...eventData }),
-  substreak: SubstreakEvent({ ...eventData }),
+  resub: ResubEvent({ ...eventData }),
   tip: TipEvent({ ...eventData })
 });
 
@@ -70,7 +69,7 @@ class TickerItem extends Component {
   render() {
     const { data } = this.props;
     const itemClasses = classNames('ti', {
-      'ti-current': moment().isSame(data.timestamp, 'day'),
+      'ti-current': moment().isSame(parseInt(data.timestamp, 10), 'day'),
       'ti-has-team': data.team
     });
     return (
@@ -78,25 +77,23 @@ class TickerItem extends Component {
         defaultStyle={{ y: 100 }}
         style={{ y: spring(this.props.delayValue) }}
       >
-        {({ y }) =>
+        {({ y }) => (
           <li
             className="ti-container"
             style={{ transform: `translate3d(0, ${y}%, 0)` }}
             data-event={data.event}
           >
             <div className={itemClasses}>
-              {data.team &&
+              {data.team && (
                 <div className="ti-team">
                   <img src={this.getTeamIcon(data.team)} alt={data.team} />
-                </div>}
-              <div className="ti-actor">
-                {data.username}
-              </div>
-              <div className="ti-piece">
-                {getEventType(data)[data.event]}
-              </div>
+                </div>
+              )}
+              <div className="ti-actor">{data.username}</div>
+              <div className="ti-piece">{getEventType(data)[data.event]}</div>
             </div>
-          </li>}
+          </li>
+        )}
       </Motion>
     );
   }
