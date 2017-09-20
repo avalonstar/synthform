@@ -3,24 +3,26 @@
 import tmi from 'tmi.js/src';
 
 import { channel as clientChannel } from 'configurations/constants';
-import * as actions from 'modules/tmi';
+import * as actions from 'actions/tmi';
+
+const { tmiConnect, tmiReceive } = actions;
 
 let client = null;
 
 export default function(store) {
   client = new tmi.client({
-    options: { debug: false },
+    options: { debug: true },
     connection: { secure: true },
     channels: [`#${clientChannel}`]
   });
   client.connect();
 
   client.on('connecting', () => {
-    store.dispatch(actions.settingTmiConnection());
+    store.dispatch(tmiConnect.request());
   });
 
   client.on('connected', () => {
-    store.dispatch(actions.settingTmiConnectionSuccess());
+    store.dispatch(tmiConnect.success());
   });
 
   client.on('chat', (channel, userstate, message, self) => {
@@ -28,7 +30,7 @@ export default function(store) {
       return;
     }
     store.dispatch(
-      actions.returnLatestMessage(message, {
+      tmiReceive.success(message, {
         displayName: userstate['display-name'],
         isBroadcaster: userstate.username === clientChannel,
         isMod: userstate.mod,
