@@ -1,17 +1,12 @@
-export const LISTEN_TO_MESSAGES = 'LISTEN_TO_MESSAGES';
-export const GET_MESSAGES = 'GET_MESSAGES';
+import { action, createRequestTypes } from './utils';
 
-export function listenToMessages() {
-  return {
-    type: LISTEN_TO_MESSAGES
-  };
-}
+export const SONG_FETCH = createRequestTypes('SONG_FETCH');
 
-export function getMessages(payload, lastUpdated) {
-  console.log('messages!');
-  return {
-    type: GET_MESSAGES,
-    payload,
-    lastUpdated
-  };
-}
+export const MESSAGE_FETCH = createRequestTypes('MESSAGE_FETCH');
+
+export const messageFetch = {
+  request: () => action(MESSAGE_FETCH.REQUEST),
+  success: (payload, lastUpdated) =>
+    action(MESSAGE_FETCH.SUCCESS, { payload, lastUpdated }),
+  failure: error => action(MESSAGE_FETCH.FAILURE, { error })
+};

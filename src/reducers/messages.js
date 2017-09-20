@@ -1,13 +1,12 @@
 import { fromJS } from 'immutable';
 
-import { GET_MESSAGES } from '../actions/messages';
+import * as actions from 'actions/messages';
 
 const initialState = fromJS({});
 
-export default function messages(state = initialState, action) {
+const messages = (state = initialState, action) => {
   switch (action.type) {
-    case GET_MESSAGES:
-      console.log('messages reducer!');
+    case actions.MESSAGE_FETCH.SUCCESS:
       return state.merge({
         lastUpdated: action.lastUpdated,
         messages: action.payload
@@ -15,4 +14,6 @@ export default function messages(state = initialState, action) {
     default:
       return state;
   }
-}
+};
+
+export default messages;
