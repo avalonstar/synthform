@@ -33,7 +33,6 @@ function Layout(debugMode) {
         <Ticker debugMode={debugMode} />
         <SocialMedia />
         <SongNotifier />
-        <Uptime />
       </div>
     </div>
   );

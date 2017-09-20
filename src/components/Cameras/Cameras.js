@@ -1,6 +1,8 @@
 import React from 'react';
 import { Video } from 'react-feather';
 
+import { Uptime } from 'components/Labels';
+
 import './Cameras.css';
 
 export function ActivityCamera() {
@@ -8,7 +10,7 @@ export function ActivityCamera() {
     <div className="cs cs-activity">
       <div className="cam" />
       <div className="cam-padding">
-        <Video size={16} /> {'LIVE'}
+        <Video size={16} /> {'LIVE'} <Uptime />
       </div>
     </div>
   );
