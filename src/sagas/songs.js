@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/songs';
 import { nightbotID } from 'configurations/constants';
@@ -25,12 +25,18 @@ function* fetchSongs() {
   }
 }
 
-export function* watchSongFetchRequest() {
+function* watchInitialSongFetchRequest() {
+  yield take(actions.SONG_FETCH.REQUEST);
+  yield call(fetchSongs);
+}
+
+function* watchSongFetchRequest() {
   while (true) {
+    yield take(actions.SONG_FETCH.SUCCESS);
     yield call(fetchSongs);
   }
 }
 
 export default function* songSagas() {
-  yield fork(watchSongFetchRequest);
+  yield all([fork(watchInitialSongFetchRequest), fork(watchSongFetchRequest)]);
 }
