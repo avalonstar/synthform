@@ -10,6 +10,7 @@ import { channel } from 'configurations/constants';
 const { eventFetch, eventNotifier } = actions;
 
 let debugMode = false;
+let shouldNotify = true;
 
 const blacklistedEvents = ['follow', 'cheer', 'autohost'];
 const getShouldNotify = state => state.events.get('notificationsActive');
@@ -48,7 +49,11 @@ function* read(socket) {
 function* triggerNotification() {
   while (true) {
     const action = yield take(actions.EVENT_FETCH.SUCCESS);
-    yield put(eventNotifier.add(action.payload[0]));
+    if (shouldNotify && !blacklistedEvents.includes(action.payload[0].event)) {
+      yield put(eventNotifier.add(action.payload[0]));
+    }
+
+    shouldNotify = yield select(getShouldNotify);
   }
 }
 
@@ -57,9 +62,11 @@ function* fetchEvents() {
     const requestPath = debugMode ? 'testEvents' : 'events';
     const uri = `http://localhost:3001/api/${channel}/${requestPath}/`;
     const response = yield call(axios.get, uri);
+
+    shouldNotify = false;
     yield put(eventFetch.success(response.data.data));
   } catch (error) {
-    yield put(eventFetch.error(error));
+    yield put(eventFetch.failure(error));
   }
 }
 
