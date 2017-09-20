@@ -7,8 +7,6 @@ import { nightbotID } from 'configurations/constants';
 
 const { songFetch } = actions;
 
-const POLLING_DELAY = 30 * 1000;
-
 function delay(ms) {
   const promise = new Promise(resolve => {
     setTimeout(() => resolve(true), ms);
@@ -18,7 +16,7 @@ function delay(ms) {
 
 function* fetchSongs() {
   try {
-    yield call(delay, POLLING_DELAY);
+    yield call(delay, 30 * 1000);
     const uri = `https://api.nightbot.tv/1/song_requests/queue?channel=${nightbotID}`;
     const response = yield call(axios.get, uri);
     yield put(songFetch.success(response.data));
