@@ -30,6 +30,7 @@
     "react-sound": "^0.8.0",
     "redux": "^3.7.2",
     "redux-saga": "^0.15.6",
+    "reselect": "^3.0.1",
     "socket.io-client": "^2.0.3",
     "tmi.js": "marcandrews/tmi.js#bugfix/packaging"
   },
