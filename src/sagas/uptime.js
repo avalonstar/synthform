@@ -5,14 +5,15 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/uptime';
-import { channel } from 'configurations/constants';
+import { channel as user } from 'configurations/constants';
 
 const { uptimeFetch } = actions;
 
-const connect = () => {
-  const socket = io('http://localhost:3001');
+const connect = saga => {
+  const socket = io(`http://localhost:3001/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
+      socket.emit('channel', { channel: 'api', saga });
       resolve(socket);
     });
   });
@@ -20,7 +21,7 @@ const connect = () => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on(`api.${channel}.startTime`, data => {
+    socket.on(`startTime`, data => {
       emit(uptimeFetch.success(data, Date.now()));
     });
 
@@ -41,7 +42,7 @@ function* read(socket) {
 
 function* fetchStartTime() {
   try {
-    const uri = `http://localhost:3001/api/${channel}/stream/started/`;
+    const uri = `http://localhost:3001/api/${user}/stream/started/`;
     const response = yield call(axios.get, uri);
     yield put(uptimeFetch.success(response.data.data, Date.now()));
   } catch (error) {
@@ -53,9 +54,7 @@ function* watchUptimeFetchRequest() {
   yield take(actions.UPTIME_FETCH.REQUEST);
   yield call(fetchStartTime);
 
-  const socket = yield call(connect);
-  socket.emit('client.starttime.request');
-
+  const socket = yield call(connect, 'uptime');
   yield fork(read, socket);
 }
 

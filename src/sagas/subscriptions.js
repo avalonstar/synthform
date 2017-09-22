@@ -5,14 +5,15 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/subscriptions';
-import { channel } from 'configurations/constants';
+import { channel as user } from 'configurations/constants';
 
 const { latestSubscriberFetch, subcountFetch, subpointFetch } = actions;
 
-const connect = () => {
-  const socket = io('http://localhost:3001');
+const connect = saga => {
+  const socket = io(`http://localhost:3001/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
+      socket.emit('channel', { channel: 'api', saga });
       resolve(socket);
     });
   });
@@ -20,13 +21,13 @@ const connect = () => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on(`api.${channel}.latestSubscriber`, data => {
+    socket.on('latestSubscriber', data => {
       emit(latestSubscriberFetch.success(data.slice(-1)[0], Date.now()));
     });
-    socket.on(`api.${channel}.subcount`, data => {
+    socket.on('subcount', data => {
       emit(subcountFetch.success(data, Date.now()));
     });
-    socket.on(`api.${channel}.subpoints`, data => {
+    socket.on('subpoints', data => {
       emit(subpointFetch.success(data, Date.now()));
     });
 
@@ -47,7 +48,7 @@ function* read(socket) {
 
 function* fetchLatestSubscriber() {
   try {
-    const uri = `http://localhost:3001/api/${channel}/subscriptions/`;
+    const uri = `http://localhost:3001/api/${user}/subscriptions/`;
     const response = yield call(axios.get, uri);
     const payload = response.data.data.slice(-1)[0];
     yield put(latestSubscriberFetch.success(payload));
@@ -58,7 +59,7 @@ function* fetchLatestSubscriber() {
 
 function* fetchSubcount() {
   try {
-    const uri = `http://localhost:3001/api/${channel}/subcount/`;
+    const uri = `http://localhost:3001/api/${user}/subcount/`;
     const response = yield call(axios.get, uri);
     yield put(subcountFetch.success(response.data.data));
   } catch (error) {
@@ -68,7 +69,7 @@ function* fetchSubcount() {
 
 function* fetchSubpoints() {
   try {
-    const uri = `http://localhost:3001/api/${channel}/subpoints/`;
+    const uri = `http://localhost:3001/api/${user}/subpoints/`;
     const response = yield call(axios.get, uri);
     yield put(subpointFetch.success(response.data.data));
   } catch (error) {
@@ -80,7 +81,7 @@ function* watchLatestSubscriberFetch() {
   yield take(actions.LATEST_SUBSCRIBER_FETCH.REQUEST);
   yield call(fetchLatestSubscriber);
 
-  const socket = yield call(connect);
+  const socket = yield call(connect, 'latestSubscriber');
   yield fork(read, socket);
 }
 
@@ -88,7 +89,7 @@ function* watchSubcountFetch() {
   yield take(actions.SUBCOUNT_FETCH.REQUEST);
   yield call(fetchSubcount);
 
-  const socket = yield call(connect);
+  const socket = yield call(connect, 'subcount');
   yield fork(read, socket);
 }
 
@@ -96,7 +97,7 @@ function* watchSubpointFetch() {
   yield take(actions.SUBPOINT_FETCH.REQUEST);
   yield call(fetchSubpoints);
 
-  const socket = yield call(connect);
+  const socket = yield call(connect, 'subpoints');
   yield fork(read, socket);
 }
 

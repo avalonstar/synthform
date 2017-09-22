@@ -5,7 +5,7 @@ import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
-import { channel } from 'configurations/constants';
+import { channel as user } from 'configurations/constants';
 
 const { eventFetch, eventNotifier } = actions;
 
@@ -15,10 +15,11 @@ let shouldNotify = true;
 const blacklistedEvents = ['follow', 'cheer', 'autohost'];
 const getShouldNotify = state => state.events.get('notificationsActive');
 
-const connect = () => {
-  const socket = io('http://localhost:3001');
+const connect = saga => {
+  const socket = io(`http://localhost:3001/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
+      socket.emit('channel', { channel: 'api', saga });
       resolve(socket);
     });
   });
@@ -27,7 +28,7 @@ const connect = () => {
 const subscribe = socket =>
   eventChannel(emit => {
     const requestPath = debugMode ? 'testevents' : 'events';
-    socket.on(`api.${channel}.${requestPath}`, data => {
+    socket.on(`${requestPath}`, data => {
       emit(eventFetch.success(data, Date.now()));
     });
 
@@ -60,7 +61,7 @@ function* triggerNotification() {
 function* fetchEvents() {
   try {
     const requestPath = debugMode ? 'testEvents' : 'events';
-    const uri = `http://localhost:3001/api/${channel}/${requestPath}/`;
+    const uri = `http://localhost:3001/api/${user}/${requestPath}/`;
     const response = yield call(axios.get, uri);
 
     shouldNotify = false;
@@ -75,9 +76,7 @@ function* watchEventFetchRequest() {
   debugMode = request.debugMode;
   yield call(fetchEvents);
 
-  const socket = yield call(connect);
-  socket.emit('client.event.request');
-
+  const socket = yield call(connect, 'events');
   yield fork(read, socket);
 }
 
