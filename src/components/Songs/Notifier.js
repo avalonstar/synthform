@@ -7,6 +7,7 @@ import { Map, List } from 'immutable';
 import { songFetch } from 'actions/songs';
 
 const propTypes = {
+  isFetching: PropTypes.bool.isRequired,
   totalSongs: PropTypes.number,
   queue: PropTypes.instanceOf(List),
   currentSong: PropTypes.instanceOf(Map),
@@ -19,18 +20,36 @@ const defaultProps = {
   currentSong: Map()
 };
 
+function Song(props) {
+  console.log(props.song);
+  if (props.song.createdAt) {
+    console.log(props.song.track.artist);
+  }
+  return (
+    props.song && (
+      <div className="sn">
+        {props.song.createdAt}
+        {/* {this.props.totalSongs}
+      {this.props.queue} */}
+        {/* {props.track.title}
+      {props.artist}
+      {props.duration}
+      {user.displayName} */}
+      </div>
+    )
+  );
+}
+
 class Notifier extends Component {
   componentDidMount() {
     this.props.request();
   }
 
   render() {
-    return (
-      <div>
-        {this.props.totalSongs}
-        {this.props.queue}
-        {this.props.currentSong}
-      </div>
+    return this.props.isFetching ? (
+      <div />
+    ) : (
+      <Song song={{ ...this.props.currentSong.toJS() }} />
     );
   }
 }
@@ -40,6 +59,7 @@ Notifier.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
+    isFetching: state.songs.get('isFetching'),
     totalSongs: state.songs.get('totalSongs'),
     queue: state.songs.get('queue'),
     currentSong: state.songs.get('currentSong')
