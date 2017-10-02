@@ -22,7 +22,7 @@ const connect = saga => {
 const subscribe = socket =>
   eventChannel(emit => {
     socket.on(`startTime`, data => {
-      emit(uptimeFetch.success(data, Date.now()));
+      emit(uptimeFetch.success(data));
     });
 
     socket.on('disconnect', () => {

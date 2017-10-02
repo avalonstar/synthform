@@ -29,7 +29,7 @@ const subscribe = socket =>
   eventChannel(emit => {
     const requestPath = debugMode ? 'testevents' : 'events';
     socket.on(`${requestPath}`, data => {
-      emit(eventFetch.success(data, Date.now()));
+      emit(eventFetch.success(data));
     });
 
     socket.on('disconnect', () => {

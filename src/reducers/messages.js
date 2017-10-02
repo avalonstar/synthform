@@ -8,7 +8,6 @@ const messages = (state = initialState, action) => {
   switch (action.type) {
     case actions.MESSAGE_FETCH.SUCCESS:
       return state.merge({
-        lastUpdated: action.lastUpdated,
         messages: action.payload
       });
     default:

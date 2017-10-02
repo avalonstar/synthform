@@ -5,8 +5,7 @@ export const UPTIME_SET = 'UPTIME_SET';
 
 export const uptimeFetch = {
   request: () => action(UPTIME_FETCH.REQUEST),
-  success: (startTime, lastUpdated) =>
-    action(UPTIME_FETCH.SUCCESS, { startTime, lastUpdated }),
+  success: startTime => action(UPTIME_FETCH.SUCCESS, { startTime }),
   failure: error => action(UPTIME_FETCH.FAILURE, { error })
 };
 

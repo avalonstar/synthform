@@ -22,7 +22,7 @@ const connect = saga => {
 const subscribe = socket =>
   eventChannel(emit => {
     socket.on('latestSubscriber', data => {
-      emit(latestSubscriberFetch.success(data.slice(-1)[0], Date.now()));
+      emit(latestSubscriberFetch.success(data.slice(-1)[0]));
     });
     socket.on('subcount', data => {
       emit(subcountFetch.success(data, Date.now()));

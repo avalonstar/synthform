@@ -21,8 +21,7 @@ const uptime = (state = initialState, action) => {
     case actions.UPTIME_FETCH.SUCCESS:
       return state.merge({
         isFetching: false,
-        startTime: action.startTime,
-        lastUpdated: action.lastUpdated
+        startTime: action.startTime
       });
     default:
       return state;

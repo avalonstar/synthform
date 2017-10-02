@@ -23,7 +23,6 @@ const events = (state = initialState, action) => {
     case actions.EVENT_FETCH.SUCCESS:
       return state.merge({
         isFetching: false,
-        lastUpdated: action.lastUpdated,
         events: action.payload
       });
     case actions.EVENT_NOTIFIER_ADD:
