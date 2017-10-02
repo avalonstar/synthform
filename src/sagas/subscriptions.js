@@ -25,10 +25,10 @@ const subscribe = socket =>
       emit(latestSubscriberFetch.success(data.slice(-1)[0]));
     });
     socket.on('subcount', data => {
-      emit(subcountFetch.success(data, Date.now()));
+      emit(subcountFetch.success(data));
     });
     socket.on('subpoints', data => {
-      emit(subpointFetch.success(data, Date.now()));
+      emit(subpointFetch.success(data));
     });
 
     socket.on('disconnect', () => {
