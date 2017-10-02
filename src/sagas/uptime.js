@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/uptime';
-import { channel as user } from 'configurations/constants';
+import { channel, apiURI } from 'configurations/constants';
 
 const { uptimeFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`http://localhost:3001/${user}`);
+const connect = () => {
+  const socket = io(apiURI);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -42,7 +42,11 @@ function* read(socket) {
 
 function* fetchStartTime() {
   try {
+<<<<<<< HEAD
     const uri = `http://localhost:3001/api/${user}/stream/started/`;
+=======
+    const uri = `${apiURI}/api/${channel}/stream/started/`;
+>>>>>>> Use `process.env.REACT_APP_API_URI`.
     const response = yield call(axios.get, uri);
     yield put(uptimeFetch.success(response.data.data, Date.now()));
   } catch (error) {

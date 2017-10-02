@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/subscriptions';
-import { channel as user } from 'configurations/constants';
+import { channel, apiURI } from 'configurations/constants';
 
 const { latestSubscriberFetch, subcountFetch, subpointFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`http://localhost:3001/${user}`);
+const connect = () => {
+  const socket = io(apiURI);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -48,7 +48,11 @@ function* read(socket) {
 
 function* fetchLatestSubscriber() {
   try {
+<<<<<<< HEAD
     const uri = `http://localhost:3001/api/${user}/subscriptions/`;
+=======
+    const uri = `${apiURI}/api/${channel}/subscriptions/`;
+>>>>>>> Use `process.env.REACT_APP_API_URI`.
     const response = yield call(axios.get, uri);
     const payload = response.data.data.slice(-1)[0];
     yield put(latestSubscriberFetch.success(payload));
@@ -59,7 +63,11 @@ function* fetchLatestSubscriber() {
 
 function* fetchSubcount() {
   try {
+<<<<<<< HEAD
     const uri = `http://localhost:3001/api/${user}/subcount/`;
+=======
+    const uri = `${apiURI}/api/${channel}/subcount/`;
+>>>>>>> Use `process.env.REACT_APP_API_URI`.
     const response = yield call(axios.get, uri);
     yield put(subcountFetch.success(response.data.data));
   } catch (error) {
@@ -69,7 +77,11 @@ function* fetchSubcount() {
 
 function* fetchSubpoints() {
   try {
+<<<<<<< HEAD
     const uri = `http://localhost:3001/api/${user}/subpoints/`;
+=======
+    const uri = `${apiURI}/api/${channel}/subpoints/`;
+>>>>>>> Use `process.env.REACT_APP_API_URI`.
     const response = yield call(axios.get, uri);
     yield put(subpointFetch.success(response.data.data));
   } catch (error) {
