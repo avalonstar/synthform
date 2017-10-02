@@ -21,22 +21,16 @@ const defaultProps = {
 };
 
 function Song(props) {
+  const { requested, requester, title } = props.song;
   console.log(props.song);
-  if (props.song.createdAt) {
-    console.log(props.song.track.artist);
-  }
   return (
-    props.song && (
-      <div className="sn">
-        {props.song.createdAt}
-        {/* {this.props.totalSongs}
-      {this.props.queue} */}
-        {/* {props.track.title}
-      {props.artist}
-      {props.duration}
-      {user.displayName} */}
-      </div>
-    )
+    <div className="sn">
+      {requested}
+      {requester}
+      {title}
+      {/* {track.artist}
+      {track.duration} */}
+    </div>
   );
 }
 
@@ -49,7 +43,7 @@ class Notifier extends Component {
     return this.props.isFetching ? (
       <div />
     ) : (
-      <Song song={{ ...this.props.currentSong.toJS() }} />
+      <Song song={this.props.currentSong.toJS()} />
     );
   }
 }
