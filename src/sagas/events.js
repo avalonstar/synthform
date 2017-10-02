@@ -5,11 +5,7 @@ import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
-<<<<<<< HEAD
-import { channel as user } from 'configurations/constants';
-=======
 import { channel, apiURI } from 'configurations/constants';
->>>>>>> Use `process.env.REACT_APP_API_URI`.
 
 const { eventFetch, eventNotifier } = actions;
 
@@ -19,13 +15,8 @@ let shouldNotify = true;
 const blacklistedEvents = ['follow', 'cheer', 'autohost'];
 const getShouldNotify = state => state.events.get('notificationsActive');
 
-<<<<<<< HEAD
 const connect = saga => {
-  const socket = io(`http://localhost:3001/${user}`);
-=======
-const connect = () => {
   const socket = io(apiURI);
->>>>>>> Use `process.env.REACT_APP_API_URI`.
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });

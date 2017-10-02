@@ -9,7 +9,7 @@ import { channel, apiURI } from 'configurations/constants';
 
 const { uptimeFetch } = actions;
 
-const connect = () => {
+const connect = saga => {
   const socket = io(apiURI);
   return new Promise(resolve => {
     socket.on('connect', () => {
@@ -42,11 +42,7 @@ function* read(socket) {
 
 function* fetchStartTime() {
   try {
-<<<<<<< HEAD
-    const uri = `http://localhost:3001/api/${user}/stream/started/`;
-=======
     const uri = `${apiURI}/api/${channel}/stream/started/`;
->>>>>>> Use `process.env.REACT_APP_API_URI`.
     const response = yield call(axios.get, uri);
     yield put(uptimeFetch.success(response.data.data, Date.now()));
   } catch (error) {
