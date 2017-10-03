@@ -1,7 +1,7 @@
 .activity {
   display: grid;
   grid-template-columns: 24px 1fr 24px;
-  grid-template-rows: 24px 1fr 1fr 1fr;
+  grid-template-rows: 24px 1fr 1fr;
 
   position: absolute;
   overflow: hidden;
@@ -16,15 +16,9 @@
   grid-row: 2 / 3;
 }
 
-.middle-thirds {
-  grid-column: 1 / 4;
-  grid-row: 3;
-  align-self: center;
-}
-
 .lower-thirds {
   grid-column: 2 / 3;
-  grid-row: 4;
+  grid-row: 3;
   align-self: end;
 }
 
@@ -55,14 +49,14 @@
 
 .lower-thirds .sm {
   grid-column: 1 / 4;
-  grid-row: 4;
+  grid-row: 6;
   align-self: center;
   z-index: 100;
 }
 
 .lower-thirds .t {
   grid-column: 1 / 11;
-  grid-row: 4;
+  grid-row: 6;
   margin: 0 -24px;
   z-index: 200;
 }
@@ -75,7 +69,13 @@
 
 .lower-thirds .cs {
   grid-column: 9 / 11;
-  grid-row: 1 / 5;
+  grid-row: 1 / 7;
   align-self: end;
   z-index: 400;
+}
+
+.lower-thirds .sn {
+  grid-column: 9 / 11;
+  grid-row: 1 / 4;
+  align-self: end;
 }

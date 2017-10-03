@@ -4,8 +4,11 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Map } from 'immutable';
+import { Radio } from 'react-feather';
 
 import { songFetch } from 'actions/songs';
+
+import './Notifier.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
@@ -25,22 +28,30 @@ function Song(props) {
   return (
     <div className="sn">
       <div className="sn-header">
-        <strong>{'!currentsong'}</strong>
-        {' requested by '}
-        <strong>{song.user}</strong>
+        <div className="sn-widget-icon">
+          <Radio size={36} />
+        </div>
+        <div className="sn-widget">
+          <span className="sn-duration">{song.duration}</span>
+          <span className="sn-queuesize">
+            <strong>{queueSize}</strong>
+            {' in queue'}
+          </span>
+        </div>
+      </div>
+      <div className="sn-meta">
+        <div className="song-artist">{song.artist}</div>
+        <div className="song-title">{song.title}</div>
+      </div>
+      <div className="sn-footer">
+        <span>
+          {'Requested by '}
+          <strong>{song.user}</strong>
+        </span>
         <small>
           {timeAgo}
           {' minutes ago'}
         </small>
-      </div>
-      <div className="sn-meta">
-        {song.title}
-        {song.artist}
-        {song.duration}
-      </div>
-      <div className="sn-footer">
-        <strong>{queueSize}</strong>
-        {' songs in queue'}
       </div>
     </div>
   );
