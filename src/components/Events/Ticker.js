@@ -68,7 +68,7 @@ class Ticker extends Component {
         {({ y }) => (
           <ol className="t" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
             <li className="t-cap">
-              <ChevronRight color="#02fa7b" size={24} />
+              <ChevronRight color="#02fa7b" size={20} />
             </li>
             {this.props.isFetching ? (
               ''
