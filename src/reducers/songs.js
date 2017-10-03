@@ -14,20 +14,13 @@ const songs = (state = initialState, action) => {
       return state.merge({
         isFetching: true
       });
-    case actions.SONG_FETCH.SUCCESS:
-      const currentSong = action.payload._currentSong;
+    case actions.SONG_FETCH.SUCCESS: {
       return state.merge({
         isFetching: false,
-        totalSongs: action.payload._total,
-        queue: [...action.payload.queue],
-        currentSong: {
-          title: currentSong.track.title,
-          artist: currentSong.track.artist,
-          duration: currentSong.track.duration,
-          requester: currentSong.user.displayName,
-          requested: currentSong.createdAt
-        }
+        queueSize: action.queueSize,
+        currentSong: action.currentSong
       });
+    }
     default:
       return state;
   }

@@ -1,6 +1,8 @@
+/* eslint-disable no-underscore-dangle */
+
 import axios from 'axios';
 
-import { all, call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, take, takeEvery } from 'redux-saga/effects';
 
 import * as actions from 'actions/songs';
 import { nightbotID } from 'configurations/constants';
@@ -19,7 +21,13 @@ function* fetchSongs() {
     yield call(delay, 3 * 1000);
     const uri = `https://api.nightbot.tv/1/song_requests/queue?channel=${nightbotID}`;
     const response = yield call(axios.get, uri);
-    yield put(songFetch.success(response.data));
+    const {
+      createdAt: requested,
+      track: { artist, title, duration, provider },
+      user: { displayName: user }
+    } = response.data._currentSong;
+    const currentSong = { user, requested, artist, title, duration, provider };
+    yield put(songFetch.success(response.data._total, currentSong));
   } catch (error) {
     yield put(songFetch.error(error));
   }
@@ -31,10 +39,7 @@ function* watchInitialSongFetchRequest() {
 }
 
 function* watchSongFetchRequest() {
-  while (true) {
-    yield take(actions.SONG_FETCH.SUCCESS);
-    yield call(fetchSongs);
-  }
+  yield takeEvery(actions.SONG_FETCH.SUCCESS, fetchSongs);
 }
 
 export default function* songSagas() {
