@@ -23,9 +23,14 @@ function* fetchSongs() {
     const response = yield call(axios.get, uri);
     const {
       createdAt: requested,
-      track: { artist, title, duration, provider },
+      track: { artist, title, provider },
       user: { displayName: user }
     } = response.data._currentSong;
+    let { track: { duration } } = response.data._currentSong;
+    duration = new Date(parseInt(duration, 10) * 1000)
+      .toISOString()
+      .substr(14, 5);
+
     const currentSong = { user, requested, artist, title, duration, provider };
     yield put(songFetch.success(response.data._total, currentSong));
   } catch (error) {

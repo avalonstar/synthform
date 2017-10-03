@@ -1,35 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Map, List } from 'immutable';
+import { Map } from 'immutable';
 
 import { songFetch } from 'actions/songs';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  totalSongs: PropTypes.number,
-  queue: PropTypes.instanceOf(List),
   currentSong: PropTypes.instanceOf(Map),
+  queueSize: PropTypes.number,
   request: PropTypes.func.isRequired
 };
 
 const defaultProps = {
-  totalSongs: 0,
-  queue: List(),
-  currentSong: Map()
+  currentSong: Map(),
+  queueSize: 0
 };
 
 function Song(props) {
-  const { requested, requester, title } = props.song;
-  console.log(props.song);
+  const { queueSize, song } = props;
+  const timeAgo = moment().diff(song.requested, 'minutes');
   return (
     <div className="sn">
-      {requested}
-      {requester}
-      {title}
-      {/* {track.artist}
-      {track.duration} */}
+      <div className="sn-header">
+        <strong>{'!currentsong'}</strong>
+        {' requested by '}
+        <strong>{song.user}</strong>
+        <small>
+          {timeAgo}
+          {' minutes ago'}
+        </small>
+      </div>
+      <div className="sn-meta">
+        {song.title}
+        {song.artist}
+        {song.duration}
+      </div>
+      <div className="sn-footer">
+        <strong>{queueSize}</strong>
+        {' songs in queue'}
+      </div>
     </div>
   );
 }
@@ -43,7 +55,10 @@ class Notifier extends Component {
     return this.props.isFetching ? (
       <div />
     ) : (
-      <Song song={this.props.currentSong.toJS()} />
+      <Song
+        queueSize={this.props.queueSize}
+        song={this.props.currentSong.toJS()}
+      />
     );
   }
 }
@@ -54,9 +69,8 @@ Notifier.defaultProps = defaultProps;
 function mapStateToProps(state) {
   return {
     isFetching: state.songs.get('isFetching'),
-    totalSongs: state.songs.get('totalSongs'),
-    queue: state.songs.get('queue'),
-    currentSong: state.songs.get('currentSong')
+    currentSong: state.songs.get('currentSong'),
+    queueSize: state.songs.get('queueSize')
   };
 }
 
