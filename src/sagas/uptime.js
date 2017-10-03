@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/uptime';
-import { channel, apiURI } from 'configurations/constants';
+import { apiUri, socketUri } from 'configurations/constants';
 
 const { uptimeFetch } = actions;
 
 const connect = saga => {
-  const socket = io(apiURI);
+  const socket = io(socketUri);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -42,7 +42,7 @@ function* read(socket) {
 
 function* fetchStartTime() {
   try {
-    const uri = `${apiURI}/api/${channel}/stream/started/`;
+    const uri = `${apiUri}/stream/started/`;
     const response = yield call(axios.get, uri);
     yield put(uptimeFetch.success(response.data.data, Date.now()));
   } catch (error) {

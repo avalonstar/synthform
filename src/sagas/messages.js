@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/messages';
-import { channel } from 'configurations/constants';
+import { apiUri, socketUri } from 'configurations/constants';
 
 const { messageFetch } = actions;
 
 const connect = () => {
-  const socket = io('http://10.204.98.121:3001');
+  const socket = io(socketUri);
   return new Promise(resolve => {
     socket.on('connect', () => {
       resolve(socket);
@@ -40,7 +40,7 @@ function* read(socket) {
 
 function* fetchMessages() {
   try {
-    const uri = `http://10.204.98.121:3001/api/${channel}/messages/`;
+    const uri = `${apiUri}/messages/`;
     const response = yield call(axios.get, uri);
     yield put(messageFetch.success(response.data.data));
   } catch (error) {
@@ -53,8 +53,6 @@ function* watchMessageFetchRequest() {
   yield call(fetchMessages);
 
   const socket = yield call(connect);
-  socket.emit('client.message.request');
-
   yield fork(read, socket);
 }
 

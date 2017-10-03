@@ -5,7 +5,7 @@ import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
-import { channel, apiURI } from 'configurations/constants';
+import { apiUri, socketUri } from 'configurations/constants';
 
 const { eventFetch, eventNotifier } = actions;
 
@@ -16,7 +16,7 @@ const blacklistedEvents = ['follow', 'cheer', 'autohost'];
 const getShouldNotify = state => state.events.get('notificationsActive');
 
 const connect = saga => {
-  const socket = io(apiURI);
+  const socket = io(socketUri);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -61,7 +61,7 @@ function* triggerNotification() {
 function* fetchEvents() {
   try {
     const requestPath = debugMode ? 'testEvents' : 'events';
-    const uri = `${apiURI}/api/${channel}/${requestPath}/`;
+    const uri = `${apiUri}/${requestPath}/`;
     const response = yield call(axios.get, uri);
 
     shouldNotify = false;
