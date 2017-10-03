@@ -26,7 +26,6 @@ function Layout(debugMode) {
         <SubPointGoal />
         <LatestSubscriber />
       </div>
-      <div className="middle-thirds" />
       <div className="lower-thirds">
         <ActivityCamera />
         <Notifier debugMode={debugMode} />
