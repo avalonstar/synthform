@@ -22,6 +22,10 @@
   align-items: flex-start;
   padding: 14px 18px 0;
   color: #a2adb9;
+
+  svg {
+    animation: 5s ease-in-out infinite wiggle;
+  }
 }
 
 .sn-widget-icon {
@@ -77,4 +81,25 @@
 .song-artist {
   color: #7f8f9f;
   padding-bottom: 4px;
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(-10deg) scale(1);
+  }
+  10% {
+    transform: rotate(10deg) scale(1.1);
+  }
+  15% {
+    transform: rotate(-10deg) scale(0.95);
+  }
+  20% {
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
