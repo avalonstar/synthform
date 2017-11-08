@@ -20,7 +20,7 @@ const connect = () => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on('api.avalonstar.messages', data => {
+    socket.on('messages', data => {
       emit(messageFetch.success(data));
     });
     socket.on('disconnect', () => {
