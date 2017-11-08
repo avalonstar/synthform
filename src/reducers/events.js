@@ -15,7 +15,7 @@ const events = (state = initialState, action) => {
       return state.merge({
         isFetching: true
       });
-    case actions.EVENT_FETCH.ERROR:
+    case actions.EVENT_FETCH.FAILURE:
       return state.merge({
         isFetching: false,
         error: action.error
