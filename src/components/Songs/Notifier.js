@@ -123,9 +123,9 @@ class Notifier extends Component {
   render() {
     return (
       <Motion
-        defaultStyle={{ y: 275 }}
+        defaultStyle={{ y: -150 }}
         style={{
-          y: spring(this.state.isVisible ? 0 : 275, {
+          y: spring(this.state.isVisible ? 0 : -150, {
             stiffness: 120,
             damping: 14
           })

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { ActivityCamera } from 'components/Cameras';
 import { Notifier as SongNotifier } from 'components/Songs';
-import { LatestSubscriber, SocialMedia } from 'components/Labels';
+import { LatestSubscriber } from 'components/Labels';
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 
@@ -19,17 +19,14 @@ const propTypes = {
 
 function Layout(debugMode) {
   return (
-    <div className="activity">
-      <div className="upper-thirds">
-        <SubPointGoal />
-        <LatestSubscriber />
-      </div>
-      <div className="lower-thirds">
+    <div className="activity-container">
+      <div className="activity">
         <ActivityCamera />
+        <LatestSubscriber />
         <Notifier debugMode={debugMode} />
-        <Ticker debugMode={debugMode} />
-        <SocialMedia />
         <SongNotifier />
+        <SubPointGoal />
+        <Ticker debugMode={debugMode} />
       </div>
     </div>
   );
