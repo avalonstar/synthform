@@ -22,13 +22,13 @@ const defaultProps = {
 
 const contentPropsTypes = {
   username: PropTypes.string,
-  length: PropTypes.number,
+  months: PropTypes.number,
   prime: PropTypes.bool
 };
 
 const contentDefaultProps = {
   username: '',
-  length: null,
+  months: null,
   prime: false
 };
 
@@ -84,10 +84,10 @@ function Content(props) {
               <img src={crown} alt="Prime" />
             </div>
           )}
-          {props.length && (
+          {props.months && (
             <div className="ls-length">
               <span>{'\u2715'}</span>
-              {props.length}
+              {props.months}
             </div>
           )}
         </div>
@@ -125,7 +125,7 @@ function mapStateToProps(state) {
     isFetching: state.subscriptions.get('isFetchingLatestSubscriber'),
     error: state.subscriptions.get('error'),
     username: subscriber.get('username'),
-    length: subscriber.get('length'),
+    months: subscriber.get('months'),
     prime: subscriber.get('prime')
   };
 }
