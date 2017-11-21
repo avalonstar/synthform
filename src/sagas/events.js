@@ -12,7 +12,7 @@ const { eventFetch, eventNotifier } = actions;
 let debugMode = false;
 let shouldNotify = true;
 
-const blacklistedEvents = ['follow', 'cheer', 'autohost'];
+const blacklistedEvents = ['cheer', 'autohost'];
 const getShouldNotify = state => state.events.get('notificationsActive');
 
 const connect = saga => {

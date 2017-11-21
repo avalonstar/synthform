@@ -38,6 +38,11 @@
     grid-row: 11;
     align-self: end;
     z-index: 300;
+
+    &[data-event='follow'] {
+      align-self: start;
+      z-index: 0;
+    }
   }
 
   .cs {

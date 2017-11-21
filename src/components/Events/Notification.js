@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 
 import {
+  FollowEvent,
   HostEvent,
   SubscriptionEvent,
   SubGiftEvent,
@@ -30,6 +31,7 @@ const defaultProps = {
 };
 
 const getEventType = (eventData, visibility) => ({
+  follow: FollowEvent({ ...eventData, visibility }),
   host: HostEvent({ ...eventData, visibility }),
   subscription: SubscriptionEvent({ ...eventData, visibility }),
   subgift: SubGiftEvent({ ...eventData, visibility }),
@@ -90,7 +92,7 @@ class Notification extends Component {
     return !data.event ? (
       <div className="n n-empty" />
     ) : (
-      <div className="n">
+      <div className="n" data-event={data.event}>
         {getEventType(data, this.state.isVisible)[data.event]}
         <Sound
           url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${

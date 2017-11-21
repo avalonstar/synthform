@@ -14,6 +14,12 @@ const wrapperDefaultProps = {
   url: 'https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0'
 };
 
+const followPropTypes = {
+  event: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  visibility: PropTypes.bool.isRequired
+};
+
 const hostPropTypes = {
   event: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
@@ -61,11 +67,7 @@ function NotificationWrapper(props) {
       }}
     >
       {({ y, rotate }) => (
-        <div
-          className="ntf"
-          style={{ transform: `translate3d(0, ${y}%, 0)` }}
-          data-event={props.event}
-        >
+        <div className="ntf" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
           <div className="ntf-image">
             <img
               src={props.url}
@@ -76,6 +78,36 @@ function NotificationWrapper(props) {
             />
           </div>
           <div className="ntf-content">{props.children}</div>
+        </div>
+      )}
+    </Motion>
+  );
+}
+
+export function FollowEvent(props) {
+  return (
+    <Motion
+      defaultStyle={{ y: 200 }}
+      style={{
+        y: spring(props.visibility ? 0 : 200, { stiffness: 210, damping: 30 })
+      }}
+    >
+      {({ y }) => (
+        <div
+          className="ntf-follow"
+          style={{ transform: `translate3d(0, ${y}%, 0)` }}
+        >
+          <div className="ntf-image">
+            <img
+              src="https://static-cdn.jtvnw.net/emoticons/v1/206446/3.0"
+              alt=""
+            />
+          </div>
+          <div className="ntf-content">
+            <div className="ntf-message">
+              Hello there <strong>{props.username}</strong>! Welcome!
+            </div>
+          </div>
         </div>
       )}
     </Motion>
@@ -213,6 +245,7 @@ export function TipEvent(props) {
 
 NotificationWrapper.propTypes = wrapperPropTypes;
 NotificationWrapper.defaultProps = wrapperDefaultProps;
+FollowEvent.propTypes = followPropTypes;
 HostEvent.propTypes = hostPropTypes;
 SubscriptionEvent.propTypes = subscriptionPropTypes;
 SubGiftEvent.propTypes = subgiftPropTypes;

@@ -60,3 +60,44 @@
     font-weight: 400;
   }
 }
+
+.ntf-follow {
+  display: flex;
+
+  .ntf-image {
+    background: transparent;
+    padding: 0;
+
+    img {
+      width: 74px;
+    }
+  }
+
+  .ntf-content {
+    background: transparent;
+    padding-top: 16px;
+  }
+
+  .ntf-message {
+    position: relative;
+    margin: 0 0 0 12px;
+    padding: 12px;
+
+    background: #e8ebed;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+    color: #4f5c69;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: -12px;
+      top: 0;
+
+      width: 0;
+      height: 0;
+      border-top: 12px solid #e8ebed;
+      border-left: 12px solid transparent;
+    }
+  }
+}
