@@ -19,7 +19,9 @@ function delay(ms) {
 function* fetchSongs() {
   try {
     yield call(delay, 30 * 1000);
-    const uri = `https://api.nightbot.tv/1/song_requests/queue?channel=${nightbotID}`;
+    const uri = `https://api.nightbot.tv/1/song_requests/queue?channel=${
+      nightbotID
+    }`;
     const response = yield call(axios.get, uri);
     const {
       createdAt: requested,
@@ -34,7 +36,7 @@ function* fetchSongs() {
     const currentSong = { user, requested, artist, title, duration };
     yield put(songFetch.success(response.data._total, currentSong));
   } catch (error) {
-    yield put(songFetch.error(error));
+    yield put(songFetch.failure(error));
   }
 }
 
