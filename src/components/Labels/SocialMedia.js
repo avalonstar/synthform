@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, Twitter, Tv } from 'react-feather';
+import { ChevronRight, Tv } from 'react-feather';
 
 import './SocialMedia.css';
 
