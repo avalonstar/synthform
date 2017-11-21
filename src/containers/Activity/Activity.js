@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { ActivityCamera } from 'components/Cameras';
 import { Notifier as SongNotifier } from 'components/Songs';
-import { LatestSubscriber } from 'components/Labels';
+import { LatestSubscriber, Uptime } from 'components/Labels';
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 
@@ -27,6 +27,7 @@ function Layout(debugMode) {
         <SongNotifier />
         <SubPointGoal />
         <Ticker debugMode={debugMode} />
+        <Uptime />
       </div>
     </div>
   );
