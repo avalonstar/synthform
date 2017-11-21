@@ -20,6 +20,7 @@
     "react": "^16.1.1",
     "react-dom": "^16.1.1",
     "react-feather": "^1.0.7",
+    "react-flip-move": "^2.9.17",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
