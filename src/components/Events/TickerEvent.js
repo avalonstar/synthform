@@ -15,6 +15,10 @@ const cheerDefaultProps = {
   bits: 0
 };
 
+const subgiftPropTypes = {
+  recipient: PropTypes.string.isRequired
+};
+
 const resubPropTypes = {
   months: PropTypes.number
 };
@@ -79,6 +83,17 @@ export function SubscriptionEvent(props) {
   );
 }
 
+export function SubGiftEvent(props) {
+  return (
+    <div className="ti-piece">
+      <span className="ti-event">
+        {'subgift from '}
+        {props.recipient}
+      </span>
+    </div>
+  );
+}
+
 export function ResubEvent(props) {
   return (
     <div className="ti-piece">
@@ -109,6 +124,7 @@ CheerEvent.defaultProps = cheerDefaultProps;
 FollowEvent.propTypes = propTypes;
 HostEvent.propTypes = propTypes;
 SubscriptionEvent.propTypes = propTypes;
+SubGiftEvent.propTypes = subgiftPropTypes;
 ResubEvent.propTypes = resubPropTypes;
 ResubEvent.defaultProps = resubDefaultProps;
 TipEvent.propTypes = tipPropTypes;

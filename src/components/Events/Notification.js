@@ -5,6 +5,7 @@ import Sound from 'react-sound';
 import {
   HostEvent,
   SubscriptionEvent,
+  SubGiftEvent,
   ResubEvent,
   TipEvent
 } from './NotificationEvent';
@@ -31,6 +32,7 @@ const defaultProps = {
 const getEventType = (eventData, visibility) => ({
   host: HostEvent({ ...eventData, visibility }),
   subscription: SubscriptionEvent({ ...eventData, visibility }),
+  subgift: SubGiftEvent({ ...eventData, visibility }),
   resub: ResubEvent({ ...eventData, visibility }),
   tip: TipEvent({ ...eventData, visibility })
 });
@@ -91,7 +93,9 @@ class Notification extends Component {
       <div className="n">
         {getEventType(data, this.state.isVisible)[data.event]}
         <Sound
-          url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${data.event}.ogg`}
+          url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${
+            data.event
+          }.ogg`}
           playStatus={this.state.playStatus}
           onFinishedPlaying={this.handleSongFinishedPlaying}
         />

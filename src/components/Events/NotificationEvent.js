@@ -26,6 +26,13 @@ const subscriptionPropTypes = {
   visibility: PropTypes.bool.isRequired
 };
 
+const subgiftPropTypes = {
+  event: PropTypes.string.isRequired,
+  username: PropTypes.string.isRequired,
+  recipient: PropTypes.string.isRequired,
+  visibility: PropTypes.bool.isRequired
+};
+
 const resubPropTypes = {
   event: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
@@ -87,7 +94,7 @@ export function HostEvent(props) {
         {' thank you for the host!'}
       </div>
       <div className="ntf-footer">
-        <div className="ntf-fl">{'host'}</div>
+        <div className="ntf-fl">host</div>
         <Heart size={14} />
       </div>
     </NotificationWrapper>
@@ -106,15 +113,44 @@ export function SubscriptionEvent(props) {
         {' has just subscribed!'}
       </div>
       <div className="ntf-message">
-        <strong>{'Welcome to AVLN'}</strong>
+        <strong>Welcome to AVLN</strong>
         {
           ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
         }
       </div>
       <div className="ntf-footer">
-        <div className="ntf-fl">{'subscription'}</div>
+        <div className="ntf-fl">subscription</div>
         <TrendingUp size={14} />
-        <div className="ntf-fr">{'SP UP'}</div>
+        <div className="ntf-fr">SP UP</div>
+      </div>
+    </NotificationWrapper>
+  );
+}
+
+export function SubGiftEvent(props) {
+  return (
+    <NotificationWrapper
+      url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
+      event={props.event}
+      isVisible={props.visibility}
+    >
+      <div className="ntf-header">
+        <strong>{props.username}</strong>
+        {' gifted '}
+        <strong>{props.recipient}</strong>
+        {' a subscription!'}
+      </div>
+      <div className="ntf-message">
+        <strong>Enjoy the subscription</strong>
+        {'  and spam those emotes! Welcome to the family! '}
+        {'Thank you for your generosity, '}
+        {props.username}
+        {'!'}
+      </div>
+      <div className="ntf-footer">
+        <div className="ntf-fl">subgift</div>
+        <TrendingUp size={14} />
+        <div className="ntf-fr">SP UP</div>
       </div>
     </NotificationWrapper>
   );
@@ -142,7 +178,7 @@ export function ResubEvent(props) {
           {props.months}
         </div>
         <Circle size={14} />
-        <div className="ntf-fr">{'SP RETAIN'}</div>
+        <div className="ntf-fr">SP RETAIN</div>
       </div>
     </NotificationWrapper>
   );
@@ -168,7 +204,7 @@ export function TipEvent(props) {
         {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
       </div>
       <div className="ntf-footer">
-        <div className="ntf-fl">{'tip'}</div>
+        <div className="ntf-fl">tip</div>
         <Heart size={14} />
       </div>
     </NotificationWrapper>
@@ -179,5 +215,6 @@ NotificationWrapper.propTypes = wrapperPropTypes;
 NotificationWrapper.defaultProps = wrapperDefaultProps;
 HostEvent.propTypes = hostPropTypes;
 SubscriptionEvent.propTypes = subscriptionPropTypes;
+SubGiftEvent.propTypes = subgiftPropTypes;
 ResubEvent.propTypes = resubPropTypes;
 TipEvent.propTypes = tipPropTypes;

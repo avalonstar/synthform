@@ -10,6 +10,7 @@ import {
   FollowEvent,
   HostEvent,
   SubscriptionEvent,
+  SubGiftEvent,
   ResubEvent,
   TipEvent
 } from './TickerEvent';
@@ -28,18 +29,13 @@ const propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-const defaultProps = {
-  data: {
-    team: null
-  }
-};
-
 const getEventType = eventData => ({
   autohost: AutoHostEvent({ ...eventData }),
   cheer: CheerEvent({ ...eventData }),
   follow: FollowEvent({ ...eventData }),
   host: HostEvent({ ...eventData }),
   subscription: SubscriptionEvent({ ...eventData }),
+  subgift: SubGiftEvent({ ...eventData }),
   resub: ResubEvent({ ...eventData }),
   tip: TipEvent({ ...eventData })
 });
@@ -100,6 +96,5 @@ class TickerItem extends Component {
 }
 
 TickerItem.propTypes = propTypes;
-TickerItem.defaultProps = defaultProps;
 
 export default TickerItem;
