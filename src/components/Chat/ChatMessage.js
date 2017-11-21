@@ -59,12 +59,12 @@ class ChatMessage extends Component {
     return (
       <li className="cm">
         <div className="cm-badges" />
+        <Message message={this.props.message} />
         <Username
           displayName={this.props.displayName}
           username={this.props.username}
           color={this.props.color}
         />
-        <Message message={this.props.message} />
       </li>
     );
   }

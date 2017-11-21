@@ -1,19 +1,34 @@
-.intertitle {
+.intertitle-container {
   display: grid;
-  grid-auto-columns: 148px;
-  grid-template-rows: 1fr 1fr 1fr;
-  grid-gap: 8px;
+  grid-template-columns: 24px 1fr 24px;
 
   position: absolute;
   overflow: hidden;
-  padding: 0 24px;
   width: 1600px;
   height: 900px;
+
+  background: linear-gradient(105deg, rgba(#090a0c, 0) 85%, rgba(#090a0c, 0.4));
+}
+
+.intertitle {
+  display: grid;
+  grid-column: 2;
+  align-self: end;
+
+  grid-template-columns: repeat(17, 80px);
+  grid-template-rows: repeat(12, 62px);
+  grid-gap: 12px;
 }
 
 .intertitle .c {
-  grid-column: 8 / 11;
-  grid-row: 1 / 4;
-  margin-right: -24px;
-  padding: 0 24px;
+  grid-column: 14 / span 4;
+  grid-row: 1 / span 11;
+  align-self: end;
+}
+
+.intertitle .t {
+  grid-column: 1 / span 17;
+  grid-row: 12;
+  margin: 0 -24px;
+  z-index: 200;
 }
