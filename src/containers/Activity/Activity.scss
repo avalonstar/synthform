@@ -76,4 +76,9 @@
     grid-row: 9;
     align-self: end;
   }
+
+  .ec {
+    grid-column: 4 / span 10;
+    grid-row: 12;
+  }
 }

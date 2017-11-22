@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { ActivityCamera } from 'components/Cameras';
+import Counter from 'components/Emotes';
 import { Notifier as SongNotifier } from 'components/Songs';
 import { LatestSubscriber, Uptime } from 'components/Labels';
 import { Notifier, Ticker } from 'components/Events';
@@ -21,12 +22,15 @@ function Layout(debugMode) {
   return (
     <div className="activity-container">
       <div className="activity">
+        <Counter />
+
         <ActivityCamera />
         <LatestSubscriber />
         <Notifier debugMode={debugMode} />
         <SongNotifier />
         <SubPointGoal />
-        <Ticker debugMode={debugMode} />
+        {/* <Ticker debugMode={debugMode} /> */}
+
         <Uptime />
       </div>
     </div>

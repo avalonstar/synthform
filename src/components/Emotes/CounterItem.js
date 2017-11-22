@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import numeral from 'numeral';
 
 import './CounterItem.css';
 
@@ -14,12 +15,14 @@ const propTypes = {
 class Counter extends Component {
   render() {
     return (
-      <li>
+      <li className="eci">
         <img
           src={`//static-cdn.jtvnw.net/emoticons/v1/${this.props.id}/2.0`}
           alt={this.props.code}
         />
-        {this.props.count}
+        <span className="eci-count">
+          {numeral(this.props.count).format('0,0')}
+        </span>
       </li>
     );
   }

@@ -30,7 +30,7 @@ class Ticker extends Component {
     super(props);
     this.state = {
       isVisible: false,
-      timer: 1000 * 60 * 5
+      timer: 1000 * 60 * 3
     };
 
     this.timerExpired = () => {
@@ -70,26 +70,24 @@ class Ticker extends Component {
             <li className="t-cap">
               <ChevronRight color="#02fa7b" size={20} />
             </li>
-            {this.props.isFetching ? (
-              ''
-            ) : (
-              this.props.events.map((data, i) => (
-                <Delay
-                  key={data.get('timestamp')}
-                  initial={100}
-                  value={0}
-                  period={i * 30}
-                >
-                  {delayValue => (
-                    <TickerItem
-                      data={data.toJS()}
-                      delayValue={delayValue}
-                      onChange={this.resetTimer}
-                    />
-                  )}
-                </Delay>
-              ))
-            )}
+            {this.props.isFetching
+              ? ''
+              : this.props.events.map((data, i) => (
+                  <Delay
+                    key={data.get('timestamp')}
+                    initial={100}
+                    value={0}
+                    period={i * 30}
+                  >
+                    {delayValue => (
+                      <TickerItem
+                        data={data.toJS()}
+                        delayValue={delayValue}
+                        onChange={this.resetTimer}
+                      />
+                    )}
+                  </Delay>
+                ))}
           </ol>
         )}
       </Motion>
