@@ -106,7 +106,7 @@ class LatestSubscriber extends Component {
       <div className="label ls">
         <div className="ls-title">
           <ChevronRight color="#02fa7b" size={16} />
-          {'Latest'}
+          {'!Hype'}
         </div>
         {this.props.username && <Content {...this.props} />}
       </div>
