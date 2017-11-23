@@ -68,6 +68,8 @@ class TickerItem extends Component {
       'ti-current': moment().isSame(parseInt(data.timestamp, 10), 'day'),
       'ti-has-team': data.team
     });
+    const username = data.event === 'subgift' ? data.recipient : data.username;
+
     return (
       <Motion
         defaultStyle={{ y: 100 }}
@@ -85,7 +87,7 @@ class TickerItem extends Component {
                   <img src={this.getTeamIcon(data.team)} alt={data.team} />
                 </div>
               )}
-              <div className="ti-actor">{data.username}</div>
+              <div className="ti-actor">{username}</div>
               <div className="ti-piece">{getEventType(data)[data.event]}</div>
             </div>
           </li>

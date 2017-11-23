@@ -16,7 +16,7 @@ const cheerDefaultProps = {
 };
 
 const subgiftPropTypes = {
-  recipient: PropTypes.string.isRequired
+  username: PropTypes.string.isRequired
 };
 
 const resubPropTypes = {
@@ -88,7 +88,7 @@ export function SubGiftEvent(props) {
     <div className="ti-piece">
       <span className="ti-event">
         {'subgift from '}
-        {props.recipient}
+        {props.username}
       </span>
     </div>
   );
