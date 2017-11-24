@@ -1,6 +1,5 @@
 /* eslint-disable new-cap */
-
-import tmi from 'tmi.js/src';
+/* global tmi */
 
 import { channel as clientChannel } from 'configurations/constants';
 import * as actions from 'actions/tmi';
