@@ -29,7 +29,7 @@ function Layout(debugMode) {
         <Notifier debugMode={debugMode} />
         <SongNotifier />
         <SubPointGoal />
-        {/* <Ticker debugMode={debugMode} /> */}
+        <Ticker debugMode={debugMode} />
 
         <Uptime />
       </div>
