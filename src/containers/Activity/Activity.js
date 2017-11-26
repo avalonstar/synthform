@@ -22,9 +22,8 @@ function Layout(debugMode) {
   return (
     <div className="activity-container">
       <div className="activity">
-        <Counter />
-
         <ActivityCamera />
+        <Counter />
         <LatestSubscriber />
         <Notifier debugMode={debugMode} />
         <SongNotifier />
