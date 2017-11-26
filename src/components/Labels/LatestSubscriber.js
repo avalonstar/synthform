@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TransitionMotion, spring } from 'react-motion';
 import { ChevronRight } from 'react-feather';
-import { Map } from 'immutable';
 
 import { latestSubscriberFetch } from 'actions/subscriptions';
+import * as selectors from 'selectors';
 
 import './LatestSubscriber.css';
 import crown from './prime.png';
@@ -120,7 +120,7 @@ Content.propTypes = contentPropsTypes;
 Content.defaultProps = contentDefaultProps;
 
 function mapStateToProps(state) {
-  const subscriber = state.subscriptions.get('latest') || Map();
+  const subscriber = selectors.getLatestSubscription(state);
   return {
     isFetching: state.subscriptions.get('isFetchingLatestSubscriber'),
     error: state.subscriptions.get('error'),

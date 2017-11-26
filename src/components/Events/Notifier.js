@@ -5,18 +5,18 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
 import { eventFetch, eventNotifier } from 'actions/events';
+import * as selectors from 'selectors';
 
 import Notification from './Notification';
 
 const propTypes = {
-  notifierPool: PropTypes.instanceOf(List),
+  notifierPool: PropTypes.instanceOf(List).isRequired,
   request: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired,
   debugMode: PropTypes.bool
 };
 
 const defaultProps = {
-  notifierPool: List(),
   debugMode: false
 };
 
@@ -54,7 +54,7 @@ Notifier.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    notifierPool: state.events.get('notifierPool')
+    notifierPool: selectors.getNotifierPool(state)
   };
 }
 

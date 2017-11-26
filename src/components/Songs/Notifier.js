@@ -8,6 +8,7 @@ import { Map } from 'immutable';
 import { Radio } from 'react-feather';
 
 import { songFetch } from 'actions/songs';
+import * as selectors from 'selectors';
 
 import './Notifier.css';
 
@@ -26,11 +27,6 @@ const songPropTypes = {
     title: PropTypes.string,
     duration: PropTypes.string
   })
-};
-
-const defaultProps = {
-  currentSong: Map(),
-  queueSize: 0
 };
 
 const songDefaultProps = {
@@ -145,14 +141,13 @@ class Notifier extends Component {
 }
 
 Notifier.propTypes = propTypes;
-Notifier.defaultProps = defaultProps;
 Song.propTypes = songPropTypes;
 Song.defaultProps = songDefaultProps;
 
 function mapStateToProps(state) {
   return {
-    currentSong: state.songs.get('currentSong'),
-    queueSize: state.songs.get('queueSize')
+    currentSong: selectors.getCurrentSong(state),
+    queueSize: selectors.getQueueSize(state)
   };
 }
 

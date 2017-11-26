@@ -5,16 +5,13 @@ import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
 
 import { subpointFetch } from 'actions/subscriptions';
+import * as selectors from 'selectors';
 
 import './SubPoints.css';
 
 const propTypes = {
-  subPoints: PropTypes.number,
+  subPoints: PropTypes.number.isRequired,
   request: PropTypes.func.isRequired
-};
-
-const defaultProps = {
-  subPoints: 0
 };
 
 const indicatorPropTypes = {
@@ -86,16 +83,13 @@ class SubPointGoal extends Component {
   }
 }
 
-SubPointGoal.defaultProps = defaultProps;
 SubPointGoal.propTypes = propTypes;
 Indicator.propTypes = indicatorPropTypes;
 Label.propTypes = labelPropTypes;
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.subscriptions.get('isFetchingSubPoints'),
-    error: state.subscriptions.get('error'),
-    subPoints: state.subscriptions.get('subPoints')
+    subPoints: selectors.getSubPoints(state)
   };
 }
 

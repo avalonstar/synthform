@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { uptimeFetch } from 'actions/uptime';
+import * as selectors from 'selectors';
+
 import Timer from './UptimeTimer';
 
 const propTypes = {
@@ -34,7 +36,7 @@ Uptime.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    startTime: state.uptime.get('startTime')
+    startTime: selectors.getStreamStartTime(state)
   };
 }
 

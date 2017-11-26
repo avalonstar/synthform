@@ -7,6 +7,7 @@ import { List } from 'immutable';
 import { ChevronRight } from 'react-feather';
 
 import { eventFetch } from 'actions/events';
+import * as selectors from 'selectors';
 
 import Delay from 'components/Delay';
 import TickerItem from './TickerItem';
@@ -15,13 +16,12 @@ import './Ticker.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  events: PropTypes.instanceOf(List),
+  events: PropTypes.instanceOf(List).isRequired,
   request: PropTypes.func.isRequired,
   debugMode: PropTypes.bool
 };
 
 const defaultProps = {
-  events: List(),
   debugMode: false
 };
 
@@ -101,7 +101,7 @@ Ticker.defaultProps = defaultProps;
 function mapStateToProps(state) {
   return {
     isFetching: state.events.get('isFetching'),
-    events: state.events.get('events')
+    events: selectors.getEventList(state)
   };
 }
 

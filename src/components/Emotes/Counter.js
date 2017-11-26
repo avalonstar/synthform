@@ -6,17 +6,15 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 
 import { emoteFetch } from 'actions/emotes';
+import * as selectors from 'selectors';
+
 import CounterItem from './CounterItem';
 
 import './Counter.css';
 
 const propTypes = {
-  emotes: PropTypes.instanceOf(List),
+  emotes: PropTypes.instanceOf(List).isRequired,
   request: PropTypes.func.isRequired
-};
-
-const defaultProps = {
-  emotes: List()
 };
 
 class Counter extends Component {
@@ -28,7 +26,7 @@ class Counter extends Component {
     const { emotes } = this.props;
     return (
       <FlipMove typeName="ol" className="ec" easing="ease">
-        {emotes.map((emoteData, i) => (
+        {emotes.map(emoteData => (
           <CounterItem {...emoteData.toJS()} code={emoteData.get('key')} />
         ))}
       </FlipMove>
@@ -37,11 +35,10 @@ class Counter extends Component {
 }
 
 Counter.propTypes = propTypes;
-Counter.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    emotes: state.emotes.get('emotes')
+    emotes: selectors.getTotalEmoteCounts(state)
   };
 }
 
