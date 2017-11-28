@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FlipMove from 'react-flip-move';
 import { bindActionCreators } from 'redux';
+import FlipMove from 'react-flip-move';
 import { List } from 'immutable';
 
 import { emoteFetch } from 'actions/emotes';
