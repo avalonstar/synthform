@@ -88,7 +88,7 @@ class TickerItem extends Component {
                 </div>
               )}
               <div className="ti-actor">{username}</div>
-              <div className="ti-piece">{getEventType(data)[data.event]}</div>
+              {getEventType(data)[data.event]}
             </div>
           </li>
         )}
