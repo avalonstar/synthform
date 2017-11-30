@@ -7,6 +7,10 @@ const propTypes = {
   event: PropTypes.string.isRequired
 };
 
+const minuteModifierPropTypes = {
+  minutes: PropTypes.number
+};
+
 const cheerPropTypes = {
   bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
@@ -37,6 +41,14 @@ const tipDefaultProps = {
   amount: '0'
 };
 
+export function MinuteModifier(props) {
+  return props.minutes ? (
+    <div className="ti-bubble">+{props.minutes}</div>
+  ) : (
+    <div />
+  );
+}
+
 export function AutoHostEvent(props) {
   return (
     <div className="ti-piece">
@@ -48,6 +60,7 @@ export function AutoHostEvent(props) {
 export function CheerEvent(props) {
   return (
     <div className="ti-piece">
+      <MinuteModifier {...props} />
       <span className="ti-event">
         {props.bits}
         {' Bits'}
@@ -78,6 +91,7 @@ export function HostEvent(props) {
 export function SubscriptionEvent(props) {
   return (
     <div className="ti-piece">
+      <MinuteModifier {...props} />
       <span className="ti-event">{props.event}</span>
     </div>
   );
@@ -86,6 +100,7 @@ export function SubscriptionEvent(props) {
 export function SubGiftEvent(props) {
   return (
     <div className="ti-piece">
+      <MinuteModifier {...props} />
       <span className="ti-event">
         {'subgift from '}
         {props.username}
@@ -97,6 +112,7 @@ export function SubGiftEvent(props) {
 export function ResubEvent(props) {
   return (
     <div className="ti-piece">
+      <MinuteModifier {...props} />
       <span className="ti-event">
         <span className="ti-number">{props.months}</span>
         {' months'}
@@ -108,6 +124,7 @@ export function ResubEvent(props) {
 export function TipEvent(props) {
   return (
     <div className="ti-piece">
+      <MinuteModifier {...props} />
       <span className="ti-event">
         <span className="ti-number">
           {props.currency}
@@ -118,6 +135,7 @@ export function TipEvent(props) {
   );
 }
 
+MinuteModifier.propTypes = minuteModifierPropTypes;
 AutoHostEvent.propTypes = propTypes;
 CheerEvent.propTypes = cheerPropTypes;
 CheerEvent.defaultProps = cheerDefaultProps;
