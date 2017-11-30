@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+import './CountdownTimer.css';
+
 const propTypes = {
-  endTime: PropTypes.number
+  endTime: PropTypes.number.isRequired
 };
 
 class Timer extends Component {
@@ -71,9 +73,9 @@ class Timer extends Component {
 
   render() {
     return (
-      <div className="ct">
-        <span className="ct-text" />
-        <span className="ct-timer">{this.state.time}</span>
+      <div className="cdt">
+        <span className="cdt-text">!subathon</span>
+        <span className="cdt-timer">{this.state.time}</span>
       </div>
     );
   }
