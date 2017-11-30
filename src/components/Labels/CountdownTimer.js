@@ -63,7 +63,6 @@ class Timer extends Component {
 
   componentDidMount() {
     this.tickTime();
-    console.log(this.props.endTime);
   }
 
   componentDidUpdate(prevProps) {
