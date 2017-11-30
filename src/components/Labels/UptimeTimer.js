@@ -48,13 +48,19 @@ class Timer extends Component {
       const now = moment();
       const startTime = moment(this.state.internalStartTime);
       const diff = moment.duration(now.diff(startTime));
-      let hours = diff.hours();
-      hours = hours >= 0 ? (hours < 10 ? `0${hours}` : hours) : '00';
-      let minutes = diff.minutes();
-      minutes = minutes >= 0 ? (minutes < 10 ? `0${minutes}` : minutes) : '00';
-      let seconds = diff.seconds();
-      seconds = seconds >= 0 ? (seconds < 10 ? `0${seconds}` : seconds) : '00';
 
+      const hours = diff
+        .hours()
+        .toString()
+        .padStart(2, '0');
+      const minutes = diff
+        .minutes()
+        .toString()
+        .padStart(2, '0');
+      const seconds = diff
+        .seconds()
+        .toString()
+        .padStart(2, '0');
       const time = `${hours}:${minutes}:${seconds}`;
       this.setState({ time });
     };
