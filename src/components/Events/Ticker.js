@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
+import classNames from 'classnames';
 import { List } from 'immutable';
 import { ChevronRight } from 'react-feather';
 
@@ -60,13 +61,20 @@ class Ticker extends Component {
   }
 
   render() {
+    const tickerClasses = classNames('t', {
+      't-visible': this.state.isVisible,
+      't-hidden': !this.state.isVisible
+    });
     return (
       <Motion
         defaultStyle={{ y: 100 }}
         style={{ y: spring(this.state.isVisible ? 0 : 100) }}
       >
         {({ y }) => (
-          <ol className="t" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+          <ol
+            className={tickerClasses}
+            style={{ transform: `translate3d(0, ${y}%, 0)` }}
+          >
             <li className="t-cap">
               <ChevronRight color="#02fa7b" size={20} />
             </li>

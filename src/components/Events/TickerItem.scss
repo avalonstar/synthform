@@ -54,11 +54,45 @@
 }
 
 .ti-piece {
+  position: relative;
+
   color: #697a8c;
   font-family: $font-forza;
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
+}
+
+.ti-bubble {
+  position: absolute;
+  left: 6px;
+  padding: 6px 8px;
+
+  background: linear-gradient(#1a1f23, #121417);
+  border-radius: 4px;
+  border-bottom-left-radius: 0px;
+  color: #e8ebed;
+  transition: 250ms all ease-out;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 28px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid #121417;
+    border-right: 8px solid transparent;
+  }
+}
+
+.t-hidden .ti-bubble {
+  top: 0px;
+  opacity: 0;
+}
+.t-visible .ti-bubble {
+  top: -72px;
+  opacity: 1;
 }
 
 .ti-cheermote {
