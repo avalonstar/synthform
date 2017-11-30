@@ -21,7 +21,9 @@ const subathon = (state = initialState, action) => {
     case actions.SUBATHON_FETCH.SUCCESS:
       return state.merge({
         isFetching: false,
-        configuration: action.payload
+        active: action.payload.active,
+        contributions: action.payload.contributions,
+        endTimestamp: action.payload.endTimestamp
       });
     default:
       return state;
