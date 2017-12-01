@@ -70,7 +70,7 @@ class Timer extends Component {
   }
 
   render() {
-    return <span className="cdt-timer">{this.state.time}</span>;
+    return <span className="timer">{this.state.time}</span>;
   }
 }
 

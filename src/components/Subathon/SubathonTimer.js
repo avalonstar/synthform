@@ -8,7 +8,7 @@ import { PlusSquare, ChevronRight } from 'react-feather';
 import { subathonFetch } from 'actions/subathon';
 import * as selectors from 'selectors';
 
-import { CountdownTimer as Timer } from 'components/Timers';
+import { CountdownTimer } from 'components/Timers';
 
 import './CountdownTimer.css';
 
@@ -35,18 +35,18 @@ class SubathonTimer extends Component {
   }
 
   render() {
-    return this.props.endTime ? (
+    return (
       <div className="cdt">
         <span className="cdt-text">
           <ChevronRight color="#02fa7b" size={18} />
           {'!subathon'}
         </span>
-        <Timer endTime={this.props.endTime} />
-        <PlusSquare size={26} />
-        {this.props.addedMinutes}
+        {this.props.endTime && <CountdownTimer endTime={this.props.endTime} />}
+        <div className="subathon-minutes">
+          <PlusSquare color="#8B99A7" size={18} />
+          {this.props.addedMinutes}min
+        </div>
       </div>
-    ) : (
-      <div />
     );
   }
 }

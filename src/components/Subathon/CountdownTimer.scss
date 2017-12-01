@@ -3,7 +3,7 @@
 .cdt {
   display: flex;
   align-items: center;
-  padding-right: 8px;
+  padding-right: 10px;
   overflow: hidden;
 
   background: linear-gradient(#2c333a, #23292f);
@@ -33,4 +33,18 @@
 
   font-family: $font-gotham;
   font-weight: 600;
+}
+
+.subathon-minutes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #8b99a7;
+  font-family: $font-gotham;
+  font-weight: 600;
+
+  svg {
+    margin-right: 2px;
+  }
 }
