@@ -22,6 +22,7 @@ const subathon = (state = initialState, action) => {
       return state.merge({
         isFetching: false,
         active: action.payload.active,
+        addedMinutes: action.payload.addedMinutes,
         contributions: action.payload.contributions,
         endTimestamp: action.payload.endTimestamp
       });

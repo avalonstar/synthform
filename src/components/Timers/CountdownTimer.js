@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { ChevronRight } from 'react-feather';
-
-import './CountdownTimer.css';
 
 const propTypes = {
   endTime: PropTypes.number.isRequired
@@ -73,15 +70,7 @@ class Timer extends Component {
   }
 
   render() {
-    return (
-      <div className="cdt">
-        <span className="cdt-text">
-          <ChevronRight color="#02fa7b" size={18} />
-          {'!subathon'}
-        </span>
-        <span className="cdt-timer">{this.state.time}</span>
-      </div>
-    );
+    return <span className="cdt-timer">{this.state.time}</span>;
   }
 }
 

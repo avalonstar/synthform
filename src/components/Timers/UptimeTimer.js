@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import { ArrowUp, Clock } from 'react-feather';
-
-import './UptimeTimer.css';
 
 const propTypes = {
   startTime: PropTypes.number.isRequired
@@ -77,15 +74,7 @@ class Timer extends Component {
   }
 
   render() {
-    return (
-      <div className="ut">
-        <span className="ut-text">
-          <ArrowUp color="#02fa7b" size={18} />
-          <Clock color="#02fa7b" size={16} />
-        </span>
-        <span className="ut-timer">{this.state.time}</span>
-      </div>
-    );
+    return <span className="timer">{this.state.time}</span>;
   }
 }
 

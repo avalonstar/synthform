@@ -18,6 +18,8 @@ export const getStreamStartTime = state => state.uptime.get('startTime');
 export const getCurrentSong = state => state.songs.get('currentSong') || Map();
 export const getQueueSize = state => state.songs.get('queueSize') || 0;
 
+export const getSubathonAddedMinutes = state =>
+  state.subathon.get('addedMinutes');
 export const getSubathonContributionState = state =>
   state.subathon.get('contributions');
 export const getSubathonEndTime = state => state.subathon.get('endTimestamp');
