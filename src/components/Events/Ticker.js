@@ -46,8 +46,8 @@ class Ticker extends Component {
     };
 
     this.resetTimer = () => {
-      this.activateTimer();
       this.deactivateTimer();
+      this.activateTimer();
     };
   }
 
