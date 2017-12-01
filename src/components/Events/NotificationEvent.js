@@ -4,7 +4,6 @@ import { Motion, spring } from 'react-motion';
 import { Circle, Heart, TrendingUp } from 'react-feather';
 
 const wrapperPropTypes = {
-  event: PropTypes.string.isRequired,
   url: PropTypes.string,
   children: PropTypes.node.isRequired,
   isVisible: PropTypes.bool.isRequired
@@ -15,7 +14,6 @@ const wrapperDefaultProps = {
 };
 
 const followPropTypes = {
-  event: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   visibility: PropTypes.bool.isRequired
 };
