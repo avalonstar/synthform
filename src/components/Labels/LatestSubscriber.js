@@ -22,12 +22,14 @@ const defaultProps = {
 
 const contentPropsTypes = {
   username: PropTypes.string,
+  recipient: PropTypes.string,
   months: PropTypes.number,
   prime: PropTypes.bool
 };
 
 const contentDefaultProps = {
   username: '',
+  recipient: null,
   months: null,
   prime: false
 };
@@ -63,6 +65,7 @@ const willLeave = () => ({
 });
 
 function Content(props) {
+  const username = props.recipient ? props.recipient : props.username;
   return (
     <TransitionMotion
       defaultStyles={defaultStyles}
@@ -78,7 +81,7 @@ function Content(props) {
             opacity: content[0].style.opacity
           }}
         >
-          <div className="ls-actor">{props.username}</div>
+          <div className="ls-actor">{username}</div>
           {props.prime && (
             <div className="ls-prime">
               <img src={crown} alt="Prime" />
@@ -106,7 +109,7 @@ class LatestSubscriber extends Component {
       <div className="label ls">
         <div className="ls-title">
           <ChevronRight color="#02fa7b" size={16} />
-          {'!Hype'}
+          {'!hype'}
         </div>
         {this.props.username && <Content {...this.props} />}
       </div>
