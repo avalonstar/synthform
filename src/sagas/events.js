@@ -61,7 +61,7 @@ function* triggerNotification() {
     if (
       subathon &&
       !payload.minutes &&
-      !subathonPassthroughEvents.inclues(payload.event)
+      !subathonPassthroughEvents.includes(payload.event)
     ) {
       shouldNotify = false;
     }
