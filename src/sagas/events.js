@@ -1,3 +1,5 @@
+/* eslint-disable prefer-destructuring */
+
 import axios from 'axios';
 import io from 'socket.io-client';
 
@@ -6,14 +8,16 @@ import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
 import { apiUri, socketUri } from 'configurations/constants';
+import * as selectors from 'selectors';
 
 const { eventFetch, eventNotifier } = actions;
 
 let debugMode = false;
 let shouldNotify = true;
+let subathon = false;
 
+const subathonPassthroughEvents = ['follow', 'host'];
 const blacklistedEvents = ['cheer', 'autohost'];
-const getShouldNotify = state => state.events.get('notificationsActive');
 
 const connect = saga => {
   const socket = io(socketUri);
@@ -50,11 +54,20 @@ function* read(socket) {
 function* triggerNotification() {
   while (true) {
     const action = yield take(actions.EVENT_FETCH.SUCCESS);
-    if (shouldNotify && !blacklistedEvents.includes(action.payload[0].event)) {
-      yield put(eventNotifier.add(action.payload[0]));
-    }
+    const payload = action.payload[0];
 
-    shouldNotify = yield select(getShouldNotify);
+    subathon = yield select(selectors.getSubathonState);
+    shouldNotify = yield select(selectors.getShouldNotify);
+    if (
+      subathon &&
+      !payload.minutes &&
+      !subathonPassthroughEvents.inclues(payload.event)
+    ) {
+      shouldNotify = false;
+    }
+    if (shouldNotify && !blacklistedEvents.includes(payload.event)) {
+      yield put(eventNotifier.add(payload));
+    }
   }
 }
 
