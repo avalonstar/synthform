@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux';
 import { uptimeFetch } from 'actions/uptime';
 import * as selectors from 'selectors';
 
-import Timer from './UptimeTimer';
+import { UptimeTimer as Timer } from 'components/Timers';
 
 const propTypes = {
   startTime: PropTypes.number,
@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  startTime: Date.now()
+  startTime: null
 };
 
 class Uptime extends Component {
@@ -22,12 +22,12 @@ class Uptime extends Component {
     this.props.request();
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.startTime !== this.props.startTime;
-  }
-
   render() {
-    return this.props.startTime && <Timer startTime={this.props.startTime} />;
+    return this.props.startTime ? (
+      <Timer startTime={this.props.startTime} />
+    ) : (
+      <div />
+    );
   }
 }
 

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import { ArrowUp, Clock } from 'react-feather';
 
-import './CountdownTimer.css';
+import './UptimeTimer.css';
 
 const propTypes = {
-  endTime: PropTypes.number.isRequired
+  startTime: PropTypes.number.isRequired
 };
 
 class Timer extends Component {
@@ -13,29 +14,29 @@ class Timer extends Component {
     super(props);
     this.state = {
       intervalTimer: null,
-      internalEndTime: props.endTime,
+      internalStartTime: props.startTime,
       time: null
     };
 
     this.onUpdate = prevProps => {
-      if (prevProps.endTime) {
+      if (prevProps.startTime) {
         if (!this.state.intervalTimer) {
-          if (this.props.endTime) {
+          if (this.props.startTime) {
             const intervalTimer = setInterval(() => this.tickTime(), 1000);
             this.setState({ intervalTimer });
             this.tickTime();
           }
         }
-        if (this.props.endTime !== this.state.internalEndTime) {
+        if (this.props.startTime !== this.state.internalStartTime) {
           setTimeout(() => {
-            this.setState({ internalEndTime: this.props.endTime });
+            this.setState({ internalStartTime: this.props.startTime });
           }, 1800);
         }
-      } else if (this.props.endTime) {
+      } else if (this.props.startTime) {
         const intervalTimer = setInterval(() => this.tickTime(), 1000);
         this.setState({
           intervalTimer,
-          internalEndTime: this.props.endTime
+          internalStartTime: this.props.startTime
         });
         this.tickTime();
       }
@@ -43,8 +44,8 @@ class Timer extends Component {
 
     this.tickTime = () => {
       const now = moment();
-      const endTime = moment.unix(this.state.internalEndTime);
-      const diff = moment.duration(endTime.diff(now));
+      const startTime = moment(this.state.internalStartTime);
+      const diff = moment.duration(now.diff(startTime));
 
       const hours = diff
         .hours()
@@ -71,11 +72,18 @@ class Timer extends Component {
     this.onUpdate(prevProps);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.state.intervalTimer);
+  }
+
   render() {
     return (
-      <div className="cdt">
-        <span className="cdt-text">!subathon</span>
-        <span className="cdt-timer">{this.state.time}</span>
+      <div className="ut">
+        <span className="ut-text">
+          <ArrowUp color="#02fa7b" size={18} />
+          <Clock color="#02fa7b" size={16} />
+        </span>
+        <span className="ut-timer">{this.state.time}</span>
       </div>
     );
   }
