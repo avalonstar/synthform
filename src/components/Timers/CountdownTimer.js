@@ -15,38 +15,6 @@ class Timer extends Component {
       internalEndTime: props.endTime,
       time: null
     };
-
-    this.onUpdate = prevProps => {
-      if (prevProps.endTime) {
-        if (!this.state.intervalTimer) {
-          if (this.props.endTime) {
-            const intervalTimer = setInterval(() => this.tickTime(), 1000);
-            this.setState({ intervalTimer });
-            this.tickTime();
-          }
-        }
-        if (this.props.endTime !== this.state.internalEndTime) {
-          setTimeout(() => {
-            this.setState({ internalEndTime: this.props.endTime });
-          }, 1800);
-        }
-      } else if (this.props.endTime) {
-        const intervalTimer = setInterval(() => this.tickTime(), 1000);
-        this.setState({
-          intervalTimer,
-          internalEndTime: this.props.endTime
-        });
-        this.tickTime();
-      }
-    };
-
-    this.tickTime = () => {
-      const now = moment();
-      const endTime = moment.unix(this.state.internalEndTime);
-      const diff = moment.duration(endTime.diff(now));
-      const time = diff.format('h:mm:ss', { trim: false });
-      this.setState({ time });
-    };
   }
 
   componentDidMount() {
@@ -56,6 +24,38 @@ class Timer extends Component {
   componentDidUpdate(prevProps) {
     this.onUpdate(prevProps);
   }
+
+  onUpdate = prevProps => {
+    if (prevProps.endTime) {
+      if (!this.state.intervalTimer) {
+        if (this.props.endTime) {
+          const intervalTimer = setInterval(() => this.tickTime(), 1000);
+          this.setState({ intervalTimer });
+          this.tickTime();
+        }
+      }
+      if (this.props.endTime !== this.state.internalEndTime) {
+        setTimeout(() => {
+          this.setState({ internalEndTime: this.props.endTime });
+        }, 1800);
+      }
+    } else if (this.props.endTime) {
+      const intervalTimer = setInterval(() => this.tickTime(), 1000);
+      this.setState({
+        intervalTimer,
+        internalEndTime: this.props.endTime
+      });
+      this.tickTime();
+    }
+  };
+
+  tickTime = () => {
+    const now = moment();
+    const endTime = moment.unix(this.state.internalEndTime);
+    const diff = moment.duration(endTime.diff(now));
+    const time = diff.format('h:mm:ss', { trim: false });
+    this.setState({ time });
+  };
 
   render() {
     return <span className="timer">{this.state.time}</span>;
