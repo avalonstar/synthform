@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import 'moment-duration-format';
 
 const propTypes = {
   startTime: PropTypes.number.isRequired
@@ -43,20 +44,7 @@ class Timer extends Component {
       const now = moment();
       const startTime = moment(this.state.internalStartTime);
       const diff = moment.duration(now.diff(startTime));
-
-      const hours = diff
-        .hours()
-        .toString()
-        .padStart(2, '0');
-      const minutes = diff
-        .minutes()
-        .toString()
-        .padStart(2, '0');
-      const seconds = diff
-        .seconds()
-        .toString()
-        .padStart(2, '0');
-      const time = `${hours}:${minutes}:${seconds}`;
+      const time = diff.format('h:mm:ss', { trim: false });
       this.setState({ time });
     };
   }
