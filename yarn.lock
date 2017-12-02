@@ -6010,9 +6010,9 @@ react-scripts@1.0.17:
   optionalDependencies:
     fsevents "1.1.2"
 
-react-sound@^0.8.0:
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/react-sound/-/react-sound-0.8.0.tgz#39706a68bdbc1b04cf2fc6f01d8af40f5a30f818"
+react-sound@^0.10.0:
+  version "0.10.0"
+  resolved "https://registry.yarnpkg.com/react-sound/-/react-sound-0.10.0.tgz#ed6f53833b9735f0e5b3d0b2199d38536c09c87b"
   dependencies:
     prop-types "^15.5.7"
     react ">=15.3.0 <16.0.0"
