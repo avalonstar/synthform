@@ -1,1 +1,1 @@
-export { default } from './SubathonTimer';
+export { default } from './Status';

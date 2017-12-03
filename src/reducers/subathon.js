@@ -24,7 +24,9 @@ const subathon = (state = initialState, action) => {
         active: action.payload.active,
         addedMinutes: action.payload.addedMinutes,
         contributions: action.payload.contributions,
-        endTimestamp: action.payload.endTimestamp
+        elapsedTime: action.payload.elapsedTime,
+        endTimestamp: action.payload.endTimestamp,
+        startTimestamp: action.payload.startTimestamp
       });
     default:
       return state;

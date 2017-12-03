@@ -23,4 +23,8 @@ export const getSubathonAddedMinutes = state =>
 export const getSubathonContributionState = state =>
   state.subathon.get('contributions');
 export const getSubathonEndTime = state => state.subathon.get('endTimestamp');
+export const getSubathonStartTime = state =>
+  state.subathon.get('startTimestamp');
+export const getSubathonElapsedTime = state =>
+  state.subathon.get('elapsedTime') || 0;
 export const getSubathonState = state => state.subathon.get('active');
