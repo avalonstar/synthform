@@ -74,7 +74,7 @@ class SubathonTimer extends Component {
           <SubathonStatus active={this.props.active} />
         </div>
         <div className="ss-content">
-          <div className="ss-header">{'!subathon (day 1)'}</div>
+          <div className="ss-header">!subathon (day 1)</div>
           <div className="ss-info">
             <div className="ss-timer">
               {this.props.startTime && (
