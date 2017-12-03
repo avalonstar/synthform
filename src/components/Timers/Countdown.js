@@ -4,6 +4,7 @@ import moment from 'moment';
 import 'moment-duration-format';
 
 const propTypes = {
+  active: PropTypes.bool.isRequired,
   endTime: PropTypes.number.isRequired
 };
 
@@ -26,20 +27,25 @@ class Timer extends Component {
   }
 
   onUpdate = prevProps => {
-    if (prevProps.endTime) {
-      if (!this.state.intervalTimer) {
-        if (this.props.endTime) {
-          const intervalTimer = setInterval(() => this.tickTime(), 1000);
-          this.setState({ intervalTimer });
-          this.tickTime();
+    if (prevProps.active && prevProps.endTime) {
+      if (!this.props.active) {
+        clearInterval(this.state.intervalTimer);
+        this.setState({ intervalTimer: null });
+      } else {
+        if (!this.state.intervalTimer) {
+          if (this.props.active && this.props.endTime) {
+            const intervalTimer = setInterval(() => this.tickTime(), 1000);
+            this.setState({ intervalTimer });
+            this.tickTime();
+          }
+        }
+        if (this.props.endTime !== this.state.internalEndTime) {
+          setTimeout(() => {
+            this.setState({ internalEndTime: this.props.endTime });
+          }, 1800);
         }
       }
-      if (this.props.endTime !== this.state.internalEndTime) {
-        setTimeout(() => {
-          this.setState({ internalEndTime: this.props.endTime });
-        }, 1800);
-      }
-    } else if (this.props.endTime) {
+    } else if (this.props.active && this.props.endTime) {
       const intervalTimer = setInterval(() => this.tickTime(), 1000);
       this.setState({
         intervalTimer,
