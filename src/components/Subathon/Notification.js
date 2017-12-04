@@ -148,7 +148,7 @@ class Notification extends Component {
               <strong>{data.username}</strong>
               <Minutes>
                 <PlusSquare color="#02fa7b" size={14} />
-                adds {data.minutes} min
+                {data.minutes} min
               </Minutes>
             </Content>
           </Wrapper>
