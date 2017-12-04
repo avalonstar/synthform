@@ -11,6 +11,7 @@ import { subathonFetch } from 'actions/subathon';
 import * as selectors from 'selectors';
 
 import { CountdownTimer, Stopwatch } from 'components/Timers';
+import Notification from './Notification';
 
 import './Status.css';
 
@@ -70,6 +71,7 @@ class SubathonTimer extends Component {
   render() {
     return (
       <div className="ss">
+        <Notification event={this.props.events.get(0)} />
         <div className="ss-icon">
           <SubathonStatus active={this.props.active} />
         </div>

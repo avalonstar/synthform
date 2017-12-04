@@ -4,6 +4,8 @@ import { Motion, spring } from 'react-motion';
 import { AlertTriangle, PlusSquare } from 'react-feather';
 import styled from 'styled-components';
 
+const blacklistedEvents = ['', 'follow', 'host'];
+
 const propTypes = {
   event: PropTypes.shape({
     event: PropTypes.string,
@@ -90,6 +92,33 @@ class Notification extends Component {
     super(props);
     this.state = {};
     this.state.isVisible = false;
+  }
+
+  componentDidMount() {
+    this.initRun(this.props.event);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.initRun(nextProps.event);
+  }
+
+  handleHoldTimer() {
+    this.holdTimer = setTimeout(() => {
+      clearTimeout(this.holdTimer);
+      if (this.state && this.state.isVisible) {
+        this.setState({ isVisible: false });
+      }
+    }, 1000 * 4);
+    clearTimeout(this.timer);
+  }
+
+  initRun(event) {
+    if (!blacklistedEvents.includes(event.event)) {
+      this.timer = setTimeout(() => {
+        this.setState({ isVisible: true });
+        this.handleHoldTimer();
+      }, 250);
+    }
   }
 
   render() {
