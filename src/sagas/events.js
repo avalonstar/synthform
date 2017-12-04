@@ -17,7 +17,7 @@ let shouldNotify = true;
 let subathon = false;
 
 const subathonPassthroughEvents = ['follow', 'host'];
-const blacklistedEvents = ['cheer', 'autohost'];
+const blacklistedEvents = ['autohost'];
 
 const connect = saga => {
   const socket = io(socketUri);
