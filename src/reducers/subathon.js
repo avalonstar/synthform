@@ -23,7 +23,7 @@ const subathon = (state = initialState, action) => {
         isFetching: false,
         active: action.payload.active,
         addedMinutes: action.payload.addedMinutes,
-        contributions: action.payload.contributions,
+        contributionCap: action.payload.contributionCap,
         elapsedTime: action.payload.elapsedTime,
         endTimestamp: action.payload.endTimestamp,
         startTimestamp: action.payload.startTimestamp

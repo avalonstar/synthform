@@ -1,4 +1,5 @@
 import { List, Map } from 'immutable';
+import { createSelector } from 'reselect';
 
 export const getTotalEmoteCounts = state =>
   state.emotes.get('emotes') || List();
@@ -20,11 +21,18 @@ export const getQueueSize = state => state.songs.get('queueSize') || 0;
 
 export const getSubathonAddedMinutes = state =>
   state.subathon.get('addedMinutes');
-export const getSubathonContributionState = state =>
-  state.subathon.get('contributions');
+export const getSubathonContributionCap = state =>
+  state.subathon.get('contributionCap');
 export const getSubathonEndTime = state => state.subathon.get('endTimestamp');
 export const getSubathonStartTime = state =>
   state.subathon.get('startTimestamp');
 export const getSubathonElapsedTime = state =>
   state.subathon.get('elapsedTime') || 0;
 export const getSubathonState = state => state.subathon.get('active');
+
+export const getSubathonContributionState = createSelector(
+  getSubathonState,
+  getSubathonAddedMinutes,
+  getSubathonContributionCap,
+  (state, minutes, cap) => state && minutes < cap
+);
