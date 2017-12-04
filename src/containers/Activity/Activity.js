@@ -8,7 +8,7 @@ import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 import { LatestSubscriber, Uptime } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
-// import SubathonTicker from 'components/Subathon'
+import SubathonTimer from 'components/Subathon';
 
 import './Activity.css';
 
@@ -29,8 +29,9 @@ function Layout(debugMode) {
         <Notifier debugMode={debugMode} />
         <SongNotifier />
         <SubPointGoal />
-        {/* <Ticker debugMode={debugMode} /> */}
+        <Ticker debugMode={debugMode} />
 
+        <SubathonTimer />
         <Uptime />
       </div>
     </div>
