@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { PlusSquare } from 'react-feather';
 
 import { getCheermoteURL } from './utils';
 
@@ -47,7 +48,10 @@ const tipDefaultProps = {
 
 export function MinuteModifier(props) {
   return props.minutes ? (
-    <div className="ti-bubble">+{props.minutes}</div>
+    <div className="ti-bubble">
+      <PlusSquare color="#02fa7b" size={14} />
+      {props.minutes}
+    </div>
   ) : (
     <div />
   );
