@@ -33,6 +33,7 @@
     "redux-saga": "^0.16.0",
     "reselect": "^3.0.1",
     "socket.io-client": "^2.0.4",
+    "styled-components": "^2.2.4",
     "tmi.js": "marcandrews/tmi.js#bugfix/packaging"
   },
   "lint-staged": {
