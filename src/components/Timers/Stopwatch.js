@@ -56,9 +56,6 @@ class Stopwatch extends Component {
   };
 
   tickTime = () => {
-    // const time = moment.unix(this.state.internalStartTime).format('h:mm:ss');
-    // this.setState({ time });
-
     const now = moment();
     const elapsedTime = moment.duration(this.props.elapsedTime);
     const startTime = moment
