@@ -11,6 +11,10 @@ const minuteModifierPropTypes = {
   minutes: PropTypes.number
 };
 
+const minuteModifierDefaultProps = {
+  minutes: 0
+};
+
 const cheerPropTypes = {
   bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
@@ -136,6 +140,7 @@ export function TipEvent(props) {
 }
 
 MinuteModifier.propTypes = minuteModifierPropTypes;
+MinuteModifier.defaultProps = minuteModifierDefaultProps;
 AutoHostEvent.propTypes = propTypes;
 CheerEvent.propTypes = cheerPropTypes;
 CheerEvent.defaultProps = cheerDefaultProps;
