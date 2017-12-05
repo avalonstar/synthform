@@ -4,7 +4,6 @@ import moment from 'moment';
 
 const propTypes = {
   active: PropTypes.bool.isRequired,
-  elapsedTime: PropTypes.number.isRequired,
   startTime: PropTypes.number.isRequired
 };
 
@@ -57,12 +56,10 @@ class Stopwatch extends Component {
 
   tickTime = () => {
     const now = moment();
-    const elapsedTime = moment.duration(this.props.elapsedTime);
-    const startTime = moment
-      .unix(this.state.internalStartTime)
-      .subtract(elapsedTime);
-    const diff = moment.duration(now.diff(startTime));
-    const time = diff.format('h:mm:ss', { trim: false });
+    const diff = moment.duration(
+      now.diff(moment.unix(this.state.internalStartTime))
+    );
+    const time = diff.format('hh:mm:ss', { trim: false });
     this.setState({ time });
   };
 
