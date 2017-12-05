@@ -84,7 +84,11 @@ class SubathonTimer extends Component {
           <div className="ss-info">
             <div className="ss-timer">
               {this.props.startTime && (
-                <Stopwatch active={this.props.active} startTime={startTime} />
+                <Stopwatch
+                  active={this.props.active}
+                  startTime={startTime}
+                  elapsedTime={this.props.elapsedTime}
+                />
               )}
               <span className="timer-separator">/</span>
               {this.props.endTime && (

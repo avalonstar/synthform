@@ -4,7 +4,8 @@ import moment from 'moment';
 
 const propTypes = {
   active: PropTypes.bool.isRequired,
-  startTime: PropTypes.number.isRequired
+  startTime: PropTypes.number.isRequired,
+  elapsedTime: PropTypes.number.isRequired
 };
 
 class Stopwatch extends Component {
@@ -64,7 +65,13 @@ class Stopwatch extends Component {
   };
 
   render() {
-    return <span className="timer">{this.state.time}</span>;
+    return this.props.active ? (
+      <span className="timer">{this.state.time}</span>
+    ) : (
+      <span className="timer">
+        {moment.unix(this.props.elapsedTime).format('h:mm:ss')}
+      </span>
+    );
   }
 }
 
