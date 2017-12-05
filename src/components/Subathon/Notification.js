@@ -4,8 +4,6 @@ import { Motion, spring } from 'react-motion';
 import { AlertTriangle, PlusSquare } from 'react-feather';
 import styled from 'styled-components';
 
-const blacklistedEvents = ['', 'follow', 'host'];
-
 const propTypes = {
   event: PropTypes.shape({
     event: PropTypes.string,
@@ -113,7 +111,7 @@ class Notification extends Component {
   }
 
   initRun(event) {
-    if (!blacklistedEvents.includes(event.event)) {
+    if (event.minutes) {
       this.timer = setTimeout(() => {
         this.setState({ isVisible: true });
         this.handleHoldTimer();
