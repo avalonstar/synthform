@@ -59,7 +59,7 @@ class Stopwatch extends Component {
     const diff = moment.duration(
       now.diff(moment.unix(this.state.internalStartTime))
     );
-    const time = diff.format('hh:mm:ss', { trim: false });
+    const time = diff.format('h:mm:ss', { trim: false });
     this.setState({ time });
   };
 
