@@ -19,11 +19,13 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List).isRequired,
   request: PropTypes.func.isRequired,
-  debugMode: PropTypes.bool
+  debugMode: PropTypes.bool,
+  timer: PropTypes.number
 };
 
 const defaultProps = {
-  debugMode: false
+  debugMode: false,
+  timer: 5
 };
 
 class Ticker extends Component {
@@ -31,23 +33,7 @@ class Ticker extends Component {
     super(props);
     this.state = {
       isVisible: false,
-      timer: 1000 * 60 * 3
-    };
-
-    this.timerExpired = () => {
-      this.setState({ isVisible: false });
-    };
-
-    this.activateTimer = () => {
-      this.timer = setTimeout(() => {
-        this.timerExpired();
-      }, this.state.timer);
-      setTimeout(() => this.setState({ isVisible: true }), 500);
-    };
-
-    this.resetTimer = () => {
-      this.deactivateTimer();
-      this.activateTimer();
+      timer: 1000 * 60 * this.props.timer
     };
   }
 
@@ -56,9 +42,25 @@ class Ticker extends Component {
     this.activateTimer();
   }
 
+  timerExpired = () => {
+    this.setState({ isVisible: false });
+  };
+
+  activateTimer = () => {
+    this.timer = setTimeout(() => {
+      this.timerExpired();
+    }, this.state.timer);
+    setTimeout(() => this.setState({ isVisible: true }), 500);
+  };
+
   deactivateTimer() {
     clearTimeout(this.timer);
   }
+
+  resetTimer = () => {
+    this.deactivateTimer();
+    this.activateTimer();
+  };
 
   render() {
     const tickerClasses = classNames('t', {
