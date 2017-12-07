@@ -22,7 +22,7 @@ const connect = saga => {
 const subscribe = socket =>
   eventChannel(emit => {
     socket.on('emotes', data => {
-      emit(emoteFetch.success(data.slice(0, 7)));
+      emit(emoteFetch.success(data));
     });
     socket.on('disconnect', () => {
       // TODO: Handle this.
@@ -43,7 +43,7 @@ function* fetchEmotes() {
   try {
     const uri = `${apiUri}/emotes/`;
     const response = yield call(axios.get, uri);
-    yield put(emoteFetch.success(response.data.data.slice(0, 7)));
+    yield put(emoteFetch.success(response.data.data));
   } catch (error) {
     yield put(emoteFetch.failure(error));
   }

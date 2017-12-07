@@ -14,6 +14,7 @@ import './Counter.css';
 
 const propTypes = {
   emotes: PropTypes.instanceOf(List).isRequired,
+  limit: PropTypes.number.isRequired,
   request: PropTypes.func.isRequired
 };
 
@@ -26,9 +27,11 @@ class Counter extends Component {
     const { emotes } = this.props;
     return (
       <FlipMove typeName="ol" className="ec" easing="ease">
-        {emotes.map(emoteData => (
-          <CounterItem {...emoteData.toJS()} code={emoteData.get('key')} />
-        ))}
+        {emotes
+          .slice(0, this.props.limit)
+          .map(emoteData => (
+            <CounterItem {...emoteData.toJS()} code={emoteData.get('key')} />
+          ))}
       </FlipMove>
     );
   }
