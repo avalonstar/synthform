@@ -64,7 +64,13 @@ class Timer extends Component {
   };
 
   render() {
-    return <span className="timer">{this.state.time}</span>;
+    return (
+      <span className="timer">
+        {this.props.active
+          ? this.state.time
+          : moment.duration(4, 'hours').format('h:mm:ss')}
+      </span>
+    );
   }
 }
 

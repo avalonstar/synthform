@@ -65,11 +65,13 @@ class Stopwatch extends Component {
   };
 
   render() {
-    return this.props.active ? (
-      <span className="timer">{this.state.time}</span>
-    ) : (
+    const elapsedTime =
+      this.props.elapsedTime > 0
+        ? moment.unix(this.props.elapsedTime).format('h:mm:ss')
+        : '0:00:00';
+    return (
       <span className="timer">
-        {moment.unix(this.props.elapsedTime).format('h:mm:ss')}
+        {this.props.active ? this.state.time : elapsedTime}
       </span>
     );
   }
