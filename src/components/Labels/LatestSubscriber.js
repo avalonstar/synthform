@@ -128,6 +128,7 @@ function mapStateToProps(state) {
     isFetching: state.subscriptions.get('isFetchingLatestSubscriber'),
     error: state.subscriptions.get('error'),
     username: subscriber.get('username'),
+    recipient: subscriber.get('recipient'),
     months: subscriber.get('months'),
     prime: subscriber.get('prime')
   };
