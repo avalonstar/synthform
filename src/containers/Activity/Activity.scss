@@ -59,8 +59,8 @@
   }
 
   .spg {
-    grid-column: 16 / span 2;
-    grid-row: 9;
+    grid-column: 15 / span 3;
+    grid-row: 8;
     align-self: end;
   }
 
@@ -75,11 +75,13 @@
     grid-column: 14 / span 2;
     grid-row: 9;
     align-self: end;
+
+    display: none;
   }
 
   .ss {
     grid-column: 15 / span 3;
-    grid-row: 1;
+    grid-row: 9;
     align-self: start;
   }
 

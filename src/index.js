@@ -6,6 +6,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import Activity from 'containers/Activity';
 import App from 'containers/App';
+import Break from 'containers/Break';
 import Intertitle from 'containers/Intertitle';
 
 import store, { history } from './store';
@@ -22,6 +23,7 @@ render(
       <main>
         <Switch>
           <Route exact path="/displays/activity" component={Activity} />
+          <Route exact path="/displays/break" component={Break} />
           <Route exact path="/displays/intertitle" component={Intertitle} />
           <Route component={App} />
         </Switch>
