@@ -55,6 +55,7 @@ const Container = styled.div`
     grid-column: 15 / span 3;
     grid-row: 11;
     align-self: end;
+    z-index: 200;
   }
 
   .sn {
