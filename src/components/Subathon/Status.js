@@ -19,6 +19,7 @@ const propTypes = {
   active: PropTypes.bool,
   addedMinutes: PropTypes.number,
   elapsedTime: PropTypes.number,
+  remainingTime: PropTypes.number,
   events: PropTypes.instanceOf(List),
   contributions: PropTypes.bool,
   endTime: PropTypes.number,
@@ -80,7 +81,7 @@ class SubathonTimer extends Component {
           <SubathonStatus active={this.props.active} />
         </div>
         <div className="ss-content">
-          <div className="ss-header">!subathon (day 1)</div>
+          <div className="ss-header">!subathon (day 3)</div>
           <div className="ss-info">
             <div className="ss-timer">
               {this.props.startTime && (
@@ -95,6 +96,7 @@ class SubathonTimer extends Component {
                 <CountdownTimer
                   active={this.props.active}
                   endTime={this.props.endTime}
+                  remainingTime={this.props.remainingTime}
                 />
               )}
             </div>
@@ -119,6 +121,7 @@ function mapStateToProps(state) {
     active: selectors.getSubathonState(state),
     addedMinutes: selectors.getSubathonAddedMinutes(state),
     elapsedTime: selectors.getSubathonElapsedTime(state),
+    remainingTime: selectors.getSubathonRemainingTime(state),
     events: selectors.getNotifierPool(state),
     contributions: selectors.getSubathonContributionState(state),
     endTime: selectors.getSubathonEndTime(state),

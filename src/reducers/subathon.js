@@ -25,6 +25,7 @@ const subathon = (state = initialState, action) => {
         addedMinutes: action.payload.addedMinutes,
         contributionCap: action.payload.contributionCap,
         elapsedTime: action.payload.elapsedTime,
+        remainingTime: action.payload.remainingTime,
         endTimestamp: action.payload.endTimestamp,
         startTimestamp: action.payload.startTimestamp
       });

@@ -28,6 +28,8 @@ export const getSubathonStartTime = state =>
   state.subathon.get('startTimestamp');
 export const getSubathonElapsedTime = state =>
   state.subathon.get('elapsedTime') || 0;
+export const getSubathonRemainingTime = state =>
+  state.subathon.get('remainingTime');
 export const getSubathonState = state => state.subathon.get('active');
 
 export const getSubathonContributionState = createSelector(
