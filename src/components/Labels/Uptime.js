@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ArrowUp, Clock } from 'react-feather';
+import { ChevronRight } from 'react-feather';
 
 import { uptimeFetch } from 'actions/uptime';
 import * as selectors from 'selectors';
@@ -29,8 +29,8 @@ class Uptime extends Component {
     return this.props.startTime ? (
       <div className="ut">
         <span className="ut-text">
-          <ArrowUp color="#02fa7b" size={18} />
-          <Clock color="#02fa7b" size={16} />
+          <ChevronRight color="#02fa7b" size={16} />
+          #AVCC2017
         </span>
         <Timer startTime={this.props.startTime} />
       </div>
