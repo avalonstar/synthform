@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
+
+import { christmasFetch } from 'actions/christmas';
+import * as selectors from 'selectors';
 
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
@@ -9,9 +13,16 @@ import { Generic, Uptime } from 'components/Labels';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  location: PropTypes.shape({
-    search: PropTypes.string
-  }).isRequired
+  isBreak: PropTypes.bool,
+  request: PropTypes.func.isRequired
+};
+
+const defaultProps = {
+  isBreak: true
+};
+
+const layoutPropTypes = {
+  isBreak: PropTypes.bool.isRequired
 };
 
 const Wrapper = styled.div`
@@ -85,28 +96,69 @@ const LiveGeneric = styled(Generic)`
   align-self: center;
 `;
 
-function Layout() {
+const Background = styled.div`
+  grid-column: 1 / span 17;
+  grid-row: 12;
+  margin: 0 -24px;
+  z-index: -1;
+
+  background: linear-gradient(#090a0c, #1a1f23);
+`;
+
+const Branding = styled.div`
+  grid-column: 7 / span 8;
+  grid-row: 12;
+  align-self: center;
+  margin-right: -5px;
+  padding: 10px 0 8px;
+
+  border: 1px solid #23292f;
+  border-radius: 4px;
+  color: #353d46;
+  font-family: ${props => props.theme.gotham};
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 5px;
+  text-align: center;
+  text-transform: uppercase;
+`;
+
+function Layout(props) {
   return (
     <Wrapper>
       <Container>
         <Ticker timer={2} />
         <Notifier />
-
         <Uptime />
-        <LiveGeneric title="Live Now" content="Avalonstar" />
+
+        {props.isBreak ? (
+          <LiveGeneric title="On Break" content="Stick Around! :3" />
+        ) : (
+          <LiveGeneric title="Live Now" content="Avalonstar" />
+        )}
+
         <SubPointGoal />
+        <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
+        <Background />
       </Container>
     </Wrapper>
   );
 }
 
-function Christmas(props) {
-  const query = new URLSearchParams(props.location.search);
-  const debugMode = query.get('debug') === 'true';
-  return props.isFetching ? <div /> : Layout(debugMode);
+class Christmas extends Component {
+  componentDidMount() {
+    this.props.request();
+  }
+
+  render() {
+    const { isBreak } = this.props;
+    return this.props.isFetching ? <div /> : Layout({ isBreak });
+  }
 }
 
 Christmas.propTypes = propTypes;
+Christmas.defaultProps = defaultProps;
+Layout.propTypes = layoutPropTypes;
 
 function mapStateToProps(state) {
   const isFetching = [
@@ -116,8 +168,18 @@ function mapStateToProps(state) {
     state.subscriptions.get('isFetchingSubPoints')
   ];
   return {
-    isFetching: isFetching.every(Boolean)
+    isFetching: isFetching.every(Boolean),
+    isBreak: selectors.getChristmasBreakStatus(state)
   };
 }
 
-export default connect(mapStateToProps)(Christmas);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators(
+    {
+      request: () => dispatch(christmasFetch.request())
+    },
+    dispatch
+  );
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Christmas);

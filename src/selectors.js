@@ -38,3 +38,8 @@ export const getSubathonContributionState = createSelector(
   getSubathonContributionCap,
   (state, minutes, cap) => state && minutes < cap
 );
+
+export const getChristmasBreakStatus = state => state.christmas.get('isBreak');
+export const getCurrentChristmasBroadcaster = state =>
+  state.christmas.get('current');
+export const getNextChristmasBroadcaster = state => state.christmas.get('next');

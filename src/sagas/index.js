@@ -1,5 +1,6 @@
 import { all, spawn } from 'redux-saga/effects';
 
+import christmasSagas from './christmas';
 import emoteSagas from './emotes';
 import eventSagas from './events';
 import messageSagas from './messages';
@@ -10,6 +11,7 @@ import uptimeSagas from './uptime';
 
 export default function* rootSaga() {
   yield all([
+    spawn(christmasSagas),
     spawn(emoteSagas),
     spawn(eventSagas),
     spawn(messageSagas),
