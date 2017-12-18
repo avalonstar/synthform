@@ -26,10 +26,10 @@
 }
 
 .ut .timer {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
 
   font-family: $font-gotham;
   font-weight: 600;
