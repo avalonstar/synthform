@@ -6,8 +6,12 @@ import { rgba } from 'polished';
 
 const propTypes = {
   title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
+  content: PropTypes.string,
   className: PropTypes.string.isRequired
+};
+
+const defaultProps = {
+  content: ''
 };
 
 const Wrapper = styled.div`
@@ -59,5 +63,6 @@ function Generic(props) {
 }
 
 Generic.propTypes = propTypes;
+Generic.defaultProps = defaultProps;
 
 export default Generic;
