@@ -109,12 +109,11 @@ const Branding = styled.div`
   grid-column: 7 / span 8;
   grid-row: 12;
   align-self: center;
-  margin-right: -5px;
   padding: 10px 0 8px;
 
-  border: 1px solid #23292f;
+  border: 1px solid #3d4751;
   border-radius: 4px;
-  color: #353d46;
+  color: #586674;
   font-family: ${props => props.theme.gotham};
   font-size: 13px;
   font-weight: 700;
