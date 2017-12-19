@@ -13,16 +13,11 @@ import { Generic, Uptime } from 'components/Labels';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
-  isBreak: PropTypes.bool,
   request: PropTypes.func.isRequired
 };
 
 const defaultProps = {
   isBreak: true
-};
-
-const layoutPropTypes = {
-  isBreak: PropTypes.bool.isRequired
 };
 
 const Wrapper = styled.div`
@@ -47,9 +42,9 @@ const Container = styled.div`
   grid-gap: 12px;
 
   .t {
-    grid-column: 1 / span 17;
+    grid-column: 7 / span 11;
     grid-row: 12;
-    margin: 0 -24px;
+    margin: 0 -24px 0 0;
     z-index: 200;
   }
 
@@ -122,7 +117,7 @@ const Branding = styled.div`
   text-transform: uppercase;
 `;
 
-function Layout(props) {
+function Layout() {
   return (
     <Wrapper>
       <Container>
@@ -144,14 +139,12 @@ class Christmas extends Component {
   }
 
   render() {
-    const { isBreak } = this.props;
-    return this.props.isFetching ? <div /> : Layout({ isBreak });
+    return this.props.isFetching ? <div /> : Layout();
   }
 }
 
 Christmas.propTypes = propTypes;
 Christmas.defaultProps = defaultProps;
-Layout.propTypes = layoutPropTypes;
 
 function mapStateToProps(state) {
   const isFetching = [
@@ -161,8 +154,7 @@ function mapStateToProps(state) {
     state.subscriptions.get('isFetchingSubPoints')
   ];
   return {
-    isFetching: isFetching.every(Boolean),
-    isBreak: selectors.getChristmasBreakStatus(state)
+    isFetching: isFetching.every(Boolean)
   };
 }
 
