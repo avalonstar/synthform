@@ -130,13 +130,7 @@ function Layout(props) {
         <Ticker timer={2} />
         <Notifier />
         <Uptime />
-
-        {props.isBreak ? (
-          <LiveGeneric title="On Break" content="Stick Around! :3" />
-        ) : (
-          <LiveGeneric title="Live Now" content="Avalonstar" />
-        )}
-
+        <LiveGeneric title="Live Now" content="Jveth" />
         <SubPointGoal />
         <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
         <Background />
