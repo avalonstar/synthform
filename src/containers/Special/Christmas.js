@@ -124,7 +124,7 @@ function Layout() {
         <Ticker timer={2} />
         <Notifier />
         <Uptime />
-        <LiveGeneric title="Live Now" content="Jveth" />
+        <LiveGeneric title="Live Now" content="Marshy_mallo" />
         <SubPointGoal />
         <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
         <Background />
