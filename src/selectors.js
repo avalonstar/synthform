@@ -39,7 +39,7 @@ export const getSubathonContributionState = createSelector(
   (state, minutes, cap) => state && minutes < cap
 );
 
-export const getChristmasBreakStatus = state => state.christmas.get('isBreak');
 export const getCurrentChristmasBroadcaster = state =>
-  state.christmas.get('current');
-export const getNextChristmasBroadcaster = state => state.christmas.get('next');
+  state.christmas.get('current') || Map();
+export const getNextChristmasBroadcaster = state =>
+  state.christmas.get('next') || Map();

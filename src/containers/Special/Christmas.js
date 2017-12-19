@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Map } from 'immutable';
 import styled from 'styled-components';
 
 import { christmasFetch } from 'actions/christmas';
@@ -12,12 +13,13 @@ import SubPointGoal from 'components/Goals';
 import { Generic, Uptime } from 'components/Labels';
 
 const propTypes = {
-  isFetching: PropTypes.bool.isRequired,
+  currentBroadcaster: PropTypes.instanceOf(Map).isRequired,
+  nextBroadcaster: PropTypes.instanceOf(Map).isRequired,
   request: PropTypes.func.isRequired
 };
 
-const defaultProps = {
-  isBreak: true
+const layoutPropTypes = {
+  current: PropTypes.instanceOf(Map).isRequired
 };
 
 const Wrapper = styled.div`
@@ -117,19 +119,17 @@ const Branding = styled.div`
   text-transform: uppercase;
 `;
 
-function Layout() {
+function Layout({ current }) {
   return (
-    <Wrapper>
-      <Container>
-        <Ticker timer={2} />
-        <Notifier />
-        <Uptime />
-        <LiveGeneric title="Live Now" content="Marshy_mallo" />
-        <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
-        <SubPointGoal />
-        <Background />
-      </Container>
-    </Wrapper>
+    <Container>
+      <Ticker timer={2} />
+      <Notifier />
+      <Uptime />
+      <LiveGeneric title="Live Now" content={current.get('data')} />
+      <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
+      <SubPointGoal />
+      <Background />
+    </Container>
   );
 }
 
@@ -139,22 +139,24 @@ class Christmas extends Component {
   }
 
   render() {
-    return this.props.isFetching ? <div /> : Layout();
+    return (
+      <Wrapper>
+        <Layout
+          current={this.props.currentBroadcaster}
+          next={this.props.nextBroadcaster}
+        />
+      </Wrapper>
+    );
   }
 }
 
 Christmas.propTypes = propTypes;
-Christmas.defaultProps = defaultProps;
+Layout.propTypes = layoutPropTypes;
 
 function mapStateToProps(state) {
-  const isFetching = [
-    state.events.get('isFetching'),
-    state.subscriptions.get('isFetchingLatestSubscriber'),
-    state.subscriptions.get('isFetchingSubCount'),
-    state.subscriptions.get('isFetchingSubPoints')
-  ];
   return {
-    isFetching: isFetching.every(Boolean)
+    currentBroadcaster: selectors.getCurrentChristmasBroadcaster(state),
+    nextBroadcaster: selectors.getNextChristmasBroadcaster(state)
   };
 }
 
