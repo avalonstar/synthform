@@ -100,6 +100,7 @@ class Notification extends Component {
           }.ogg`}
           playStatus={this.state.playStatus}
           onFinishedPlaying={this.handleSongFinishedPlaying}
+          volume={50}
         />
       </div>
     );
