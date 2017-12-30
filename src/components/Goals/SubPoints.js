@@ -81,8 +81,8 @@ class SubPointGoal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      best: 432,
-      goal: 450
+      best: 462,
+      goal: 500
     };
   }
 

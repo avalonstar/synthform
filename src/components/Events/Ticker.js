@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
 import classNames from 'classnames';
 import { List } from 'immutable';
+import styled from 'styled-components';
 import { ChevronRight } from 'react-feather';
 
 import { eventFetch } from 'actions/events';
@@ -18,6 +19,7 @@ import './Ticker.css';
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List).isRequired,
+  className: PropTypes.string.isRequired,
   request: PropTypes.func.isRequired,
   debugMode: PropTypes.bool,
   timer: PropTypes.number
@@ -27,6 +29,25 @@ const defaultProps = {
   debugMode: false,
   timer: 5
 };
+
+const Container = styled.ol`
+  background: #090a0c;
+
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+`;
+
+const Cap = styled.li`
+  background: linear-gradient(#1a1f23, #121417);
+  padding: 12px 4px 12px 12px;
+`;
 
 class Ticker extends Component {
   constructor(props) {
@@ -63,23 +84,19 @@ class Ticker extends Component {
   };
 
   render() {
-    const tickerClasses = classNames('t', {
-      't-visible': this.state.isVisible,
-      't-hidden': !this.state.isVisible
-    });
     return (
       <Motion
         defaultStyle={{ y: 100 }}
         style={{ y: spring(this.state.isVisible ? 0 : 100) }}
       >
         {({ y }) => (
-          <ol
-            className={tickerClasses}
+          <Container
+            className={this.props.className}
             style={{ transform: `translate3d(0, ${y}%, 0)` }}
           >
-            <li className="t-cap">
+            <Cap>
               <ChevronRight color="#02fa7b" size={20} />
-            </li>
+            </Cap>
             {this.props.isFetching
               ? ''
               : this.props.events.map((data, i) => (
@@ -98,7 +115,7 @@ class Ticker extends Component {
                     )}
                   </Delay>
                 ))}
-          </ol>
+          </Container>
         )}
       </Motion>
     );

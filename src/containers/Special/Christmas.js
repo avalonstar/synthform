@@ -41,13 +41,6 @@ const Container = styled.div`
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
 
-  .t {
-    grid-column: 7 / span 11;
-    grid-row: 12;
-    margin: 0 -24px 0 0;
-    z-index: 200;
-  }
-
   .n {
     grid-column: 1 / span 5;
     grid-row: 11;
@@ -73,14 +66,21 @@ const Container = styled.div`
   }
 `;
 
-const StyledUptime = styled(Uptime)`
-  grid-column: 1 / span 3;
+const StyledGeneric = styled(Generic)`
+  grid-column: 4 / span 3;
   grid-row: 12;
   align-self: center;
 `;
 
-const StyledGeneric = styled(Generic)`
-  grid-column: 4 / span 3;
+const StyledTicker = styled(Ticker)`
+  grid-column: 7 / span 11;
+  grid-row: 12;
+  margin: 0 -24px 0 0;
+  z-index: 200;
+`;
+
+const StyledUptime = styled(Uptime)`
+  grid-column: 1 / span 3;
   grid-row: 12;
   align-self: center;
 `;
@@ -114,10 +114,10 @@ const Branding = styled.div`
 function Layout({ current }) {
   return (
     <Container>
-      <Ticker timer={2} />
+      <StyledTicker timer={2} />
       <Notifier />
       <StyledUptime title="#AVCC2017" />
-      <StyledGeneric title="Live Now" content={current.get('data')} />
+      <StyledGeneric title="Live Now" content="Avalonstar" />
       <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
       <SubPointGoal />
       <Background />

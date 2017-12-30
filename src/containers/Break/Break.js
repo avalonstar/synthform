@@ -8,7 +8,6 @@ import { Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 import { Generic } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
-import Status from 'components/Subathon';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
@@ -47,15 +46,8 @@ const Container = styled.div`
 
   .spg {
     grid-column: 15 / span 3;
-    grid-row: 10;
-    align-self: end;
-  }
-
-  .ss {
-    grid-column: 15 / span 3;
     grid-row: 11;
     align-self: end;
-    z-index: 200;
   }
 
   .sn {
@@ -71,15 +63,21 @@ const Container = styled.div`
   }
 `;
 
+const StyledTicker = styled(Ticker)`
+  grid-column: 1 / span 17;
+  grid-row: 12;
+  margin: 0 -24px 0;
+  z-index: 200;
+`;
+
 function Layout() {
   return (
     <Wrapper>
       <Container>
-        <Ticker timer={2} />
+        <StyledTicker timer={2} />
         <Counter limit={12} />
         <SongNotifier />
         <SubPointGoal />
-        <Status />
 
         {/* <Generic
           title="Hello"

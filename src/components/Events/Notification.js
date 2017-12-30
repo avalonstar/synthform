@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
+import styled from 'styled-components';
 
 import {
   FollowEvent,
@@ -19,6 +20,7 @@ const propTypes = {
     username: PropTypes.string,
     length: PropTypes.number
   }),
+  className: PropTypes.string.isRequired,
   onComplete: PropTypes.func.isRequired
 };
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
 
 import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
@@ -18,19 +19,24 @@ const propTypes = {
   }).isRequired
 };
 
+const StyledTicker = styled(Ticker)`
+  grid-column: 1 / span 17;
+  grid-row: 12;
+  margin: 0 -24px 0;
+  z-index: 200;
+`;
+
 function Layout(debugMode) {
   return (
     <div className="activity-container">
       <div className="activity">
         <ActivityCamera />
-        <Counter limit={9} />
+        <Counter limit={6} />
         <LatestSubscriber />
         <Notifier debugMode={debugMode} />
         <SongNotifier />
         <SubPointGoal />
-        <Ticker debugMode={debugMode} />
-
-        <Uptime />
+        <StyledTicker debugMode={debugMode} />
       </div>
     </div>
   );

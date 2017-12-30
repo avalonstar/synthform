@@ -11,12 +11,14 @@ import Notification from './Notification';
 
 const propTypes = {
   notifierPool: PropTypes.instanceOf(List).isRequired,
+  className: PropTypes.string,
   request: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired,
   debugMode: PropTypes.bool
 };
 
 const defaultProps = {
+  className: '',
   debugMode: false
 };
 
@@ -42,6 +44,7 @@ class Notifier extends Component {
   render() {
     return (
       <Notification
+        className={this.props.className}
         event={this.props.notifierPool.get(0)}
         onComplete={this.onComplete}
       />
