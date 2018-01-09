@@ -50,7 +50,7 @@ function Label(props) {
     >
       {({ points }) => (
         <div className="spg-label">
-          <span className="spg-title">2017 GOAL</span>
+          <span className="spg-title">NEWEMOTE</span>
           <div className="spg-progress">
             <span className="spg-points">{Math.round(points)}</span>
             <span className="spg-goal">/{props.goal}</span>
@@ -82,7 +82,7 @@ class SubPointGoal extends Component {
     super(props);
     this.state = {
       best: 462,
-      goal: 500
+      goal: 800
     };
   }
 
