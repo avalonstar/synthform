@@ -84,7 +84,7 @@ class Notification extends Component {
             isVisible: true,
             playStatus: Sound.status.PLAYING
           }),
-        500
+        1000 * 2
       );
     }
   }
