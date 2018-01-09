@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
 import { List } from 'immutable';
+import styled from 'styled-components';
 
 import { emoteFetch } from 'actions/emotes';
 import * as selectors from 'selectors';
@@ -18,6 +19,16 @@ const propTypes = {
   request: PropTypes.func.isRequired
 };
 
+const StyledFlipMove = styled(FlipMove)`
+  margin: 0;
+  padding: 0 12px;
+
+  list-style: none;
+
+  display: flex;
+  justify-content: space-between;
+`;
+
 class Counter extends Component {
   componentDidMount() {
     this.props.request();
@@ -26,13 +37,17 @@ class Counter extends Component {
   render() {
     const { emotes } = this.props;
     return (
-      <FlipMove typeName="ol" className="ec" easing="ease">
+      <StyledFlipMove
+        typeName="ol"
+        className={this.props.className}
+        easing="ease"
+      >
         {emotes
           .slice(0, this.props.limit)
           .map(emoteData => (
             <CounterItem {...emoteData.toJS()} code={emoteData.get('key')} />
           ))}
-      </FlipMove>
+      </StyledFlipMove>
     );
   }
 }
