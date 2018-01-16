@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
 import './Cameras.css';
+
+const propTypes = {
+  className: PropTypes.string.isRequired
+};
 
 const Wrapper = styled.div`
   box-shadow: 0 10px 20px ${rgba('#090a0c', 0.19)},
@@ -26,27 +31,13 @@ const CameraPadding = styled.div`
   box-shadow: inset 0 1px 0 #3d4751;
 `;
 
-export function ActivityCamera(props) {
-  return (
-    <Wrapper className={props.className}>
-      <CameraZone />
-      <CameraPadding />
-    </Wrapper>
-  );
-}
+const ActivityCamera = props => (
+  <Wrapper className={props.className}>
+    <CameraZone />
+    <CameraPadding />
+  </Wrapper>
+);
 
-export function SecondaryCamera() {
-  return (
-    <div className="cs cs-secondary">
-      <div className="cam" />
-    </div>
-  );
-}
+ActivityCamera.propTypes = propTypes;
 
-export function IntertitleCamera() {
-  return (
-    <div className="cs cs-intertitle">
-      <div className="cam" />
-    </div>
-  );
-}
+export default ActivityCamera;
