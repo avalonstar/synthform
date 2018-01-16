@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
@@ -9,8 +10,6 @@ import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 import { LatestSubscriber, Uptime } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
-
-import './Activity.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
@@ -32,6 +31,12 @@ const Wrapper = styled.div`
   overflow: hidden;
   width: 1600px;
   height: 900px;
+
+  background: linear-gradient(
+    105deg,
+    ${rgba('#090a0c', 0)} 85%,
+    ${rgba('#090a0c', 0.4)}
+  );
 `;
 
 const StyledCounter = styled(Counter)`
@@ -43,6 +48,13 @@ const StyledCamera = styled(ActivityCamera)`
   grid-row: 12;
   align-self: end;
   z-index: 400;
+`;
+
+const StyledLatestSubscriber = styled(LatestSubscriber)`
+  grid-column: 1 / span 3;
+  grid-row: 12;
+  align-self: center;
+  z-index: 100;
 `;
 
 const StyledSubPointGoal = styled(SubPointGoal)`
@@ -74,13 +86,6 @@ const Container = styled.div`
     z-index: 100;
   }
 
-  .t {
-    grid-column: 1 / span 17;
-    grid-row: 12;
-    margin: 0 -24px;
-    z-index: 200;
-  }
-
   .n {
     grid-column: 1 / span 5;
     grid-row: 11;
@@ -97,13 +102,6 @@ const Container = styled.div`
     grid-column: 15 / span 3;
     grid-row: 1;
     align-self: start;
-  }
-
-  .ls {
-    grid-column: 1 / span 3;
-    grid-row: 12;
-    align-self: center;
-    z-index: 100;
   }
 
   .ut {
@@ -134,11 +132,11 @@ const Layout = ({ cameraOff, debugMode }) => (
   <Container cameraOff={cameraOff}>
     <StyledCamera />
     <StyledCounter limit={cameraOff ? 9 : 6} />
-    <LatestSubscriber />
+    <StyledLatestSubscriber />
     <Notifier debugMode={debugMode} />
     <SongNotifier />
     <StyledSubPointGoal />
-    <StyledTicker debugMode={debugMode} />
+    {/* <StyledTicker debugMode={debugMode} /> */}
   </Container>
 );
 
