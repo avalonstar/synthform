@@ -23,16 +23,6 @@ const defaultProps = {
 };
 
 class Notifier extends Component {
-  constructor(props) {
-    super(props);
-
-    this.onComplete = () => {
-      if (!this.props.debugMode) {
-        this.props.deleteEventFromNotifier();
-      }
-    };
-  }
-
   componentDidMount() {
     this.props.request(this.props.debugMode);
   }
@@ -40,6 +30,12 @@ class Notifier extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.notifierPool.get(0) !== this.props.notifierPool.get(0);
   }
+
+  onComplete = () => {
+    if (!this.props.debugMode) {
+      this.props.deleteEventFromNotifier();
+    }
+  };
 
   render() {
     return (

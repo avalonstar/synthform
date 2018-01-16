@@ -62,26 +62,13 @@ class Notification extends Component {
     };
   }
 
-  componentDidMount() {
-    this.timer = setTimeout(
-      () =>
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.event && nextProps.event !== this.props.event) {
+      this.timer = setTimeout(() =>
         this.setState({
           isVisible: true,
           playStatus: Sound.status.PLAYING
-        }),
-      1000 * 2
-    );
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.event && nextProps.event !== this.props.event) {
-      this.timer = setTimeout(
-        () =>
-          this.setState({
-            isVisible: true,
-            playStatus: Sound.status.PLAYING
-          }),
-        100
+        })
       );
     }
   }
