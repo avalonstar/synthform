@@ -9,7 +9,6 @@ import styled from 'styled-components';
 import { ChevronRight } from 'react-feather';
 
 import { eventFetch } from 'actions/events';
-import Delay from 'components/Delay';
 import * as selectors from 'selectors';
 
 import TickerItem from './TickerItem';
@@ -97,21 +96,12 @@ class Ticker extends Component {
             </Cap>
             {this.props.isFetching
               ? ''
-              : this.props.events.map((data, i) => (
-                  <Delay
+              : this.props.events.map(data => (
+                  <TickerItem
                     key={data.get('timestamp')}
-                    initial={100}
-                    value={0}
-                    period={i * 30}
-                  >
-                    {delayValue => (
-                      <TickerItem
-                        data={data.toJS()}
-                        delayValue={delayValue}
-                        onChange={this.resetTimer}
-                      />
-                    )}
-                  </Delay>
+                    data={data.toJS()}
+                    onChange={this.resetTimer}
+                  />
                 ))}
           </Container>
         )}

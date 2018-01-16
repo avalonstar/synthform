@@ -23,7 +23,6 @@ const propTypes = {
     event: PropTypes.string.isRequired,
     team: PropTypes.string
   }).isRequired,
-  delayValue: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired
 };
 
@@ -73,10 +72,7 @@ class TickerItem extends Component {
     const username = data.event === 'subgift' ? data.recipient : data.username;
 
     return (
-      <Motion
-        defaultStyle={{ y: 100 }}
-        style={{ y: spring(this.props.delayValue) }}
-      >
+      <Motion defaultStyle={{ y: 100 }} style={{ y: spring(0) }}>
         {({ y }) => (
           <Wrapper
             style={{ transform: `translate3d(0, ${y}%, 0)` }}
