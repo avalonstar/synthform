@@ -3,20 +3,28 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
+import styled from 'styled-components';
 
 import { messageFetch } from 'actions/messages';
 import ChatMessage from './ChatMessage';
 
-import './Chat.css';
-
 const propTypes = {
   messages: PropTypes.instanceOf(List),
-  request: PropTypes.func.isRequired
+  request: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 const defaultProps = {
   messages: List()
 };
+
+const Wrapper = styled.ul`
+  display: grid;
+
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
 
 class Chat extends Component {
   componentDidMount() {
@@ -25,11 +33,11 @@ class Chat extends Component {
 
   render() {
     return (
-      <ul className="c">
+      <Wrapper className={this.props.className}>
         {this.props.messages.map(data => (
           <ChatMessage key={data.get('timestamp')} {...data.toJS()} />
         ))}
-      </ul>
+      </Wrapper>
     );
   }
 }

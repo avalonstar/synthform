@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-import './Cameras.css';
-
 const propTypes = {
   className: PropTypes.string.isRequired
 };
