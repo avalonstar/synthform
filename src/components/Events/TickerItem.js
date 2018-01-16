@@ -16,9 +16,6 @@ import {
 } from './TickerEvent';
 
 import './TickerItem.css';
-import chillest from './chillest.svg';
-import dream from './dream.svg';
-import wigglers from './wigglers.svg';
 
 const propTypes = {
   data: PropTypes.shape({
@@ -41,23 +38,6 @@ const getEventType = eventData => ({
 });
 
 class TickerItem extends Component {
-  constructor(props) {
-    super(props);
-
-    this.getTeamIcon = team => {
-      switch (team) {
-        case 'chillest':
-          return chillest;
-        case 'dream':
-          return dream;
-        case 'wigglers':
-          return wigglers;
-        default:
-          return null;
-      }
-    };
-  }
-
   componentDidMount() {
     this.props.onChange();
   }
@@ -82,11 +62,6 @@ class TickerItem extends Component {
             data-event={data.event}
           >
             <div className={itemClasses}>
-              {data.team && (
-                <div className="ti-team">
-                  <img src={this.getTeamIcon(data.team)} alt={data.team} />
-                </div>
-              )}
               <div className="ti-actor">{username}</div>
               {getEventType(data)[data.event]}
             </div>
