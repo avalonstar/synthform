@@ -21,6 +21,7 @@
     "polished": "^1.9.0",
     "prettier": "^1.9.2",
     "react": "^16.2.0",
+    "react-animated-number": "^0.4.4",
     "react-dom": "^16.2.0",
     "react-feather": "^1.0.8",
     "react-flip-move": "^2.10.0",
