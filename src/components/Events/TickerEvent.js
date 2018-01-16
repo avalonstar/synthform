@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
+import styled from 'styled-components';
+import { rgba } from 'polished';
 import { PlusSquare } from 'react-feather';
 
 import { getCheermoteURL } from './utils';
@@ -46,12 +49,70 @@ const tipDefaultProps = {
   amount: '0'
 };
 
+const Piece = styled.div`
+  position: relative;
+
+  color: #697a8c;
+  font-family: ${props => props.theme.forza};
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+`;
+
+const Event = styled.div``;
+
+const Number = styled.span`
+  color: #b9c2ca;
+`;
+
+const Cheer = styled.div`
+  position: relative;
+  top: 5px;
+  overflow: hidden;
+  height: 10px;
+`;
+
+const Cheermote = styled.img`
+  height: 28px;
+`;
+
+const Bubble = styled.div`
+  position: absolute;
+  left: 6px;
+  display: flex;
+  align-items: center;
+  padding: 6px 8px;
+
+  background: linear-gradient(#1a1f23, #121417);
+  border-radius: 4px;
+  border-bottom-left-radius: 0px;
+  color: #e8ebed;
+  transition: 250ms all ease-out;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 28px;
+    width: 0;
+    height: 0;
+    border-top: 8px solid #121417;
+    border-right: 8px solid transparent;
+  }
+  svg {
+    margin-right: 2px;
+  }
+
+  display: none;
+  ${'' /* !! */};
+`;
+
 export function MinuteModifier(props) {
   return props.minutes ? (
-    <div className="ti-bubble">
+    <Bubble>
       <PlusSquare color="#02fa7b" size={14} />
       {props.minutes}
-    </div>
+    </Bubble>
   ) : (
     <div />
   );
@@ -59,87 +120,88 @@ export function MinuteModifier(props) {
 
 export function AutoHostEvent(props) {
   return (
-    <div className="ti-piece">
-      <span className="ti-event">{props.event}</span>
-    </div>
+    <Piece>
+      <Event>{props.event}</Event>
+    </Piece>
   );
 }
 
 export function CheerEvent(props) {
   return (
-    <div className="ti-piece">
+    <Piece>
       <MinuteModifier {...props} />
-      <span className="ti-event">
-        {props.bits}
-        {' Bits'}
-      </span>
-      <div className="ti-cheermote">
-        <img alt={props.bits} src={getCheermoteURL(props.bits)} />
-      </div>
-    </div>
+      <Event>
+        <Number>{props.bits}</Number>
+        {' bits'}
+      </Event>
+      <Cheer>
+        <Cheermote alt={props.bits} src={getCheermoteURL(props.bits)} />
+      </Cheer>
+    </Piece>
   );
 }
 
 export function FollowEvent(props) {
   return (
-    <div className="ti-piece">
-      <span className="ti-event">{props.event}</span>
-    </div>
+    <Piece>
+      <Event>{props.event}</Event>
+    </Piece>
   );
 }
 
 export function HostEvent(props) {
   return (
-    <div className="ti-piece">
-      <span className="ti-event">{props.event}</span>
-    </div>
+    <Piece>
+      <Event>{props.event}</Event>
+    </Piece>
   );
 }
 
 export function SubscriptionEvent(props) {
   return (
-    <div className="ti-piece">
+    <Piece>
       <MinuteModifier {...props} />
-      <span className="ti-event">{props.event}</span>
-    </div>
+      <Event>{props.event}</Event>
+    </Piece>
   );
 }
 
 export function SubGiftEvent(props) {
   return (
-    <div className="ti-piece">
+    <Piece>
       <MinuteModifier {...props} />
-      <span className="ti-event">
+      <Event>
         {'subgift from '}
         {props.username}
-      </span>
-    </div>
+      </Event>
+    </Piece>
   );
 }
 
 export function ResubEvent(props) {
   return (
-    <div className="ti-piece">
+    <Piece>
       <MinuteModifier {...props} />
-      <span className="ti-event">
-        <span className="ti-number">{props.months}</span>
+      <Event>
+        <Number>{props.months}</Number>
         {' months'}
-      </span>
-    </div>
+      </Event>
+    </Piece>
   );
 }
 
 export function TipEvent(props) {
   return (
-    <div className="ti-piece">
+    <Piece>
       <MinuteModifier {...props} />
-      <span className="ti-event">
-        <span className="ti-number">
+      <Event>
+        <Number>
           {props.currency}
-          {props.amount} {' tip'}
-        </span>
-      </span>
-    </div>
+          {props.amount}
+        </Number>
+        {' tip'}
+      </Event>
+    </Piece>
   );
 }
 
