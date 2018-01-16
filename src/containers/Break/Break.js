@@ -68,7 +68,7 @@ function Layout() {
     <Wrapper>
       <Container>
         <StyledTicker timer={2} />
-        <StyledCounter limit={12} />
+        <StyledCounter limit={11} />
         <SongNotifier />
         <SubPointGoal />
 
