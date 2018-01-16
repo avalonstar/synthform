@@ -19,6 +19,11 @@ const propTypes = {
   }).isRequired
 };
 
+const layoutPropTypes = {
+  cameraOff: PropTypes.bool.isRequired,
+  debugMode: PropTypes.bool.isRequired
+};
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 24px 1fr 24px;
@@ -38,6 +43,12 @@ const StyledCamera = styled(ActivityCamera)`
   grid-row: 12;
   align-self: end;
   z-index: 400;
+`;
+
+const StyledSubPointGoal = styled(SubPointGoal)`
+  grid-column: 15 / span 3;
+  grid-row: 9;
+  align-self: end;
 `;
 
 const StyledTicker = styled(Ticker)`
@@ -88,12 +99,6 @@ const Container = styled.div`
     align-self: start;
   }
 
-  .spg {
-    grid-column: 15 / span 3;
-    grid-row: 9;
-    align-self: end;
-  }
-
   .ls {
     grid-column: 1 / span 3;
     grid-row: 12;
@@ -132,7 +137,7 @@ const Layout = ({ cameraOff, debugMode }) => (
     <LatestSubscriber />
     <Notifier debugMode={debugMode} />
     <SongNotifier />
-    {/* <SubPointGoal /> */}
+    <StyledSubPointGoal />
     <StyledTicker debugMode={debugMode} />
   </Container>
 );
@@ -151,6 +156,7 @@ function Activity(props) {
 }
 
 Activity.propTypes = propTypes;
+Layout.propTypes = layoutPropTypes;
 
 function mapStateToProps(state) {
   const isFetching = [

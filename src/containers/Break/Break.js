@@ -37,12 +37,6 @@ const Container = styled.div`
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
 
-  .spg {
-    grid-column: 15 / span 3;
-    grid-row: 11;
-    align-self: end;
-  }
-
   .sn {
     grid-column: 15 / span 3;
     grid-row: 1;
@@ -56,6 +50,12 @@ const StyledCounter = styled(Counter)`
   padding: 0;
 `;
 
+const StyledSubPointGoal = styled(SubPointGoal)`
+  grid-column: 15 / span 3;
+  grid-row: 11;
+  align-self: end;
+`;
+
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 17;
   grid-row: 12;
@@ -67,10 +67,10 @@ function Layout() {
   return (
     <Wrapper>
       <Container>
+        <SongNotifier />
         <StyledTicker timer={2} />
         <StyledCounter limit={11} />
-        <SongNotifier />
-        <SubPointGoal />
+        <StyledSubPointGoal />
 
         {/* <Generic
           title="Hello"
