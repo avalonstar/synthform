@@ -5,15 +5,16 @@ import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
 import moment from 'moment';
 import 'moment-duration-format';
+
+import styled from 'styled-components';
+import { rgba } from 'polished';
 import { Play, Pause, PlusSquare, XSquare } from 'react-feather';
 
+import { CountdownTimer, Stopwatch } from 'components/Timers';
 import { subathonFetch } from 'actions/subathon';
 import * as selectors from 'selectors';
 
-import { CountdownTimer, Stopwatch } from 'components/Timers';
 import Notification from './Notification';
-
-import './Status.css';
 
 const propTypes = {
   active: PropTypes.bool,
@@ -46,6 +47,79 @@ const defaultProps = {
   startTime: null
 };
 
+const Wrapper = styled.div`
+  position: relative;
+  display: flex;
+  overflow: hidden;
+
+  background: linear-gradient(#2c333a, #23292f);
+  border-radius: 4px;
+  box-shadow: 0 1px 3px ${rgba('#090a0c', 0.12)},
+    0 1px 2px ${rgba('#090a0c', 0.24)};
+  color: #f3f5f6;
+  font-size: 14px;
+
+  .ss-icon {
+    padding: 9px 6px 5px 8px;
+    background: linear-gradient(#23292f, #1a1f23);
+  }
+
+  .ss-content {
+    flex: 1;
+  }
+
+  .ss-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px 5px 8px;
+
+    color: #738596;
+    font-family: ${props => props.theme.forza};
+    font-weight: 700;
+    font-size: 14px;
+
+    svg {
+      margin-right: 2px;
+    }
+  }
+
+  .ss-info {
+    display: flex;
+    align-items: center;
+    padding: 0px 10px 10px 8px;
+
+    font-family: ${props => props.theme.gotham};
+  }
+
+  .ss-timer {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    font-weight: 700;
+  }
+
+  .timer-separator {
+    color: #8b99a7;
+    padding: 0 1px;
+  }
+
+  .ss-minutes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    color: #8b99a7;
+    font-family: ${props => props.theme.gotham};
+    font-weight: 600;
+
+    svg {
+      margin-right: 2px;
+    }
+  }
+`;
+
 const ContributionStatus = props => (
   <div className="ss-minutes">
     {props.active ? (
@@ -75,7 +149,7 @@ class SubathonTimer extends Component {
       .subtract(moment.duration(this.props.elapsedTime))
       .unix();
     return (
-      <div className="ss">
+      <Wrapper>
         <Notification event={this.props.events.get(0)} />
         <div className="ss-icon">
           <SubathonStatus active={this.props.active} />
@@ -106,7 +180,7 @@ class SubathonTimer extends Component {
             />
           </div>
         </div>
-      </div>
+      </Wrapper>
     );
   }
 }

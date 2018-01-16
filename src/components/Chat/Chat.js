@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { List } from 'immutable';
+
 import styled from 'styled-components';
 
 import { messageFetch } from 'actions/messages';
+
 import ChatMessage from './ChatMessage';
 
 const propTypes = {

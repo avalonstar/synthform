@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { TransitionMotion, spring } from 'react-motion';
-import { ChevronRight } from 'react-feather';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import { ChevronRight } from 'react-feather';
 
 import { latestSubscriberFetch } from 'actions/subscriptions';
 import * as selectors from 'selectors';

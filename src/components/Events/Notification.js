@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
+
 import styled from 'styled-components';
 
 import {
@@ -84,7 +85,7 @@ class Notification extends Component {
             isVisible: true,
             playStatus: Sound.status.PLAYING
           }),
-        1000 * 2
+        100
       );
     }
   }

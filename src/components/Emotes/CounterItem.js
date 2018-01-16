@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AnimatedNumber from 'react-animated-number';
 import numeral from 'numeral';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
 

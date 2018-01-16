@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
 import { List } from 'immutable';
+
 import styled from 'styled-components';
 
 import { emoteFetch } from 'actions/emotes';

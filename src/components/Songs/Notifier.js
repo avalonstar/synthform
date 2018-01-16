@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
 import { Map } from 'immutable';
-import { Radio } from 'react-feather';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import { Radio } from 'react-feather';
 
 import { songFetch } from 'actions/songs';
 import * as selectors from 'selectors';

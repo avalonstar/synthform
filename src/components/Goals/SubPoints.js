@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import AnimatedNumber from 'react-animated-number';
-import { ChevronDown } from 'react-feather';
 import { Motion, spring } from 'react-motion';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import { ChevronDown } from 'react-feather';
 
 import { subpointFetch } from 'actions/subscriptions';
 import * as selectors from 'selectors';

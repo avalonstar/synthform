@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { ChevronRight } from 'react-feather';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
-
-import { uptimeFetch } from 'actions/uptime';
-import * as selectors from 'selectors';
+import { ChevronRight } from 'react-feather';
 
 import { UptimeTimer as Timer } from 'components/Timers';
+import { uptimeFetch } from 'actions/uptime';
+import * as selectors from 'selectors';
 
 const propTypes = {
   title: PropTypes.string,

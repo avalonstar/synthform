@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import { AlertTriangle, PlusSquare } from 'react-feather';
+
 import styled from 'styled-components';
+import { AlertTriangle, PlusSquare } from 'react-feather';
 
 const propTypes = {
   event: PropTypes.shape({

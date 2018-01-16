@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 import Counter from 'components/Emotes';
 import { Ticker } from 'components/Events';
@@ -25,7 +26,11 @@ const Wrapper = styled.div`
   width: 1600px;
   height: 900px;
 
-  background: linear-gradient(105deg, rgba(#090a0c, 0) 85%, rgba(#090a0c, 0.4));
+  background: linear-gradient(
+    105deg,
+    ${rgba('#090a0c', 0)} 85%,
+    ${rgba('#090a0c', 0.4)}
+  );
 `;
 
 const Container = styled.div`
