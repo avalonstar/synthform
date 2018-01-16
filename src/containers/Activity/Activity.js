@@ -8,7 +8,7 @@ import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
-import { LatestSubscriber, Uptime } from 'components/Labels';
+import { LatestSubscriber } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 
 const propTypes = {
@@ -57,6 +57,12 @@ const StyledLatestSubscriber = styled(LatestSubscriber)`
   z-index: 100;
 `;
 
+const StyledSongNotifier = styled(SongNotifier)`
+  grid-column: 15 / span 3;
+  grid-row: 1;
+  align-self: start;
+`;
+
 const StyledSubPointGoal = styled(SubPointGoal)`
   grid-column: 15 / span 3;
   grid-row: 9;
@@ -98,20 +104,6 @@ const Container = styled.div`
     }
   }
 
-  .sn {
-    grid-column: 15 / span 3;
-    grid-row: 1;
-    align-self: start;
-  }
-
-  .ut {
-    grid-column: 14 / span 2;
-    grid-row: 9;
-    align-self: end;
-
-    display: none;
-  }
-
   .ss {
     grid-column: 15 / span 3;
     grid-row: 9;
@@ -134,9 +126,9 @@ const Layout = ({ cameraOff, debugMode }) => (
     <StyledCounter limit={cameraOff ? 9 : 6} />
     <StyledLatestSubscriber />
     <Notifier debugMode={debugMode} />
-    <SongNotifier />
+    <StyledSongNotifier />
     <StyledSubPointGoal />
-    {/* <StyledTicker debugMode={debugMode} /> */}
+    <StyledTicker debugMode={debugMode} />
   </Container>
 );
 

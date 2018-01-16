@@ -4,7 +4,8 @@ import moment from 'moment';
 import 'moment-duration-format';
 
 const propTypes = {
-  startTime: PropTypes.number.isRequired
+  startTime: PropTypes.number.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 class Timer extends Component {
