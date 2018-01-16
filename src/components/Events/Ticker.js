@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import FlipMove from 'react-flip-move';
 import { Motion, spring } from 'react-motion';
 import { List } from 'immutable';
 
@@ -27,7 +28,7 @@ const defaultProps = {
   timer: 5
 };
 
-const Container = styled.ol`
+const StyledFlipMove = styled(FlipMove)`
   background: #090a0c;
 
   position: relative;
@@ -82,30 +83,34 @@ class Ticker extends Component {
 
   render() {
     return (
-      <Motion
-        defaultStyle={{ y: 100 }}
-        style={{ y: spring(this.state.isVisible ? 0 : 100) }}
-      >
-        {({ y }) => (
-          <Container
-            className={this.props.className}
-            style={{ transform: `translate3d(0, ${y}%, 0)` }}
-          >
-            <Cap>
-              <ChevronRight color="#02fa7b" size={20} />
-            </Cap>
-            {this.props.isFetching
-              ? ''
-              : this.props.events.map(data => (
-                  <TickerItem
-                    key={data.get('timestamp')}
-                    data={data.toJS()}
-                    onChange={this.resetTimer}
-                  />
-                ))}
-          </Container>
-        )}
-      </Motion>
+      !this.props.isFetching && (
+        <Motion
+          defaultStyle={{ y: 100 }}
+          style={{ y: spring(this.state.isVisible ? 0 : 100) }}
+        >
+          {({ y }) => (
+            <StyledFlipMove
+              typeName="ol"
+              className={this.props.className}
+              easing="cubic-bezier(.62, .28, .23, .99)"
+              enterAnimation="fade"
+              staggerDurationBy={100}
+              style={{ transform: `translate3d(0, ${y}%, 0)` }}
+            >
+              <Cap>
+                <ChevronRight color="#02fa7b" size={20} />
+              </Cap>
+              {this.props.events.map(data => (
+                <TickerItem
+                  key={data.get('timestamp')}
+                  data={data.toJS()}
+                  onChange={this.resetTimer}
+                />
+              ))}
+            </StyledFlipMove>
+          )}
+        </Motion>
+      )
     );
   }
 }

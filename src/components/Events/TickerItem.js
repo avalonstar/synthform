@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Motion, spring } from 'react-motion';
 import moment from 'moment';
 
 import styled from 'styled-components';
@@ -68,21 +67,13 @@ class TickerItem extends Component {
   render() {
     const { data } = this.props;
     const username = data.event === 'subgift' ? data.recipient : data.username;
-
     return (
-      <Motion defaultStyle={{ y: 100 }} style={{ y: spring(0) }}>
-        {({ y }) => (
-          <Wrapper
-            style={{ transform: `translate3d(0, ${y}%, 0)` }}
-            data-event={data.event}
-          >
-            <Item timestamp={data.timestamp}>
-              <Actor>{username}</Actor>
-              {getEventType(data)[data.event]}
-            </Item>
-          </Wrapper>
-        )}
-      </Motion>
+      <Wrapper data-event={data.event}>
+        <Item timestamp={data.timestamp}>
+          <Actor>{username}</Actor>
+          {getEventType(data)[data.event]}
+        </Item>
+      </Wrapper>
     );
   }
 }

@@ -40,7 +40,6 @@ class Counter extends Component {
       <StyledFlipMove
         typeName="ol"
         className={this.props.className}
-        easing="ease"
         enterAnimation={false}
       >
         {emotes
