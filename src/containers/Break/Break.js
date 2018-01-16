@@ -49,6 +49,12 @@ const StyledCounter = styled(Counter)`
   padding: 0;
 `;
 
+const StyledGeneric = styled(Generic)`
+  grid-column: span 6;
+  align-self: end;
+  grid-row: 11;
+`;
+
 const StyledSongNotifier = styled(SongNotifier)`
   grid-column: 15 / span 3;
   grid-row: 1;
@@ -63,7 +69,10 @@ const StyledSubPointGoal = styled(SubPointGoal)`
 
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 17;
-  grid-row: 12;
+  grid-row: 1;
+
+  position: absolute;
+  top: -24px;
   margin: 0 -24px 0;
   z-index: 200;
 `;
@@ -72,15 +81,14 @@ function Layout() {
   return (
     <Wrapper>
       <Container>
+        <StyledGeneric
+          title="On Break"
+          content="Taking a quick break! Hang tight and I'll be back!"
+        />
         <StyledSongNotifier />
-        <StyledTicker timer={2} />
+        <StyledTicker anchor="top" timer={2} />
         <StyledCounter limit={11} />
         <StyledSubPointGoal />
-
-        {/* <Generic
-          title="Hello"
-          content="Hello there this is Avalonstar."
-        /> */}
       </Container>
     </Wrapper>
   );

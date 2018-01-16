@@ -44,7 +44,7 @@ const Content = styled.div`
   flex: 1;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: left;
 
   font-family: ${props => props.theme.gotham};
   font-weight: 700;

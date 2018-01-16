@@ -15,6 +15,7 @@ import * as selectors from 'selectors';
 import TickerItem from './TickerItem';
 
 const propTypes = {
+  anchor: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
   events: PropTypes.instanceOf(List).isRequired,
   className: PropTypes.string.isRequired,
@@ -24,9 +25,15 @@ const propTypes = {
 };
 
 const defaultProps = {
+  anchor: 'bottom',
   debugMode: false,
   timer: 5
 };
+
+const configureAnchor = () => ({
+  top: -100,
+  bottom: 100
+});
 
 const StyledFlipMove = styled(FlipMove)`
   background: #090a0c;
@@ -82,11 +89,12 @@ class Ticker extends Component {
   };
 
   render() {
+    const anchor = configureAnchor()[this.props.anchor];
     return (
       !this.props.isFetching && (
         <Motion
-          defaultStyle={{ y: 100 }}
-          style={{ y: spring(this.state.isVisible ? 0 : 100) }}
+          defaultStyle={{ y: anchor }}
+          style={{ y: spring(this.state.isVisible ? 0 : anchor) }}
         >
           {({ y }) => (
             <StyledFlipMove
