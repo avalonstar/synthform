@@ -7,8 +7,8 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { ChevronRight } from 'react-feather';
 
-import { UptimeTimer as Timer } from 'components/Timers';
 import { uptimeFetch } from 'actions/uptime';
+import { UptimeTimer as Timer } from 'components/Timers';
 import * as selectors from 'selectors';
 
 const propTypes = {

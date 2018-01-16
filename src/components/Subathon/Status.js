@@ -10,8 +10,8 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { Play, Pause, PlusSquare, XSquare } from 'react-feather';
 
-import { CountdownTimer, Stopwatch } from 'components/Timers';
 import { subathonFetch } from 'actions/subathon';
+import { CountdownTimer, Stopwatch } from 'components/Timers';
 import * as selectors from 'selectors';
 
 import Notification from './Notification';
