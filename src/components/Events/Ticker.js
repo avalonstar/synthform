@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
-import classNames from 'classnames';
 import { List } from 'immutable';
+
 import styled from 'styled-components';
 import { ChevronRight } from 'react-feather';
 
 import { eventFetch } from 'actions/events';
+import Delay from 'components/Delay';
 import * as selectors from 'selectors';
 
-import Delay from 'components/Delay';
 import TickerItem from './TickerItem';
-
-import './Ticker.css';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
