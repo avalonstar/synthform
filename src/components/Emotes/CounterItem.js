@@ -2,8 +2,10 @@
 
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AnimatedNumber from 'react-animated-number';
 import numeral from 'numeral';
 import styled from 'styled-components';
+import { rgba } from 'polished';
 
 const propTypes = {
   id: PropTypes.string.isRequired,
@@ -16,21 +18,23 @@ const Item = styled.li`
   align-items: center;
   padding-top: 8px;
 
-  font-family: 'Gotham SSm A', 'Gotham SSm B';
+  font-family: ${props => props.theme.gotham};
+`;
 
-  img {
-    position: relative;
-    z-index: 10;
-  }
+const Emote = styled.img`
+  position: relative;
+  z-index: 10;
+  width: 56px;
 `;
 
 const Count = styled.span`
   position: relative;
   padding: 6px 12px 6px 26px;
   margin-left: -20px;
+  text-align: right;
 
-  background: rgba(0, 0, 0, 0.6);
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  background: ${rgba('#090a0c', 0.5)};
+  box-shadow: 0 0 0 2px ${rgba('#e8ebed', 0.1)};
   border-radius: 4px;
   color: #fff;
   font-size: 14px;
@@ -41,11 +45,17 @@ class Counter extends Component {
   render() {
     return (
       <Item>
-        <img
-          src={`//static-cdn.jtvnw.net/emoticons/v1/${this.props.id}/2.0`}
+        <Emote
+          src={`//static-cdn.jtvnw.net/emoticons/v1/${this.props.id}/3.0`}
           alt={this.props.code}
         />
-        <Count>{numeral(this.props.count).format('0,0')}</Count>
+        <Count>
+          <AnimatedNumber
+            value={this.props.count}
+            duration={500}
+            formatValue={n => numeral(n).format('0,0')}
+          />
+        </Count>
       </Item>
     );
   }

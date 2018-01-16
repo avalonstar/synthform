@@ -16,7 +16,8 @@ import './Counter.css';
 const propTypes = {
   emotes: PropTypes.instanceOf(List).isRequired,
   limit: PropTypes.number.isRequired,
-  request: PropTypes.func.isRequired
+  request: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired
 };
 
 const StyledFlipMove = styled(FlipMove)`
@@ -41,6 +42,7 @@ class Counter extends Component {
         typeName="ol"
         className={this.props.className}
         easing="ease"
+        enterAnimation={false}
       >
         {emotes
           .slice(0, this.props.limit)
