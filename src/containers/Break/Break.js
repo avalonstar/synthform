@@ -83,7 +83,7 @@ function Layout() {
       <Container>
         <StyledGeneric
           title="On Break"
-          content="Taking a quick break! Hang tight and I'll be back!"
+          content="Taking a quick break! Hang tight and I'll be back soon!"
         />
         <StyledSongNotifier />
         <StyledTicker anchor="top" timer={2} />
