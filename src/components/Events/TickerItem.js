@@ -16,8 +16,6 @@ import {
   TipEvent
 } from './TickerEvent';
 
-import './TickerItem.css';
-
 const propTypes = {
   data: PropTypes.shape({
     event: PropTypes.string.isRequired,

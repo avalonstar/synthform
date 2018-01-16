@@ -12,8 +12,6 @@ import * as selectors from 'selectors';
 
 import CounterItem from './CounterItem';
 
-import './Counter.css';
-
 const propTypes = {
   emotes: PropTypes.instanceOf(List).isRequired,
   limit: PropTypes.number.isRequired,
