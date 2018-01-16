@@ -58,6 +58,18 @@ const StyledLatestSubscriber = styled(LatestSubscriber)`
   z-index: 100;
 `;
 
+const StyledNotifier = styled(Notifier)`
+  grid-column: 1 / span 5;
+  grid-row: 11;
+  align-self: end;
+  z-index: 300;
+
+  &[data-event='follow'] {
+    align-self: start;
+    z-index: 0;
+  }
+`;
+
 const StyledSongNotifier = styled(SongNotifier)`
   grid-column: 15 / span 3;
   grid-row: 1;
@@ -86,31 +98,6 @@ const Container = styled.div`
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
 
-  .sm {
-    grid-column: 1 / 3;
-    grid-row: 6;
-    align-self: center;
-    z-index: 100;
-  }
-
-  .n {
-    grid-column: 1 / span 5;
-    grid-row: 11;
-    align-self: end;
-    z-index: 300;
-
-    &[data-event='follow'] {
-      align-self: start;
-      z-index: 0;
-    }
-  }
-
-  .ss {
-    grid-column: 15 / span 3;
-    grid-row: 9;
-    align-self: start;
-  }
-
   ${StyledCounter} {
     grid-column: 4 / span ${props => (props.cameraOff ? 14 : 10)};
     padding-right: ${props => (props.cameraOff ? 0 : 12)};
@@ -126,7 +113,7 @@ const Layout = ({ cameraOff, debugMode }) => (
     <StyledCamera />
     <StyledCounter limit={cameraOff ? 9 : 6} />
     <StyledLatestSubscriber />
-    <Notifier debugMode={debugMode} />
+    <StyledNotifier debugMode={debugMode} />
     <StyledSongNotifier />
     <StyledSubPointGoal />
     <StyledTicker debugMode={debugMode} />

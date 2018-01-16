@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+
+import styled from 'styled-components';
+import { rgba } from 'polished';
 import { Circle, Heart, TrendingUp } from 'react-feather';
 
 const wrapperPropTypes = {
@@ -11,11 +14,6 @@ const wrapperPropTypes = {
 
 const wrapperDefaultProps = {
   url: 'https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0'
-};
-
-const followPropTypes = {
-  username: PropTypes.string.isRequired,
-  visibility: PropTypes.bool.isRequired
 };
 
 const hostPropTypes = {
@@ -52,6 +50,71 @@ const tipPropTypes = {
   visibility: PropTypes.bool.isRequired
 };
 
+const Wrapper = styled.div`
+  display: flex;
+  overflow: hidden;
+
+  border-radius: 4px;
+  box-shadow: 0 14px 28px ${rgba('#090a0c', 0.25)},
+    0 10px 10px ${rgba('#090a0c', 0.22)};
+  color: #1a1f23;
+  font-family: ${props => props.theme.gotham};
+`;
+
+const Image = styled.div`
+  background: linear-gradient(#1a1f23, #121417);
+  padding: 18px;
+`;
+
+const Content = styled.div`
+  width: 100%;
+  background: #fff;
+  line-height: 1.3;
+`;
+
+const Header = styled.div`
+  padding: 18px 18px 18px;
+  color: #4f5c69;
+  font-size: 18px;
+`;
+
+const Message = styled.div`
+  margin-top: -6px;
+  padding: 0 18px 18px;
+  color: #738596;
+  font-family: ${props => props.theme.whitney};
+  font-size: 16px;
+`;
+
+const Footer = styled.div`
+  display: flex;
+  align-items: baseline;
+  padding: 12px 18px;
+
+  border-top: 1px solid #dce0e5;
+  background: #e8ebed;
+  color: #607080;
+  font-family: ${props => props.theme.forza};
+  font-weight: 600;
+  text-transform: uppercase;
+
+  svg {
+    color: #a2adb9;
+    position: relative;
+    top: 1px;
+  }
+`;
+
+const EventType = styled.div`
+  flex: 1;
+`;
+
+const Modification = styled.div`
+  padding-left: 4px;
+  color: #a2adb9;
+  font-weight: 400;
+`;
+
 function NotificationWrapper(props) {
   return (
     <Motion
@@ -65,8 +128,8 @@ function NotificationWrapper(props) {
       }}
     >
       {({ y, rotate }) => (
-        <div className="ntf" style={{ transform: `translate3d(0, ${y}%, 0)` }}>
-          <div className="ntf-image">
+        <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+          <Image>
             <img
               src={props.url}
               style={{
@@ -74,39 +137,9 @@ function NotificationWrapper(props) {
               }}
               alt=""
             />
-          </div>
-          <div className="ntf-content">{props.children}</div>
-        </div>
-      )}
-    </Motion>
-  );
-}
-
-export function FollowEvent(props) {
-  return (
-    <Motion
-      defaultStyle={{ y: 200 }}
-      style={{
-        y: spring(props.visibility ? 0 : 200, { stiffness: 210, damping: 30 })
-      }}
-    >
-      {({ y }) => (
-        <div
-          className="ntf-follow"
-          style={{ transform: `translate3d(0, ${y}%, 0)` }}
-        >
-          <div className="ntf-image">
-            <img
-              src="https://static-cdn.jtvnw.net/emoticons/v1/206446/3.0"
-              alt=""
-            />
-          </div>
-          <div className="ntf-content">
-            <div className="ntf-message">
-              Hello there <strong>{props.username}</strong>! Welcome!
-            </div>
-          </div>
-        </div>
+          </Image>
+          <Content>{props.children}</Content>
+        </Wrapper>
       )}
     </Motion>
   );
@@ -119,14 +152,14 @@ export function HostEvent(props) {
       event={props.event}
       isVisible={props.visibility}
     >
-      <div className="ntf-header">
+      <Header>
         <strong>{props.username}</strong>
         {' thank you for the host!'}
-      </div>
-      <div className="ntf-footer">
-        <div className="ntf-fl">host</div>
+      </Header>
+      <Footer>
+        <EventType>host</EventType>
         <Heart size={14} />
-      </div>
+      </Footer>
     </NotificationWrapper>
   );
 }
@@ -138,21 +171,21 @@ export function SubscriptionEvent(props) {
       event={props.event}
       isVisible={props.visibility}
     >
-      <div className="ntf-header">
+      <Header>
         <strong>{props.username}</strong>
         {' has just subscribed!'}
-      </div>
-      <div className="ntf-message">
+      </Header>
+      <Message>
         <strong>Welcome to AVLN</strong>
         {
           ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
         }
-      </div>
-      <div className="ntf-footer">
-        <div className="ntf-fl">subscription</div>
+      </Message>
+      <Footer>
+        <EventType>subscription</EventType>
         <TrendingUp size={14} />
-        <div className="ntf-fr">SP UP</div>
-      </div>
+        <Modification>SP UP</Modification>
+      </Footer>
     </NotificationWrapper>
   );
 }
@@ -164,24 +197,24 @@ export function SubGiftEvent(props) {
       event={props.event}
       isVisible={props.visibility}
     >
-      <div className="ntf-header">
+      <Header>
         <strong>{props.username}</strong>
         {' gifted '}
         <strong>{props.recipient}</strong>
         {' a subscription!'}
-      </div>
-      <div className="ntf-message">
+      </Header>
+      <Message>
         <strong>Enjoy the subscription</strong>
         {'  and spam those emotes! Welcome to the family! '}
         {'Thank you for your generosity, '}
         {props.username}
         {'!'}
-      </div>
-      <div className="ntf-footer">
-        <div className="ntf-fl">subgift</div>
+      </Message>
+      <Footer>
+        <EventType>subgift</EventType>
         <TrendingUp size={14} />
-        <div className="ntf-fr">SP UP</div>
-      </div>
+        <Modification>SP UP</Modification>
+      </Footer>
     </NotificationWrapper>
   );
 }
@@ -193,23 +226,23 @@ export function ResubEvent(props) {
       event={props.event}
       isVisible={props.visibility}
     >
-      <div className="ntf-header">
+      <Header>
         <strong>{props.username}</strong>
         {' subscribed for '}
         <strong>{`${props.months} months in a row!`}</strong>
-      </div>
-      <div className="ntf-message">
+      </Header>
+      <Message>
         {`Thank you for marching forward with us! Chat, let's bring the hype for them!`}
-      </div>
-      <div className="ntf-footer">
-        <div className="ntf-fl">
+      </Message>
+      <Footer>
+        <EventType>
           {'resub'}
           {'\u00D7'}
           {props.months}
-        </div>
+        </EventType>
         <Circle size={14} />
-        <div className="ntf-fr">SP RETAIN</div>
-      </div>
+        <Modification>SP RETAIN</Modification>
+      </Footer>
     </NotificationWrapper>
   );
 }
@@ -221,7 +254,7 @@ export function TipEvent(props) {
       event={props.event}
       isVisible={props.visibility}
     >
-      <div className="ntf-header">
+      <Header>
         <strong>{props.username}</strong>
         {' just tipped '}
         <strong>
@@ -229,21 +262,20 @@ export function TipEvent(props) {
           {props.amount}
           {'!'}
         </strong>
-      </div>
-      <div className="ntf-message">
+      </Header>
+      <Message>
         {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
-      </div>
-      <div className="ntf-footer">
-        <div className="ntf-fl">tip</div>
+      </Message>
+      <Footer>
+        <EventType>tip</EventType>
         <Heart size={14} />
-      </div>
+      </Footer>
     </NotificationWrapper>
   );
 }
 
 NotificationWrapper.propTypes = wrapperPropTypes;
 NotificationWrapper.defaultProps = wrapperDefaultProps;
-FollowEvent.propTypes = followPropTypes;
 HostEvent.propTypes = hostPropTypes;
 SubscriptionEvent.propTypes = subscriptionPropTypes;
 SubGiftEvent.propTypes = subgiftPropTypes;

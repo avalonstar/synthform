@@ -2,18 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Sound from 'react-sound';
 
-import styled from 'styled-components';
-
 import {
-  FollowEvent,
   HostEvent,
   SubscriptionEvent,
   SubGiftEvent,
   ResubEvent,
   TipEvent
 } from './NotificationEvent';
-
-import './Notification.css';
+import FollowEvent from './NotificationFollowEvent';
 
 const propTypes = {
   event: PropTypes.shape({
@@ -93,9 +89,9 @@ class Notification extends Component {
   render() {
     const data = this.props.event;
     return !data.event ? (
-      <div className="n n-empty" />
+      <div className={this.props.className} />
     ) : (
-      <div className="n" data-event={data.event}>
+      <div className={this.props.className} data-event={data.event}>
         {getEventType(data, this.state.isVisible)[data.event]}
         <Sound
           url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${
