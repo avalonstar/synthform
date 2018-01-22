@@ -106,6 +106,10 @@ const Container = styled.div`
   ${StyledCamera} {
     display: ${props => (props.cameraOff ? 'none' : 'block')};
   }
+
+  ${StyledSubPointGoal} {
+    grid-row: ${props => (props.cameraOff ? 11 : 9)};
+  }
 `;
 
 const Layout = ({ cameraOff, debugMode }) => (

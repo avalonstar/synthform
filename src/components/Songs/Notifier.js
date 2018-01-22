@@ -190,25 +190,10 @@ function Song(props) {
 }
 
 class Notifier extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isVisible: false,
-      timer: 15 * 1000
-    };
-
-    this.timerExpired = () => {
-      this.setState({ isVisible: false });
-    };
-
-    this.activateTimer = () => {
-      this.timer = setTimeout(() => {
-        this.timerExpired();
-        this.deactivateTimer();
-      }, this.state.timer);
-      setTimeout(() => this.setState({ isVisible: true }), 500);
-    };
-  }
+  state = {
+    isVisible: false,
+    timer: 15 * 1000
+  };
 
   componentDidMount() {
     this.props.request();
@@ -226,6 +211,18 @@ class Notifier extends Component {
   componentWillUnmount() {
     this.deactivateTimer();
   }
+
+  timerExpired = () => {
+    this.setState({ isVisible: false });
+  };
+
+  activateTimer = () => {
+    this.timer = setTimeout(() => {
+      this.timerExpired();
+      this.deactivateTimer();
+    }, this.state.timer);
+    setTimeout(() => this.setState({ isVisible: true }), 500);
+  };
 
   deactivateTimer() {
     clearTimeout(this.timer);

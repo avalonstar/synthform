@@ -87,11 +87,9 @@ const Minutes = styled.span`
 `;
 
 class Notification extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-    this.state.isVisible = false;
-  }
+  state = {
+    isVisible: false
+  };
 
   componentDidMount() {
     this.initRun(this.props.event);

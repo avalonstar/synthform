@@ -10,14 +10,11 @@ const propTypes = {
 };
 
 class Timer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      intervalTimer: null,
-      internalEndTime: props.endTime,
-      time: null
-    };
-  }
+  state = {
+    intervalTimer: null,
+    internalEndTime: this.props.endTime,
+    time: null
+  };
 
   componentDidMount() {
     this.tickTime();

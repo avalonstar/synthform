@@ -125,13 +125,10 @@ const Best = ({ progress }) => (
 );
 
 class SubPointGoal extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      best: 462,
-      goal: 800
-    };
-  }
+  state = {
+    best: 462,
+    goal: 800
+  };
 
   componentDidMount() {
     this.props.request();

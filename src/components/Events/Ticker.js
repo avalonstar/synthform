@@ -55,13 +55,10 @@ const Cap = styled.li`
 `;
 
 class Ticker extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isVisible: false,
-      timer: 1000 * 60 * this.props.timer
-    };
-  }
+  state = {
+    isVisible: false,
+    timer: 1000 * 60 * this.props.timer
+  };
 
   componentDidMount() {
     this.props.request(this.props.debugMode);

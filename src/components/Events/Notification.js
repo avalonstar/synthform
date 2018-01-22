@@ -39,28 +39,10 @@ const getEventType = (eventData, visibility) => ({
 });
 
 class Notification extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isVisible: false,
-      playStatus: Sound.status.STOPPED
-    };
-
-    this.handleRest = () => {
-      if (!this.state.isVisible) {
-        setTimeout(() => this.props.onComplete(), 500);
-      }
-    };
-
-    this.handleSongFinishedPlaying = () => {
-      this.setState({
-        isVisible: false,
-        playStatus: Sound.status.STOPPED
-      });
-      clearTimeout(this.timer);
-      this.handleRest();
-    };
-  }
+  state = {
+    isVisible: false,
+    playStatus: Sound.status.STOPPED
+  };
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.event && nextProps.event !== this.props.event) {
@@ -72,6 +54,21 @@ class Notification extends Component {
       );
     }
   }
+
+  handleRest = () => {
+    if (!this.state.isVisible) {
+      setTimeout(() => this.props.onComplete(), 500);
+    }
+  };
+
+  handleSongFinishedPlaying = () => {
+    this.setState({
+      isVisible: false,
+      playStatus: Sound.status.STOPPED
+    });
+    clearTimeout(this.timer);
+    this.handleRest();
+  };
 
   render() {
     const data = this.props.event;
