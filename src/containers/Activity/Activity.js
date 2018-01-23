@@ -12,6 +12,8 @@ import SubPointGoal from 'components/Goals';
 import { LatestSubscriber } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 
+import * as selectors from 'selectors';
+
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
   location: PropTypes.shape({
@@ -141,14 +143,8 @@ Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
 
 function mapStateToProps(state) {
-  const isFetching = [
-    state.events.get('isFetching'),
-    state.subscriptions.get('isFetchingLatestSubscriber'),
-    state.subscriptions.get('isFetchingSubCount'),
-    state.subscriptions.get('isFetchingSubPoints')
-  ];
   return {
-    isFetching: isFetching.every(Boolean)
+    isFetching: selectors.getFetchState(state)
   };
 }
 

@@ -1,6 +1,15 @@
 import { List, Map } from 'immutable';
 import { createSelector } from 'reselect';
 
+export const getFetchState = state => {
+  const isFetching = [
+    state.events.get('isFetching'),
+    state.subscriptions.get('isFetchingLatestSubscriber'),
+    state.subscriptions.get('isFetchingSubPoints')
+  ];
+  return isFetching.every(Boolean);
+};
+
 export const getTotalEmoteCounts = state =>
   state.emotes.get('emotes') || List();
 
