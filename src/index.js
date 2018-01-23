@@ -10,6 +10,7 @@ import App from 'containers/App';
 import Break from 'containers/Break';
 import Intertitle from 'containers/Intertitle';
 import Christmas from 'containers/Special';
+import Speedrunning from 'containers/Speedrunning';
 import baseStyles, { foundation } from 'helpers/foundation';
 
 import store, { history } from './store';
@@ -35,6 +36,11 @@ const render = () => {
               <Route exact path="/displays/activity" component={Activity} />
               <Route exact path="/displays/break" component={Break} />
               <Route exact path="/displays/intertitle" component={Intertitle} />
+              <Route
+                exact
+                path="/displays/speedrunning"
+                component={Speedrunning}
+              />
               <Route component={App} />
             </Switch>
           </main>
