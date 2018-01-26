@@ -3,14 +3,12 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter } from 'react-router-redux';
+
 import { ThemeProvider } from 'styled-components';
 
-import Activity from 'containers/Activity';
 import App from 'containers/App';
-import Break from 'containers/Break';
-import Intertitle from 'containers/Intertitle';
+import { Activity, Break, Intertitle, Speedrunning } from 'containers/Displays';
 import Christmas from 'containers/Special';
-import Speedrunning from 'containers/Speedrunning';
 import baseStyles, { foundation } from 'helpers/foundation';
 
 import store, { history } from './store';
