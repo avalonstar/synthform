@@ -26,6 +26,39 @@ const layoutPropTypes = {
   debugMode: PropTypes.bool.isRequired
 };
 
+const Layout = ({ cameraOff, debugMode }) => (
+  <Container cameraOff={cameraOff}>
+    <StyledCamera />
+    <StyledCounter limit={cameraOff ? 9 : 6} />
+    <StyledLatestSubscriber />
+    <StyledNotifier debugMode={debugMode} />
+    <StyledSongNotifier />
+    <StyledSubPointGoal />
+    <StyledTicker debugMode={debugMode} />
+    <StyledUptime title="Partnerversary" />
+  </Container>
+);
+
+function Activity(props) {
+  const query = new URLSearchParams(props.location.search);
+  const debugMode = query.get('debug') === 'true';
+  const cameraOff = query.get('cameraOff') === 'true';
+  return props.isFetching ? (
+    <Wrapper />
+  ) : (
+    <Wrapper>
+      <Layout cameraOff={cameraOff} debugMode={debugMode} />
+    </Wrapper>
+  );
+}
+
+Activity.propTypes = propTypes;
+Layout.propTypes = layoutPropTypes;
+
+const mapStateToProps = state => ({
+  isFetching: selectors.getFetchState(state)
+});
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 24px 1fr 24px;
@@ -79,7 +112,7 @@ const StyledSongNotifier = styled(SongNotifier)`
 `;
 
 const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 15 / span 3;
+  grid-column: 14 / span 4;
   grid-row: 9;
   align-self: end;
 `;
@@ -119,40 +152,5 @@ const Container = styled.div`
     grid-row: ${props => (props.cameraOff ? 11 : 9)};
   }
 `;
-
-const Layout = ({ cameraOff, debugMode }) => (
-  <Container cameraOff={cameraOff}>
-    <StyledCamera />
-    <StyledCounter limit={cameraOff ? 9 : 6} />
-    <StyledLatestSubscriber />
-    <StyledNotifier debugMode={debugMode} />
-    <StyledSongNotifier />
-    <StyledSubPointGoal />
-    <StyledTicker debugMode={debugMode} />
-    <StyledUptime title="Partnerversary" />
-  </Container>
-);
-
-function Activity(props) {
-  const query = new URLSearchParams(props.location.search);
-  const debugMode = query.get('debug') === 'true';
-  const cameraOff = query.get('cameraOff') === 'true';
-  return props.isFetching ? (
-    <Wrapper />
-  ) : (
-    <Wrapper>
-      <Layout cameraOff={cameraOff} debugMode={debugMode} />
-    </Wrapper>
-  );
-}
-
-Activity.propTypes = propTypes;
-Layout.propTypes = layoutPropTypes;
-
-function mapStateToProps(state) {
-  return {
-    isFetching: selectors.getFetchState(state)
-  };
-}
 
 export default connect(mapStateToProps)(Activity);

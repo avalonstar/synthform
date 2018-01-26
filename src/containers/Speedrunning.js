@@ -15,6 +15,32 @@ const propTypes = {
   isFetching: PropTypes.bool.isRequired
 };
 
+const Layout = () => (
+  <Container>
+    <Console />
+    <Aside>
+      <StyledCamera flipped />
+      <StyledSubPointGoal />
+      <StyledTicker />
+    </Aside>
+  </Container>
+);
+
+const Speedrunning = props =>
+  props.isFetching ? (
+    <Wrapper />
+  ) : (
+    <Wrapper>
+      <Layout />
+    </Wrapper>
+  );
+
+Speedrunning.propTypes = propTypes;
+
+const mapStateToProps = state => ({
+  isFetching: selectors.getFetchState(state)
+});
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 24px 1fr 24px;
@@ -96,31 +122,5 @@ const Console = styled.div`
 
   margin: -24px 0 0 -24px;
 `;
-
-const Layout = () => (
-  <Container>
-    <Console />
-    <Aside>
-      <StyledCamera flipped />
-      <StyledSubPointGoal />
-      <StyledTicker />
-    </Aside>
-  </Container>
-);
-
-const Speedrunning = props =>
-  props.isFetching ? (
-    <Wrapper />
-  ) : (
-    <Wrapper>
-      <Layout />
-    </Wrapper>
-  );
-
-Speedrunning.propTypes = propTypes;
-
-const mapStateToProps = state => ({
-  isFetching: selectors.getFetchState(state)
-});
 
 export default connect(mapStateToProps)(Speedrunning);

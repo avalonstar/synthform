@@ -17,6 +17,42 @@ const propTypes = {
   }).isRequired
 };
 
+const Layout = () => (
+  <Wrapper>
+    <Container>
+      <StyledCounter limit={11} />
+      <StyledGeneric
+        title="On Break"
+        content="Taking a quick break! Hang tight and I'll be back soon!"
+      />
+      <StyledSongNotifier />
+      <StyledSubPointGoal />
+      <StyledTicker anchor="top" timer={2} />
+      <StyledUptime title="Partnerversary" />
+    </Container>
+  </Wrapper>
+);
+
+const Break = props => {
+  const query = new URLSearchParams(props.location.search);
+  const debugMode = query.get('debug') === 'true';
+  return props.isFetching ? <div /> : Layout(debugMode);
+};
+
+Break.propTypes = propTypes;
+
+function mapStateToProps(state) {
+  const isFetching = [
+    state.events.get('isFetching'),
+    state.subscriptions.get('isFetchingLatestSubscriber'),
+    state.subscriptions.get('isFetchingSubCount'),
+    state.subscriptions.get('isFetchingSubPoints')
+  ];
+  return {
+    isFetching: isFetching.every(Boolean)
+  };
+}
+
 const Wrapper = styled.div`
   display: grid;
   grid-template-columns: 24px 1fr 24px;
@@ -82,43 +118,5 @@ const StyledUptime = styled(Uptime)`
   grid-row: 11;
   align-self: end;
 `;
-
-function Layout() {
-  return (
-    <Wrapper>
-      <Container>
-        <StyledCounter limit={11} />
-        <StyledGeneric
-          title="On Break"
-          content="Taking a quick break! Hang tight and I'll be back soon!"
-        />
-        <StyledSongNotifier />
-        <StyledSubPointGoal />
-        <StyledTicker anchor="top" timer={2} />
-        <StyledUptime title="Partnerversary" />
-      </Container>
-    </Wrapper>
-  );
-}
-
-function Break(props) {
-  const query = new URLSearchParams(props.location.search);
-  const debugMode = query.get('debug') === 'true';
-  return props.isFetching ? <div /> : Layout(debugMode);
-}
-
-Break.propTypes = propTypes;
-
-function mapStateToProps(state) {
-  const isFetching = [
-    state.events.get('isFetching'),
-    state.subscriptions.get('isFetchingLatestSubscriber'),
-    state.subscriptions.get('isFetchingSubCount'),
-    state.subscriptions.get('isFetchingSubPoints')
-  ];
-  return {
-    isFetching: isFetching.every(Boolean)
-  };
-}
 
 export default connect(mapStateToProps)(Break);
