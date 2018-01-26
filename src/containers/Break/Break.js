@@ -7,7 +7,7 @@ import { rgba } from 'polished';
 import Counter from 'components/Emotes';
 import { Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
-import { Generic } from 'components/Labels';
+import { Generic, Uptime } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 
 const propTypes = {
@@ -77,18 +77,25 @@ const StyledTicker = styled(Ticker)`
   z-index: 200;
 `;
 
+const StyledUptime = styled(Uptime)`
+  grid-column: 1 / span 3;
+  grid-row: 11;
+  align-self: end;
+`;
+
 function Layout() {
   return (
     <Wrapper>
       <Container>
+        <StyledCounter limit={11} />
         <StyledGeneric
           title="On Break"
           content="Taking a quick break! Hang tight and I'll be back soon!"
         />
         <StyledSongNotifier />
-        <StyledTicker anchor="top" timer={2} />
-        <StyledCounter limit={11} />
         <StyledSubPointGoal />
+        <StyledTicker anchor="top" timer={2} />
+        <StyledUptime title="Partnerversary" />
       </Container>
     </Wrapper>
   );
