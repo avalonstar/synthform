@@ -14,25 +14,22 @@ import * as selectors from 'selectors';
 import crown from './prime.png';
 
 const propTypes = {
-  username: PropTypes.string,
+  subscriber: PropTypes.shape({
+    username: PropTypes.string,
+    recipient: PropTypes.string
+  }).isRequired,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
 };
 
-const defaultProps = {
-  username: ''
-};
-
 const contentPropsTypes = {
   username: PropTypes.string,
-  recipient: PropTypes.string,
   months: PropTypes.number,
   prime: PropTypes.bool
 };
 
 const contentDefaultProps = {
   username: '',
-  recipient: null,
   months: null,
   prime: false
 };
@@ -67,39 +64,36 @@ const willLeave = () => ({
   opacity: spring(0)
 });
 
-const Subscriber = props => {
-  const username = props.recipient ? props.recipient : props.username;
-  return (
-    <TransitionMotion
-      defaultStyles={defaultStyles}
-      styles={styles}
-      willEnter={willEnter}
-      willLeave={willLeave}
-    >
-      {content => (
-        <Content
-          style={{
-            transform: `translate3d(0, ${content[0].style.y}%, 0)`,
-            opacity: content[0].style.opacity
-          }}
-        >
-          <Actor>{username}</Actor>
-          {props.prime && (
-            <Prime>
-              <Crown src={crown} alt="Prime" />
-            </Prime>
-          )}
-          {props.months && (
-            <Length>
-              <span>{'\u2715'}</span>
-              {props.months}
-            </Length>
-          )}
-        </Content>
-      )}
-    </TransitionMotion>
-  );
-};
+const Subscriber = ({ username, prime, months }) => (
+  <TransitionMotion
+    defaultStyles={defaultStyles}
+    styles={styles}
+    willEnter={willEnter}
+    willLeave={willLeave}
+  >
+    {content => (
+      <Content
+        style={{
+          transform: `translate3d(0, ${content[0].style.y}%, 0)`,
+          opacity: content[0].style.opacity
+        }}
+      >
+        <Actor>{username}</Actor>
+        {prime && (
+          <Prime>
+            <Crown src={crown} alt="Prime" />
+          </Prime>
+        )}
+        {months && (
+          <Length>
+            <span>{'\u2715'}</span>
+            {months}
+          </Length>
+        )}
+      </Content>
+    )}
+  </TransitionMotion>
+);
 
 class LatestSubscriber extends Component {
   componentDidMount() {
@@ -107,34 +101,29 @@ class LatestSubscriber extends Component {
   }
 
   render() {
+    const { username, recipient } = this.props.subscriber;
+    const name = recipient || username;
     return (
       <Wrapper className={this.props.className}>
         <Title>
           <ChevronRight color="#02fa7b" size={16} />
           {'!hype'}
         </Title>
-        {this.props.username && <Subscriber {...this.props} />}
+        {name && <Subscriber username={name} {...this.props} />}
       </Wrapper>
     );
   }
 }
 
 LatestSubscriber.propTypes = propTypes;
-LatestSubscriber.defaultProps = defaultProps;
 Subscriber.propTypes = contentPropsTypes;
 Subscriber.defaultProps = contentDefaultProps;
 
-const mapStateToProps = state => {
-  const subscriber = selectors.getLatestSubscription(state);
-  return {
-    isFetching: state.subscriptions.isFetchingLatestSubscriber,
-    error: state.subscriptions.error,
-    username: subscriber.username,
-    recipient: subscriber.recipient,
-    months: subscriber.months,
-    prime: subscriber.prime
-  };
-};
+const mapStateToProps = state => ({
+  isFetching: state.subscriptions.isFetchingLatestSubscriber,
+  error: state.subscriptions.error,
+  subscriber: selectors.getLatestSubscription(state)
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
