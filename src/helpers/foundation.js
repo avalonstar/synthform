@@ -9,6 +9,11 @@ export const foundation = {
 };
 
 const fontURL = 'https://synthform.s3.amazonaws.com/fonts';
+const fontDefaults = {
+  fontFamily: 'Miedinger',
+  fileFormats: ['woff2', 'woff'],
+  fontStyle: 'normal'
+};
 
 export default () => injectGlobal`
   ${normalize()}
@@ -24,42 +29,32 @@ export default () => injectGlobal`
   }
 
   ${fontFace({
-    fontFamily: 'Miedinger',
-    fileFormats: ['woff2', 'woff'],
+    ...fontDefaults,
     fontFilePath: `${fontURL}/miedinger_thin-webfont`,
-    fontWeight: 100,
-    fontStyle: 'normal'
+    fontWeight: 100
   })}
 
   ${fontFace({
-    fontFamily: 'Miedinger',
-    fileFormats: ['woff2', 'woff'],
+    ...fontDefaults,
     fontFilePath: `${fontURL}/miedinger_light-webfont`,
-    fontWeight: 300,
-    fontStyle: 'normal'
+    fontWeight: 300
   })}
 
   ${fontFace({
-    fontFamily: 'Miedinger',
-    fileFormats: ['woff2', 'woff'],
+    ...fontDefaults,
     fontFilePath: `${fontURL}/miedinger_regular-webfont`,
-    fontWeight: 400,
-    fontStyle: 'normal'
+    fontWeight: 400
   })}
 
   ${fontFace({
-    fontFamily: 'Miedinger',
-    fileFormats: ['woff2', 'woff'],
+    ...fontDefaults,
     fontFilePath: `${fontURL}/miedinger_medium-webfont`,
-    fontWeight: 500,
-    fontStyle: 'normal'
+    fontWeight: 500
   })}
 
   ${fontFace({
-    fontFamily: 'Miedinger',
-    fileFormats: ['woff2', 'woff'],
+    ...fontDefaults,
     fontFilePath: `${fontURL}/miedinger_bold-webfont`,
-    fontWeight: 700,
-    fontStyle: 'normal'
+    fontWeight: 700
   })}
 `;
