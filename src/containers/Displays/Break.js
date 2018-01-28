@@ -8,7 +8,7 @@ import { rgba } from 'polished';
 import Counter from 'components/Emotes';
 import { Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
-import { Generic, Uptime } from 'components/Labels';
+import { Generic } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 import * as selectors from 'selectors';
 
@@ -30,7 +30,6 @@ const Layout = () => (
       <StyledSongNotifier />
       <StyledSubPointGoal />
       <StyledTicker anchor="top" timer={2} />
-      <StyledUptime title="Partnerversary" />
     </Container>
   </Wrapper>
 );
@@ -105,12 +104,6 @@ const StyledTicker = styled(Ticker)`
   top: -24px;
   margin: 0 -24px 0;
   z-index: 200;
-`;
-
-const StyledUptime = styled(Uptime)`
-  grid-column: 1 / span 3;
-  grid-row: 11;
-  align-self: end;
 `;
 
 export default connect(mapStateToProps)(Break);

@@ -9,7 +9,7 @@ import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
 import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
-import { LatestSubscriber, Uptime } from 'components/Labels';
+import { LatestSubscriber } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 import * as selectors from 'selectors';
 
@@ -34,7 +34,6 @@ const Layout = ({ cameraOff, debugMode }) => (
     <StyledSongNotifier />
     <StyledSubPointGoal />
     <StyledTicker debugMode={debugMode} />
-    <StyledUptime title="Partnerversary" />
   </Container>
 );
 
@@ -121,12 +120,6 @@ const StyledTicker = styled(Ticker)`
   grid-row: 12;
   margin: 0 -24px 0;
   z-index: 200;
-`;
-
-const StyledUptime = styled(Uptime)`
-  grid-column: 1 / span 3;
-  grid-row: 1;
-  align-self: start;
 `;
 
 const Container = styled.div`
