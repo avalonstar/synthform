@@ -29,6 +29,79 @@ const labelPropTypes = {
 
 const getWidth = (span, end) => span / end * 100;
 
+const Goal = ({ progress }) => (
+  <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
+    {({ x }) => (
+      <Bar>
+        <Progress data-progress={progress} style={{ width: `${x}%` }} />
+      </Bar>
+    )}
+  </Motion>
+);
+
+const Label = ({ points, goal }) => (
+  <LabelContainer>
+    <Title>NEWEMOTE</Title>
+    <Points>
+      <AnimatedNumber value={points} duration={500} stepPrecision={0} />
+    </Points>
+    {'/'}
+    {goal}
+  </LabelContainer>
+);
+
+const Best = ({ progress }) => (
+  <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
+    {({ x }) => (
+      <Indicator data-progress={progress} style={{ width: `${x}%` }}>
+        <ChevronDown size={18} />
+      </Indicator>
+    )}
+  </Motion>
+);
+
+class SubPointGoal extends Component {
+  state = {
+    best: 462,
+    goal: 800
+  };
+
+  componentDidMount() {
+    this.props.request();
+  }
+
+  render() {
+    const points = this.props.subPoints;
+    const { best, goal } = this.state;
+    const bestWidth = getWidth(best, goal);
+    const goalWidth = getWidth(points, goal);
+    return (
+      <Wrapper className={this.props.className}>
+        <Best progress={bestWidth} />
+        <Goal progress={goalWidth} />
+        <Label goal={goal} points={points} />
+      </Wrapper>
+    );
+  }
+}
+
+SubPointGoal.propTypes = propTypes;
+Best.propTypes = indicatorPropTypes;
+Goal.propTypes = indicatorPropTypes;
+Label.propTypes = labelPropTypes;
+
+const mapStateToProps = state => ({
+  subPoints: selectors.getSubPoints(state)
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      request: () => dispatch(subpointFetch.request())
+    },
+    dispatch
+  );
+
 const Wrapper = styled.div`
   font-family: ${props => props.theme.miedinger};
 `;
@@ -92,81 +165,5 @@ const Indicator = styled.div`
     right: -9px;
   }
 `;
-
-const Goal = ({ progress }) => (
-  <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
-    {({ x }) => (
-      <Bar>
-        <Progress data-progress={progress} style={{ width: `${x}%` }} />
-      </Bar>
-    )}
-  </Motion>
-);
-
-const Label = ({ points, goal }) => (
-  <LabelContainer>
-    <Title>NEWEMOTE</Title>
-    <Points>
-      <AnimatedNumber value={points} duration={500} stepPrecision={0} />
-    </Points>
-    {'/'}
-    {goal}
-  </LabelContainer>
-);
-
-const Best = ({ progress }) => (
-  <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
-    {({ x }) => (
-      <Indicator data-progress={progress} style={{ width: `${x}%` }}>
-        <ChevronDown size={18} />
-      </Indicator>
-    )}
-  </Motion>
-);
-
-class SubPointGoal extends Component {
-  state = {
-    best: 462,
-    goal: 800
-  };
-
-  componentDidMount() {
-    this.props.request();
-  }
-
-  render() {
-    const points = this.props.subPoints;
-    const { best, goal } = this.state;
-    const goalWidth = getWidth(points, goal);
-    const bestWidth = getWidth(best, goal);
-    return (
-      <Wrapper className={this.props.className}>
-        <Best progress={bestWidth} />
-        <Goal progress={goalWidth} />
-        <Label goal={goal} points={points} />
-      </Wrapper>
-    );
-  }
-}
-
-SubPointGoal.propTypes = propTypes;
-Best.propTypes = indicatorPropTypes;
-Goal.propTypes = indicatorPropTypes;
-Label.propTypes = labelPropTypes;
-
-function mapStateToProps(state) {
-  return {
-    subPoints: selectors.getSubPoints(state)
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      request: () => dispatch(subpointFetch.request())
-    },
-    dispatch
-  );
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SubPointGoal);
