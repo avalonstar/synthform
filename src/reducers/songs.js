@@ -5,7 +5,9 @@ import { fromJS } from 'immutable';
 import * as actions from 'actions/songs';
 
 const initialState = fromJS({
-  isFetching: false
+  isFetching: false,
+  queueSize: 0,
+  currentSong: {}
 });
 
 const songs = (state = initialState, action) => {

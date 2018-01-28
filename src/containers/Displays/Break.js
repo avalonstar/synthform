@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
@@ -9,6 +10,7 @@ import { Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 import { Generic, Uptime } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
+import * as selectors from 'selectors';
 
 const propTypes = {
   isFetching: PropTypes.bool.isRequired,
@@ -41,17 +43,9 @@ const Break = props => {
 
 Break.propTypes = propTypes;
 
-function mapStateToProps(state) {
-  const isFetching = [
-    state.events.get('isFetching'),
-    state.subscriptions.get('isFetchingLatestSubscriber'),
-    state.subscriptions.get('isFetchingSubCount'),
-    state.subscriptions.get('isFetchingSubPoints')
-  ];
-  return {
-    isFetching: isFetching.every(Boolean)
-  };
-}
+const mapStateToProps = state => ({
+  isFetching: selectors.getFetchState(state)
+});
 
 const Wrapper = styled.div`
   display: grid;

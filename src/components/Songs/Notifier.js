@@ -14,15 +14,10 @@ import { songFetch } from 'actions/songs';
 import * as selectors from 'selectors';
 
 const propTypes = {
-  currentSong: PropTypes.instanceOf(Map),
-  queueSize: PropTypes.number,
+  currentSong: PropTypes.instanceOf(Map).isRequired,
+  queueSize: PropTypes.number.isRequired,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
-};
-
-const defaultProps = {
-  currentSong: Map(),
-  queueSize: 0
 };
 
 const songPropTypes = {
@@ -256,7 +251,6 @@ class Notifier extends Component {
 }
 
 Notifier.propTypes = propTypes;
-Notifier.defaultProps = defaultProps;
 Song.propTypes = songPropTypes;
 Song.defaultProps = songDefaultProps;
 

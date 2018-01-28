@@ -11,7 +11,6 @@ import { Notifier, Ticker } from 'components/Events';
 import SubPointGoal from 'components/Goals';
 import { LatestSubscriber, Uptime } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
-
 import * as selectors from 'selectors';
 
 const propTypes = {
