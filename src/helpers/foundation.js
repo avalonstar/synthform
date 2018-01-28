@@ -1,5 +1,5 @@
 import { injectGlobal } from 'styled-components';
-import { normalize } from 'polished';
+import { fontFace, normalize } from 'polished';
 
 export const foundation = {
   forza: "'Forza SSm A', 'Forza SSm B'",
@@ -23,43 +23,43 @@ export default () => injectGlobal`
     font-family: $sans-serif;
   }
 
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('${fontURL}/miedinger_thin-webfont.woff2') format('woff2'),
-      url('${fontURL}/miedinger_thin-webfont.woff') format('woff');
-    font-weight: 100;
-    font-style: normal;
-  }
+  ${fontFace({
+    fontFamily: 'Miedinger',
+    fileFormats: ['woff2', 'woff'],
+    fontFilePath: `${fontURL}/miedinger_thin-webfont`,
+    fontWeight: 100,
+    fontStyle: 'normal'
+  })}
 
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('${fontURL}/miedinger_light-webfont.woff2') format('woff2'),
-      url('${fontURL}/miedinger_light-webfont.woff') format('woff');
-    font-weight: 300;
-    font-style: normal;
-  }
+  ${fontFace({
+    fontFamily: 'Miedinger',
+    fileFormats: ['woff2', 'woff'],
+    fontFilePath: `${fontURL}/miedinger_light-webfont`,
+    fontWeight: 300,
+    fontStyle: 'normal'
+  })}
 
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('${fontURL}/miedinger_regular-webfont.woff2') format('woff2'),
-      url('${fontURL}/miedinger_regular-webfont.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-  }
+  ${fontFace({
+    fontFamily: 'Miedinger',
+    fileFormats: ['woff2', 'woff'],
+    fontFilePath: `${fontURL}/miedinger_regular-webfont`,
+    fontWeight: 400,
+    fontStyle: 'normal'
+  })}
 
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('${fontURL}/miedinger_medium-webfont.woff2') format('woff2'),
-      url('${fontURL}/miedinger_medium-webfont.woff') format('woff');
-    font-weight: 500;
-    font-style: normal;
-  }
+  ${fontFace({
+    fontFamily: 'Miedinger',
+    fileFormats: ['woff2', 'woff'],
+    fontFilePath: `${fontURL}/miedinger_medium-webfont`,
+    fontWeight: 500,
+    fontStyle: 'normal'
+  })}
 
-  @font-face {
-    font-family: 'Miedinger';
-    src: url('${fontURL}/miedinger_bold-webfont.woff2') format('woff2'),
-      url('${fontURL}/miedinger_bold-webfont.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-  }
+  ${fontFace({
+    fontFamily: 'Miedinger',
+    fileFormats: ['woff2', 'woff'],
+    fontFilePath: `${fontURL}/miedinger_bold-webfont`,
+    fontWeight: 700,
+    fontStyle: 'normal'
+  })}
 `;
