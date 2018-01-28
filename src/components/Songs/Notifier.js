@@ -4,7 +4,6 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Motion, spring } from 'react-motion';
-import { Map } from 'immutable';
 
 import styled from 'styled-components';
 import { rgba } from 'polished';
@@ -14,7 +13,13 @@ import { songFetch } from 'actions/songs';
 import * as selectors from 'selectors';
 
 const propTypes = {
-  currentSong: PropTypes.instanceOf(Map).isRequired,
+  currentSong: PropTypes.shape({
+    user: PropTypes.string,
+    requested: PropTypes.string,
+    artist: PropTypes.string,
+    title: PropTypes.string,
+    duration: PropTypes.string
+  }).isRequired,
   queueSize: PropTypes.number.isRequired,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
@@ -197,7 +202,7 @@ class Notifier extends Component {
   componentWillReceiveProps(nextProps) {
     if (
       this.props.currentSong.size !== 0 &&
-      nextProps.currentSong.get('title') !== this.props.currentSong.get('title')
+      nextProps.currentSong.title !== this.props.currentSong.title
     ) {
       this.activateTimer();
     }
@@ -241,7 +246,7 @@ class Notifier extends Component {
           >
             <Song
               queueSize={this.props.queueSize}
-              song={this.props.currentSong.toJS()}
+              song={this.props.currentSong}
             />
           </Wrapper>
         )}

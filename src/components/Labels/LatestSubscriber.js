@@ -127,12 +127,12 @@ Subscriber.defaultProps = contentDefaultProps;
 const mapStateToProps = state => {
   const subscriber = selectors.getLatestSubscription(state);
   return {
-    isFetching: state.subscriptions.get('isFetchingLatestSubscriber'),
-    error: state.subscriptions.get('error'),
-    username: subscriber.get('username'),
-    recipient: subscriber.get('recipient'),
-    months: subscriber.get('months'),
-    prime: subscriber.get('prime')
+    isFetching: state.subscriptions.isFetchingLatestSubscriber,
+    error: state.subscriptions.error,
+    username: subscriber.username,
+    recipient: subscriber.recipient,
+    months: subscriber.months,
+    prime: subscriber.prime
   };
 };
 

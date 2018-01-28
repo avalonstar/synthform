@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
-import { List } from 'immutable';
 
 import styled from 'styled-components';
 
@@ -13,7 +12,7 @@ import * as selectors from 'selectors';
 import CounterItem from './CounterItem';
 
 const propTypes = {
-  emotes: PropTypes.instanceOf(List).isRequired,
+  emotes: PropTypes.arrayOf(PropTypes.object).isRequired,
   limit: PropTypes.number.isRequired,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
@@ -45,7 +44,7 @@ class Counter extends Component {
         {emotes
           .slice(0, this.props.limit)
           .map(emoteData => (
-            <CounterItem {...emoteData.toJS()} code={emoteData.get('key')} />
+            <CounterItem {...emoteData} code={emoteData.key} />
           ))}
       </StyledFlipMove>
     );

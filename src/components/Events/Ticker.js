@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
 import { Motion, spring } from 'react-motion';
-import { List } from 'immutable';
 
 import styled from 'styled-components';
 import { ChevronRight } from 'react-feather';
@@ -17,7 +16,7 @@ import TickerItem from './TickerItem';
 const propTypes = {
   anchor: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
-  events: PropTypes.instanceOf(List).isRequired,
+  events: PropTypes.arrayOf(PropTypes.any).isRequired,
   className: PropTypes.string.isRequired,
   request: PropTypes.func.isRequired,
   debugMode: PropTypes.bool,
@@ -107,8 +106,8 @@ class Ticker extends Component {
               </Cap>
               {this.props.events.map(data => (
                 <TickerItem
-                  key={data.get('timestamp')}
-                  data={data.toJS()}
+                  key={data.timestamp}
+                  data={data}
                   onChange={this.resetTimer}
                 />
               ))}
@@ -125,7 +124,7 @@ Ticker.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    isFetching: state.events.get('isFetching'),
+    isFetching: state.events.isFetching,
     events: selectors.getEventList(state)
   };
 }

@@ -1,38 +1,42 @@
-import { fromJS } from 'immutable';
-
 import * as actions from 'actions/events';
 
-const initialState = fromJS({
+const initialState = {
   isFetching: false,
   error: '',
+  events: [],
   notifierPool: [],
   notificationsActive: true
-});
+};
 
 const events = (state = initialState, action) => {
   switch (action.type) {
     case actions.EVENT_FETCH.REQUEST:
-      return state.merge({
+      return {
+        ...state,
         isFetching: true
-      });
+      };
     case actions.EVENT_FETCH.FAILURE:
-      return state.merge({
+      return {
+        ...state,
         isFetching: false,
         error: action.error
-      });
+      };
     case actions.EVENT_FETCH.SUCCESS:
-      return state.merge({
+      return {
+        ...state,
         isFetching: false,
         events: action.payload
-      });
+      };
     case actions.EVENT_NOTIFIER_ADD:
-      return state.merge({
-        notifierPool: state.get('notifierPool').push(action.event)
-      });
+      return {
+        ...state,
+        notifierPool: [...state.notifierPool, action.event]
+      };
     case actions.EVENT_NOTIFIER_DELETE:
-      return state.merge({
-        notifierPool: state.get('notifierPool').delete(0)
-      });
+      return {
+        ...state,
+        notifierPool: [...state.notifierPool.slice(1)]
+      };
     default:
       return state;
   }

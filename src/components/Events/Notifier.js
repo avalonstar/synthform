@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { List } from 'immutable';
 
 import { eventFetch, eventNotifier } from 'actions/events';
 import * as selectors from 'selectors';
@@ -10,7 +9,7 @@ import * as selectors from 'selectors';
 import Notification from './Notification';
 
 const propTypes = {
-  notifierPool: PropTypes.instanceOf(List).isRequired,
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string,
   request: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired,
@@ -28,7 +27,7 @@ class Notifier extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.notifierPool.get(0) !== this.props.notifierPool.get(0);
+    return nextProps.notifierPool[0] !== this.props.notifierPool[0];
   }
 
   onComplete = () => {
@@ -41,7 +40,7 @@ class Notifier extends Component {
     return (
       <Notification
         className={this.props.className}
-        event={this.props.notifierPool.get(0)}
+        event={this.props.notifierPool[0]}
         onComplete={this.onComplete}
       />
     );

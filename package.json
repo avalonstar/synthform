@@ -9,7 +9,6 @@
     "axios": "^0.17.1",
     "classnames": "^2.2.5",
     "husky": "^0.14.3",
-    "immutable": "^3.8.2",
     "lint-staged": "^6.1.0",
     "lodash": "^4.17.4",
     "moment": "^2.20.1",

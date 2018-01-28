@@ -37,7 +37,7 @@ class Chat extends Component {
     return (
       <Wrapper className={this.props.className}>
         {this.props.messages.map(data => (
-          <ChatMessage key={data.get('timestamp')} {...data.toJS()} />
+          <ChatMessage key={data.timestamp} {...data} />
         ))}
       </Wrapper>
     );
@@ -49,7 +49,7 @@ Chat.defaultProps = defaultProps;
 
 function mapStateToProps(state) {
   return {
-    messages: state.messages.get('messages')
+    messages: state.messages.messages
   };
 }
 
