@@ -18,16 +18,6 @@ const propTypes = {
   className: PropTypes.string.isRequired
 };
 
-const StyledFlipMove = styled(FlipMove)`
-  margin: 0;
-  padding: 0 12px;
-
-  list-style: none;
-
-  display: flex;
-  justify-content: space-between;
-`;
-
 class Counter extends Component {
   componentDidMount() {
     this.props.request();
@@ -53,19 +43,26 @@ class Counter extends Component {
 
 Counter.propTypes = propTypes;
 
-function mapStateToProps(state) {
-  return {
-    emotes: selectors.getTotalEmoteCounts(state)
-  };
-}
+const mapStateToProps = state => ({
+  emotes: selectors.getTotalEmoteCounts(state)
+});
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
     {
       request: () => dispatch(emoteFetch.request())
     },
     dispatch
   );
-}
+
+const StyledFlipMove = styled(FlipMove)`
+  margin: 0;
+  padding: 0 12px;
+
+  list-style: none;
+
+  display: flex;
+  justify-content: space-between;
+`;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);

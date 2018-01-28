@@ -16,7 +16,7 @@ import TickerItem from './TickerItem';
 const propTypes = {
   anchor: PropTypes.string,
   isFetching: PropTypes.bool.isRequired,
-  events: PropTypes.arrayOf(PropTypes.any).isRequired,
+  events: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string.isRequired,
   request: PropTypes.func.isRequired,
   debugMode: PropTypes.bool,
@@ -33,25 +33,6 @@ const configureAnchor = () => ({
   top: -100,
   bottom: 100
 });
-
-const StyledFlipMove = styled(FlipMove)`
-  background: #090a0c;
-
-  position: relative;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  margin: 0;
-  padding: 0;
-
-  list-style: none;
-`;
-
-const Cap = styled.li`
-  background: linear-gradient(#1a1f23, #121417);
-  padding: 12px 4px 12px 12px;
-`;
 
 class Ticker extends Component {
   state = {
@@ -85,17 +66,19 @@ class Ticker extends Component {
   };
 
   render() {
+    const { isVisible } = this.state;
+    const { isFetching, className, events } = this.props;
     const anchor = configureAnchor()[this.props.anchor];
     return (
-      !this.props.isFetching && (
+      !isFetching && (
         <Motion
           defaultStyle={{ y: anchor }}
-          style={{ y: spring(this.state.isVisible ? 0 : anchor) }}
+          style={{ y: spring(isVisible ? 0 : anchor) }}
         >
           {({ y }) => (
             <StyledFlipMove
               typeName="ol"
-              className={this.props.className}
+              className={className}
               easing="cubic-bezier(.62, .28, .23, .99)"
               enterAnimation="fade"
               staggerDurationBy={100}
@@ -104,7 +87,7 @@ class Ticker extends Component {
               <Cap>
                 <ChevronRight color="#02fa7b" size={20} />
               </Cap>
-              {this.props.events.map(data => (
+              {events.map(data => (
                 <TickerItem
                   key={data.timestamp}
                   data={data}
@@ -122,20 +105,36 @@ class Ticker extends Component {
 Ticker.propTypes = propTypes;
 Ticker.defaultProps = defaultProps;
 
-function mapStateToProps(state) {
-  return {
-    isFetching: state.events.isFetching,
-    events: selectors.getEventList(state)
-  };
-}
+const mapStateToProps = state => ({
+  isFetching: state.events.isFetching,
+  events: selectors.getEventList(state)
+});
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
     {
       request: debugMode => dispatch(eventFetch.request(debugMode))
     },
     dispatch
   );
-}
+
+const StyledFlipMove = styled(FlipMove)`
+  background: #090a0c;
+
+  position: relative;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+
+  list-style: none;
+`;
+
+const Cap = styled.li`
+  background: linear-gradient(#1a1f23, #121417);
+  padding: 12px 4px 12px 12px;
+`;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Ticker);

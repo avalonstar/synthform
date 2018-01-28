@@ -48,6 +48,101 @@ const tipDefaultProps = {
   amount: '0'
 };
 
+export const MinuteModifier = ({ minutes }) =>
+  minutes ? (
+    <Bubble>
+      <PlusSquare color="#02fa7b" size={14} />
+      {minutes}
+    </Bubble>
+  ) : (
+    <div />
+  );
+
+export const AutoHostEvent = ({ event }) => (
+  <Piece>
+    <Event>{event}</Event>
+  </Piece>
+);
+
+export const CheerEvent = props => (
+  <Piece>
+    <MinuteModifier {...props} />
+    <Event>
+      <Number>{props.bits}</Number>
+      {' bits'}
+    </Event>
+    <Cheer>
+      <Cheermote alt={props.bits} src={getCheermoteURL(props.bits)} />
+    </Cheer>
+  </Piece>
+);
+
+export const FollowEvent = ({ event }) => (
+  <Piece>
+    <Event>{event}</Event>
+  </Piece>
+);
+
+export const HostEvent = ({ event }) => (
+  <Piece>
+    <Event>{event}</Event>
+  </Piece>
+);
+
+export const SubscriptionEvent = props => (
+  <Piece>
+    <MinuteModifier {...props} />
+    <Event>{props.event}</Event>
+  </Piece>
+);
+
+export const SubGiftEvent = props => (
+  <Piece>
+    <MinuteModifier {...props} />
+    <Event>
+      {'subgift from '}
+      {props.username}
+    </Event>
+  </Piece>
+);
+
+export const ResubEvent = props => (
+  <Piece>
+    <MinuteModifier {...props} />
+    <Event>
+      <Number>{props.months}</Number>
+      {' months'}
+    </Event>
+  </Piece>
+);
+
+export const TipEvent = props => (
+  <Piece>
+    <MinuteModifier {...props} />
+    <Event>
+      <Number>
+        {props.currency}
+        {props.amount}
+      </Number>
+      {' tip'}
+    </Event>
+  </Piece>
+);
+
+MinuteModifier.propTypes = minuteModifierPropTypes;
+MinuteModifier.defaultProps = minuteModifierDefaultProps;
+AutoHostEvent.propTypes = propTypes;
+CheerEvent.propTypes = cheerPropTypes;
+CheerEvent.defaultProps = cheerDefaultProps;
+FollowEvent.propTypes = propTypes;
+HostEvent.propTypes = propTypes;
+SubscriptionEvent.propTypes = propTypes;
+SubGiftEvent.propTypes = subgiftPropTypes;
+ResubEvent.propTypes = resubPropTypes;
+ResubEvent.defaultProps = resubDefaultProps;
+TipEvent.propTypes = tipPropTypes;
+TipEvent.defaultProps = tipDefaultProps;
+
 const Piece = styled.div`
   position: relative;
 
@@ -105,115 +200,3 @@ const Bubble = styled.div`
   display: none;
   ${'' /* !! */};
 `;
-
-export function MinuteModifier(props) {
-  return props.minutes ? (
-    <Bubble>
-      <PlusSquare color="#02fa7b" size={14} />
-      {props.minutes}
-    </Bubble>
-  ) : (
-    <div />
-  );
-}
-
-export function AutoHostEvent(props) {
-  return (
-    <Piece>
-      <Event>{props.event}</Event>
-    </Piece>
-  );
-}
-
-export function CheerEvent(props) {
-  return (
-    <Piece>
-      <MinuteModifier {...props} />
-      <Event>
-        <Number>{props.bits}</Number>
-        {' bits'}
-      </Event>
-      <Cheer>
-        <Cheermote alt={props.bits} src={getCheermoteURL(props.bits)} />
-      </Cheer>
-    </Piece>
-  );
-}
-
-export function FollowEvent(props) {
-  return (
-    <Piece>
-      <Event>{props.event}</Event>
-    </Piece>
-  );
-}
-
-export function HostEvent(props) {
-  return (
-    <Piece>
-      <Event>{props.event}</Event>
-    </Piece>
-  );
-}
-
-export function SubscriptionEvent(props) {
-  return (
-    <Piece>
-      <MinuteModifier {...props} />
-      <Event>{props.event}</Event>
-    </Piece>
-  );
-}
-
-export function SubGiftEvent(props) {
-  return (
-    <Piece>
-      <MinuteModifier {...props} />
-      <Event>
-        {'subgift from '}
-        {props.username}
-      </Event>
-    </Piece>
-  );
-}
-
-export function ResubEvent(props) {
-  return (
-    <Piece>
-      <MinuteModifier {...props} />
-      <Event>
-        <Number>{props.months}</Number>
-        {' months'}
-      </Event>
-    </Piece>
-  );
-}
-
-export function TipEvent(props) {
-  return (
-    <Piece>
-      <MinuteModifier {...props} />
-      <Event>
-        <Number>
-          {props.currency}
-          {props.amount}
-        </Number>
-        {' tip'}
-      </Event>
-    </Piece>
-  );
-}
-
-MinuteModifier.propTypes = minuteModifierPropTypes;
-MinuteModifier.defaultProps = minuteModifierDefaultProps;
-AutoHostEvent.propTypes = propTypes;
-CheerEvent.propTypes = cheerPropTypes;
-CheerEvent.defaultProps = cheerDefaultProps;
-FollowEvent.propTypes = propTypes;
-HostEvent.propTypes = propTypes;
-SubscriptionEvent.propTypes = propTypes;
-SubGiftEvent.propTypes = subgiftPropTypes;
-ResubEvent.propTypes = resubPropTypes;
-ResubEvent.defaultProps = resubDefaultProps;
-TipEvent.propTypes = tipPropTypes;
-TipEvent.defaultProps = tipDefaultProps;

@@ -9,6 +9,33 @@ const followPropTypes = {
   visibility: PropTypes.bool.isRequired
 };
 
+const FollowEvent = ({ visibility, username }) => (
+  <Motion
+    defaultStyle={{ y: 200 }}
+    style={{
+      y: spring(visibility ? 0 : 200, { stiffness: 210, damping: 30 })
+    }}
+  >
+    {({ y }) => (
+      <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+        <Image>
+          <Emote
+            src="https://static-cdn.jtvnw.net/emoticons/v1/206446/3.0"
+            alt=""
+          />
+        </Image>
+        <Content>
+          <Message>
+            Hello there <strong>{username}</strong>! Welcome!
+          </Message>
+        </Content>
+      </Wrapper>
+    )}
+  </Motion>
+);
+
+FollowEvent.propTypes = followPropTypes;
+
 const Wrapper = styled.div`
   display: flex;
 `;
@@ -53,31 +80,4 @@ const Message = styled.div`
   }
 `;
 
-export default function FollowEvent(props) {
-  return (
-    <Motion
-      defaultStyle={{ y: 200 }}
-      style={{
-        y: spring(props.visibility ? 0 : 200, { stiffness: 210, damping: 30 })
-      }}
-    >
-      {({ y }) => (
-        <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
-          <Image>
-            <Emote
-              src="https://static-cdn.jtvnw.net/emoticons/v1/206446/3.0"
-              alt=""
-            />
-          </Image>
-          <Content>
-            <Message>
-              Hello there <strong>{props.username}</strong>! Welcome!
-            </Message>
-          </Content>
-        </Wrapper>
-      )}
-    </Motion>
-  );
-}
-
-FollowEvent.propTypes = followPropTypes;
+export default FollowEvent;

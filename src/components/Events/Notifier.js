@@ -50,20 +50,17 @@ class Notifier extends Component {
 Notifier.propTypes = propTypes;
 Notifier.defaultProps = defaultProps;
 
-function mapStateToProps(state) {
-  return {
-    notifierPool: selectors.getNotifierPool(state)
-  };
-}
+const mapStateToProps = state => ({
+  notifierPool: selectors.getNotifierPool(state)
+});
 
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
     {
       request: debugMode => dispatch(eventFetch.request(debugMode)),
       deleteEventFromNotifier: () => dispatch(eventNotifier.delete())
     },
     dispatch
   );
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notifier);

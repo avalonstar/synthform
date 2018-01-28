@@ -34,6 +34,27 @@ const getEventType = eventData => ({
   tip: TipEvent({ ...eventData })
 });
 
+class TickerItem extends Component {
+  componentDidMount() {
+    this.props.onChange();
+  }
+
+  render() {
+    const { data, data: { event, timestamp } } = this.props;
+    const username = event === 'subgift' ? data.recipient : data.username;
+    return (
+      <Wrapper data-event={event}>
+        <Item timestamp={timestamp}>
+          <Actor>{username}</Actor>
+          {getEventType(data)[data.event]}
+        </Item>
+      </Wrapper>
+    );
+  }
+}
+
+TickerItem.propTypes = propTypes;
+
 const Item = styled.div`
   padding: 14px 16px 15px 16px;
   color: #e8ebed;
@@ -58,26 +79,5 @@ const Actor = styled.div`
   font-size: 14px;
   font-weight: 700;
 `;
-
-class TickerItem extends Component {
-  componentDidMount() {
-    this.props.onChange();
-  }
-
-  render() {
-    const { data } = this.props;
-    const username = data.event === 'subgift' ? data.recipient : data.username;
-    return (
-      <Wrapper data-event={data.event}>
-        <Item timestamp={data.timestamp}>
-          <Actor>{username}</Actor>
-          {getEventType(data)[data.event]}
-        </Item>
-      </Wrapper>
-    );
-  }
-}
-
-TickerItem.propTypes = propTypes;
 
 export default TickerItem;

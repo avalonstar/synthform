@@ -14,6 +14,28 @@ const propTypes = {
   count: PropTypes.number.isRequired
 };
 
+class Counter extends Component {
+  render() {
+    return (
+      <Item>
+        <Emote
+          src={`//static-cdn.jtvnw.net/emoticons/v1/${this.props.id}/3.0`}
+          alt={this.props.code}
+        />
+        <Count>
+          <AnimatedNumber
+            value={this.props.count}
+            duration={500}
+            formatValue={n => numeral(n).format('0,0')}
+          />
+        </Count>
+      </Item>
+    );
+  }
+}
+
+Counter.propTypes = propTypes;
+
 const Item = styled.li`
   display: flex;
   align-items: center;
@@ -41,27 +63,5 @@ const Count = styled.span`
   font-size: 14px;
   font-weight: 700;
 `;
-
-class Counter extends Component {
-  render() {
-    return (
-      <Item>
-        <Emote
-          src={`//static-cdn.jtvnw.net/emoticons/v1/${this.props.id}/3.0`}
-          alt={this.props.code}
-        />
-        <Count>
-          <AnimatedNumber
-            value={this.props.count}
-            duration={500}
-            formatValue={n => numeral(n).format('0,0')}
-          />
-        </Count>
-      </Item>
-    );
-  }
-}
-
-Counter.propTypes = propTypes;
 
 export default Counter;

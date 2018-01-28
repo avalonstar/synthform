@@ -16,39 +16,190 @@ const wrapperDefaultProps = {
   url: 'https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0'
 };
 
-const hostPropTypes = {
+const eventPropTypes = {
   event: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   visibility: PropTypes.bool.isRequired
+};
+
+const hostPropTypes = {
+  ...eventPropTypes
 };
 
 const subscriptionPropTypes = {
-  event: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  visibility: PropTypes.bool.isRequired
+  ...eventPropTypes
 };
 
 const subgiftPropTypes = {
-  event: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  recipient: PropTypes.string.isRequired,
-  visibility: PropTypes.bool.isRequired
+  ...eventPropTypes,
+  recipient: PropTypes.string.isRequired
 };
 
 const resubPropTypes = {
-  event: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
-  months: PropTypes.number.isRequired,
-  visibility: PropTypes.bool.isRequired
+  ...eventPropTypes,
+  months: PropTypes.number.isRequired
 };
 
 const tipPropTypes = {
-  event: PropTypes.string.isRequired,
-  username: PropTypes.string.isRequired,
+  ...eventPropTypes,
   currency: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired,
-  visibility: PropTypes.bool.isRequired
+  amount: PropTypes.number.isRequired
 };
+
+const NotificationWrapper = ({ isVisible, url, children }) => (
+  <Motion
+    defaultStyle={{ y: 250, rotate: 0 }}
+    style={{
+      y: spring(isVisible ? 0 : 250, { stiffness: 120, damping: 14 }),
+      rotate: spring(isVisible ? 360 : 0, {
+        stiffness: 180,
+        damping: 12
+      })
+    }}
+  >
+    {({ y, rotate }) => (
+      <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+        <Image>
+          <img
+            src={url}
+            style={{
+              transform: `translate3d(0, ${y}%, 0) rotate(-${rotate}deg)`
+            }}
+            alt=""
+          />
+        </Image>
+        <Content>{children}</Content>
+      </Wrapper>
+    )}
+  </Motion>
+);
+
+export const HostEvent = ({ event, visibility, username }) => (
+  <NotificationWrapper
+    url="https://static-cdn.jtvnw.net/emoticons/v1/291666/2.0"
+    event={event}
+    isVisible={visibility}
+  >
+    <Header>
+      <strong>{username}</strong>
+      {' thank you for the host!'}
+    </Header>
+    <Footer>
+      <EventType>host</EventType>
+      <Heart size={14} />
+    </Footer>
+  </NotificationWrapper>
+);
+
+export const SubscriptionEvent = ({ event, visibility, username }) => (
+  <NotificationWrapper
+    url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
+    event={event}
+    isVisible={visibility}
+  >
+    <Header>
+      <strong>{username}</strong>
+      {' has just subscribed!'}
+    </Header>
+    <Message>
+      <strong>Welcome to AVLN</strong>
+      {
+        ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
+      }
+    </Message>
+    <Footer>
+      <EventType>subscription</EventType>
+      <TrendingUp size={14} />
+      <Modification>SP UP</Modification>
+    </Footer>
+  </NotificationWrapper>
+);
+
+export const SubGiftEvent = ({ event, visibility, username, recipient }) => (
+  <NotificationWrapper
+    url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
+    event={event}
+    isVisible={visibility}
+  >
+    <Header>
+      <strong>{username}</strong>
+      {' gifted '}
+      <strong>{recipient}</strong>
+      {' a subscription!'}
+    </Header>
+    <Message>
+      <strong>Enjoy the subscription</strong>
+      {'  and spam those emotes! Welcome to the family! '}
+      {'Thank you for your generosity, '}
+      {username}
+      {'!'}
+    </Message>
+    <Footer>
+      <EventType>subgift</EventType>
+      <TrendingUp size={14} />
+      <Modification>SP UP</Modification>
+    </Footer>
+  </NotificationWrapper>
+);
+
+export const ResubEvent = ({ event, visibility, username, months }) => (
+  <NotificationWrapper
+    url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
+    event={event}
+    isVisible={visibility}
+  >
+    <Header>
+      <strong>{username}</strong>
+      {' subscribed for '}
+      <strong>{`${months} months in a row!`}</strong>
+    </Header>
+    <Message>
+      {`Thank you for marching forward with us! Chat, let's bring the hype for them!`}
+    </Message>
+    <Footer>
+      <EventType>
+        {'resub'}
+        {'\u00D7'}
+        {months}
+      </EventType>
+      <Circle size={14} />
+      <Modification>SP RETAIN</Modification>
+    </Footer>
+  </NotificationWrapper>
+);
+
+export const TipEvent = ({ event, visibility, username, currency, amount }) => (
+  <NotificationWrapper
+    url="https://static-cdn.jtvnw.net/emoticons/v1/459215/2.0"
+    event={event}
+    isVisible={visibility}
+  >
+    <Header>
+      <strong>{username}</strong>
+      {' just tipped '}
+      <strong>
+        {currency}
+        {amount}
+        {'!'}
+      </strong>
+    </Header>
+    <Message>
+      {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
+    </Message>
+    <Footer>
+      <EventType>tip</EventType>
+      <Heart size={14} />
+    </Footer>
+  </NotificationWrapper>
+);
+
+NotificationWrapper.propTypes = wrapperPropTypes;
+NotificationWrapper.defaultProps = wrapperDefaultProps;
+HostEvent.propTypes = hostPropTypes;
+SubscriptionEvent.propTypes = subscriptionPropTypes;
+SubGiftEvent.propTypes = subgiftPropTypes;
+ResubEvent.propTypes = resubPropTypes;
+TipEvent.propTypes = tipPropTypes;
 
 const Wrapper = styled.div`
   display: flex;
@@ -114,170 +265,3 @@ const Modification = styled.div`
   color: #a2adb9;
   font-weight: 400;
 `;
-
-function NotificationWrapper(props) {
-  return (
-    <Motion
-      defaultStyle={{ y: 250, rotate: 0 }}
-      style={{
-        y: spring(props.isVisible ? 0 : 250, { stiffness: 120, damping: 14 }),
-        rotate: spring(props.isVisible ? 360 : 0, {
-          stiffness: 180,
-          damping: 12
-        })
-      }}
-    >
-      {({ y, rotate }) => (
-        <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
-          <Image>
-            <img
-              src={props.url}
-              style={{
-                transform: `translate3d(0, ${y}%, 0) rotate(-${rotate}deg)`
-              }}
-              alt=""
-            />
-          </Image>
-          <Content>{props.children}</Content>
-        </Wrapper>
-      )}
-    </Motion>
-  );
-}
-
-export function HostEvent(props) {
-  return (
-    <NotificationWrapper
-      url="https://static-cdn.jtvnw.net/emoticons/v1/291666/2.0"
-      event={props.event}
-      isVisible={props.visibility}
-    >
-      <Header>
-        <strong>{props.username}</strong>
-        {' thank you for the host!'}
-      </Header>
-      <Footer>
-        <EventType>host</EventType>
-        <Heart size={14} />
-      </Footer>
-    </NotificationWrapper>
-  );
-}
-
-export function SubscriptionEvent(props) {
-  return (
-    <NotificationWrapper
-      url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
-      event={props.event}
-      isVisible={props.visibility}
-    >
-      <Header>
-        <strong>{props.username}</strong>
-        {' has just subscribed!'}
-      </Header>
-      <Message>
-        <strong>Welcome to AVLN</strong>
-        {
-          ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
-        }
-      </Message>
-      <Footer>
-        <EventType>subscription</EventType>
-        <TrendingUp size={14} />
-        <Modification>SP UP</Modification>
-      </Footer>
-    </NotificationWrapper>
-  );
-}
-
-export function SubGiftEvent(props) {
-  return (
-    <NotificationWrapper
-      url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
-      event={props.event}
-      isVisible={props.visibility}
-    >
-      <Header>
-        <strong>{props.username}</strong>
-        {' gifted '}
-        <strong>{props.recipient}</strong>
-        {' a subscription!'}
-      </Header>
-      <Message>
-        <strong>Enjoy the subscription</strong>
-        {'  and spam those emotes! Welcome to the family! '}
-        {'Thank you for your generosity, '}
-        {props.username}
-        {'!'}
-      </Message>
-      <Footer>
-        <EventType>subgift</EventType>
-        <TrendingUp size={14} />
-        <Modification>SP UP</Modification>
-      </Footer>
-    </NotificationWrapper>
-  );
-}
-
-export function ResubEvent(props) {
-  return (
-    <NotificationWrapper
-      url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
-      event={props.event}
-      isVisible={props.visibility}
-    >
-      <Header>
-        <strong>{props.username}</strong>
-        {' subscribed for '}
-        <strong>{`${props.months} months in a row!`}</strong>
-      </Header>
-      <Message>
-        {`Thank you for marching forward with us! Chat, let's bring the hype for them!`}
-      </Message>
-      <Footer>
-        <EventType>
-          {'resub'}
-          {'\u00D7'}
-          {props.months}
-        </EventType>
-        <Circle size={14} />
-        <Modification>SP RETAIN</Modification>
-      </Footer>
-    </NotificationWrapper>
-  );
-}
-
-export function TipEvent(props) {
-  return (
-    <NotificationWrapper
-      url="https://static-cdn.jtvnw.net/emoticons/v1/459215/2.0"
-      event={props.event}
-      isVisible={props.visibility}
-    >
-      <Header>
-        <strong>{props.username}</strong>
-        {' just tipped '}
-        <strong>
-          {props.currency}
-          {props.amount}
-          {'!'}
-        </strong>
-      </Header>
-      <Message>
-        {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
-      </Message>
-      <Footer>
-        <EventType>tip</EventType>
-        <Heart size={14} />
-      </Footer>
-    </NotificationWrapper>
-  );
-}
-
-NotificationWrapper.propTypes = wrapperPropTypes;
-NotificationWrapper.defaultProps = wrapperDefaultProps;
-HostEvent.propTypes = hostPropTypes;
-SubscriptionEvent.propTypes = subscriptionPropTypes;
-SubGiftEvent.propTypes = subgiftPropTypes;
-ResubEvent.propTypes = resubPropTypes;
-TipEvent.propTypes = tipPropTypes;

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function getCheermoteURL(amount) {
+export const getCheermoteURL = amount => {
   if (_.inRange(amount, 1, 99)) {
     return 'https://static-cdn.jtvnw.net/bits/dark/animated/gray/1';
   } else if (_.inRange(amount, 100, 999)) {
@@ -14,9 +14,9 @@ export function getCheermoteURL(amount) {
   }
 
   return 'https://static-cdn.jtvnw.net/bits/dark/animated/gold/1';
-}
+};
 
-export function getLoyaltyBadgeURL(length) {
+export const getLoyaltyBadgeURL = length => {
   if (_.inRange(length, 1, 2)) {
     return 'https://static-cdn.jtvnw.net/badges/v1/95296b56-7b07-4def-916f-be81c38db832/2';
   } else if (_.inRange(length, 3, 5)) {
@@ -28,4 +28,4 @@ export function getLoyaltyBadgeURL(length) {
   }
 
   return 'https://static-cdn.jtvnw.net/badges/v1/6ad8ed8e-271d-4775-81f6-a1842701e245/2';
-}
+};
