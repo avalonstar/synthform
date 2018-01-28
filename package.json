@@ -33,7 +33,6 @@
     "reselect": "^3.0.1",
     "socket.io-client": "^2.0.4",
     "styled-components": "^3.0.2",
-    "styled-normalize": "^2.3.0",
     "tmi.js": "marcandrews/tmi.js#bugfix/packaging",
     "uniqid": "^4.1.1"
   },

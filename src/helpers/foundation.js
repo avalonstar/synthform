@@ -1,5 +1,5 @@
-import styledNormalize from 'styled-normalize';
 import { injectGlobal } from 'styled-components';
+import { normalize } from 'polished';
 
 export const foundation = {
   forza: "'Forza SSm A', 'Forza SSm B'",
@@ -11,7 +11,7 @@ export const foundation = {
 const fontURL = 'https://synthform.s3.amazonaws.com/fonts';
 
 export default () => injectGlobal`
-  ${styledNormalize}
+  ${normalize()}
 
   * {
     box-sizing: border-box;
