@@ -110,7 +110,7 @@ const StyledSongNotifier = styled(SongNotifier)`
 `;
 
 const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 14 / span 4;
+  grid-column: 15 / span 3;
   grid-row: 9;
   align-self: end;
 `;

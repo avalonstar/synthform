@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { List } from 'immutable';
 
 import styled from 'styled-components';
 
@@ -11,13 +10,13 @@ import { messageFetch } from 'actions/messages';
 import ChatMessage from './ChatMessage';
 
 const propTypes = {
-  messages: PropTypes.instanceOf(List),
+  messages: PropTypes.array,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-  messages: List()
+  messages: []
 };
 
 const Wrapper = styled.ul`

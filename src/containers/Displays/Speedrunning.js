@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 
 import { ActivityCamera } from 'components/Cameras';
-import { Ticker } from 'components/Events';
+import { Notifier, Ticker } from 'components/Events';
+import { Uptime } from 'components/Labels';
 import SubPointGoal from 'components/Goals';
 
 import * as selectors from 'selectors';
@@ -21,6 +22,8 @@ const Layout = () => (
     <Aside>
       <StyledCamera flipped />
       <StyledSubPointGoal />
+      <StyledUptime />
+      <StyledNotifier />
       <StyledTicker />
     </Aside>
   </Container>
@@ -54,12 +57,14 @@ const Wrapper = styled.div`
 `;
 
 const StyledCamera = styled(ActivityCamera)`
-  grid-column: 2;
+  grid-column: 2 / span 4;
   grid-row: 1;
   align-self: start;
   margin-top: -24px;
   z-index: 400;
 `;
+
+const StyledNotifier = styled(Notifier)``;
 
 const StyledSubPointGoal = styled(SubPointGoal)`
   grid-column: 2;
@@ -68,8 +73,14 @@ const StyledSubPointGoal = styled(SubPointGoal)`
 `;
 
 const StyledTicker = styled(Ticker)`
-  grid-column: 1 / span 3;
+  grid-column: 1 / span 5;
   grid-row: 12;
+`;
+
+const StyledUptime = styled(Uptime)`
+  grid-column: 3 / span 3;
+  grid-row: 12;
+  align-self: center;
 `;
 
 const Container = styled.div`
@@ -89,7 +100,7 @@ const Aside = styled.aside`
 
   position: relative;
   display: grid;
-  grid-template-columns: 12px 1fr 12px;
+  grid-template-columns: 12px 1fr 1fr 1fr 1fr 12px;
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
 
