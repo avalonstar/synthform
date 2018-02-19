@@ -19,11 +19,11 @@ const minuteModifierDefaultProps = {
 };
 
 const cheerPropTypes = {
-  bits: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  amount: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 const cheerDefaultProps = {
-  bits: 0
+  amount: 0
 };
 
 const subgiftPropTypes = {
@@ -39,13 +39,11 @@ const resubDefaultProps = {
 };
 
 const tipPropTypes = {
-  currency: PropTypes.string,
-  amount: PropTypes.string
+  formattedAmount: PropTypes.string
 };
 
 const tipDefaultProps = {
-  currency: '$',
-  amount: '0'
+  formattedAmount: '$0.00'
 };
 
 export const MinuteModifier = ({ minutes }) =>
@@ -68,11 +66,11 @@ export const CheerEvent = props => (
   <Piece>
     <MinuteModifier {...props} />
     <Event>
-      <Number>{props.bits}</Number>
+      <Number>{props.amount}</Number>
       {' bits'}
     </Event>
     <Cheer>
-      <Cheermote alt={props.bits} src={getCheermoteURL(props.bits)} />
+      <Cheermote alt={props.amount} src={getCheermoteURL(props.amount)} />
     </Cheer>
   </Piece>
 );
@@ -120,10 +118,7 @@ export const TipEvent = props => (
   <Piece>
     <MinuteModifier {...props} />
     <Event>
-      <Number>
-        {props.currency}
-        {props.amount}
-      </Number>
+      <Number>{props.formattedAmount}</Number>
       {' tip'}
     </Event>
   </Piece>
