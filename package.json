@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "8.x"
+    "node": "9.x"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -32,7 +32,7 @@
     "reselect": "^3.0.1",
     "socket.io-client": "^2.0.4",
     "styled-components": "^3.1.5",
-    "tmi.js": "marcandrews/tmi.js#bugfix/packaging",
+    "twitch-js": "^2.0.0-alpha.7",
     "uniqid": "^4.1.1"
   },
   "lint-staged": {

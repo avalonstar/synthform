@@ -1,5 +1,5 @@
 /* eslint-disable new-cap */
-/* global tmi */
+import TwitchJS from 'twitch-js';
 
 import { channel as clientChannel } from 'configurations/constants';
 import * as actions from 'actions/tmi';
@@ -9,7 +9,7 @@ const { tmiConnect, tmiReceive } = actions;
 let client = null;
 
 export default function(store) {
-  client = new tmi.client({
+  client = new TwitchJS.client({
     options: { debug: true },
     connection: { secure: true },
     channels: [`#${clientChannel}`]
