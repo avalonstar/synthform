@@ -6,6 +6,5 @@ export const tmiIdentity = {
 export const channel = 'avalonstar';
 export const nightbotID = '56bac6beb1c02f9d6f0ea767';
 
-const apiBaseUri = process.env.REACT_APP_API_URI;
-export const apiUri = `${apiBaseUri}/api/${channel}`;
-export const socketUri = `${apiBaseUri}/${channel}`;
+export const API_BASE_URI = process.env.REACT_APP_API_URI;
+export const API_URI = `${API_BASE_URI}/api`;

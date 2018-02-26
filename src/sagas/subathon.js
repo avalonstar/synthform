@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/subathon';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { subathonFetch } = actions;
 
 const connect = saga => {
-  const socket = io(socketUri);
+  const socket = io(`${API_BASE_URI}/avalonstar`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -42,7 +42,7 @@ function* read(socket) {
 
 function* fetchSubathonConfiguration() {
   try {
-    const uri = `${apiUri}/subathon/configuration/`;
+    const uri = `${API_URI}/avalonstar/subathon/configuration/`;
     const response = yield call(axios.get, uri);
     yield put(subathonFetch.success(response.data.data, Date.now()));
   } catch (error) {

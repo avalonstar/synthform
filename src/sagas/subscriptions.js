@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/subscriptions';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { latestSubscriberFetch, subpointFetch } = actions;
 
 const connect = saga => {
-  const socket = io(socketUri);
+  const socket = io(`${API_BASE_URI}/avalonstar`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -45,7 +45,7 @@ function* read(socket) {
 
 function* fetchLatestSubscriber() {
   try {
-    const uri = `${apiUri}/subscriptions/`;
+    const uri = `${API_URI}/avalonstar/subscriptions/`;
     const response = yield call(axios.get, uri);
     const payload = response.data.data.slice(-1)[0];
     yield put(latestSubscriberFetch.success(payload));
@@ -56,7 +56,7 @@ function* fetchLatestSubscriber() {
 
 function* fetchSubpoints() {
   try {
-    const uri = `${apiUri}/subpoints/`;
+    const uri = `${API_URI}/avalonstar/subpoints/`;
     const response = yield call(axios.get, uri);
     yield put(subpointFetch.success(response.data.data));
   } catch (error) {

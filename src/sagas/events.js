@@ -7,7 +7,7 @@ import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 import * as selectors from 'selectors';
 
 const { eventFetch, eventNotifier } = actions;
@@ -19,8 +19,8 @@ let subathon = false;
 const subathonPassthroughEvents = ['follow', 'host'];
 const blacklistedEvents = ['autohost'];
 
-const connect = saga => {
-  const socket = io(socketUri);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -71,10 +71,10 @@ function* triggerNotification() {
   }
 }
 
-function* fetchEvents() {
+function* fetchEvents(user) {
   try {
     const requestPath = debugMode ? 'testEvents' : 'events';
-    const uri = `${apiUri}/${requestPath}/`;
+    const uri = `${API_URI}/${user}/${requestPath}/`;
     const response = yield call(axios.get, uri);
 
     shouldNotify = false;
@@ -87,9 +87,9 @@ function* fetchEvents() {
 function* watchEventFetchRequest() {
   const request = yield take(actions.EVENT_FETCH.REQUEST);
   debugMode = request.debugMode;
-  yield call(fetchEvents);
+  yield call(fetchEvents, request.user);
 
-  const socket = yield call(connect, 'events');
+  const socket = yield call(connect, request.user, 'events');
   yield fork(read, socket);
 }
 

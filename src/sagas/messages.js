@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/messages';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { messageFetch } = actions;
 
 const connect = () => {
-  const socket = io(socketUri);
+  const socket = io(`${API_BASE_URI}/avalonstar`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       resolve(socket);
@@ -40,7 +40,7 @@ function* read(socket) {
 
 function* fetchMessages() {
   try {
-    const uri = `${apiUri}/messages/`;
+    const uri = `${API_URI}/avalonstar/messages/`;
     const response = yield call(axios.get, uri);
     yield put(messageFetch.success(response.data.data));
   } catch (error) {
