@@ -11,12 +11,10 @@ import { ChevronRight } from 'react-feather';
 import { latestSubscriberFetch } from 'actions/subscriptions';
 import * as selectors from 'selectors';
 
-import crown from './prime.png';
-
 const propTypes = {
   subscriber: PropTypes.shape({
     username: PropTypes.string,
-    recipient: PropTypes.string
+    months: PropTypes.string
   }).isRequired,
   request: PropTypes.func.isRequired,
   className: PropTypes.string.isRequired
@@ -24,14 +22,12 @@ const propTypes = {
 
 const contentPropsTypes = {
   username: PropTypes.string,
-  months: PropTypes.number,
-  prime: PropTypes.bool
+  months: PropTypes.string
 };
 
 const contentDefaultProps = {
   username: '',
-  months: null,
-  prime: false
+  months: null
 };
 
 const defaultStyles = [
@@ -64,7 +60,7 @@ const willLeave = () => ({
   opacity: spring(0)
 });
 
-const Subscriber = ({ username, prime, months }) => (
+const Subscriber = ({ username, months }) => (
   <TransitionMotion
     defaultStyles={defaultStyles}
     styles={styles}
@@ -79,11 +75,6 @@ const Subscriber = ({ username, prime, months }) => (
         }}
       >
         <Actor>{username}</Actor>
-        {prime && (
-          <Prime>
-            <Crown src={crown} alt="Prime" />
-          </Prime>
-        )}
         {months && (
           <Length>
             <span>{'\u2715'}</span>
@@ -101,15 +92,14 @@ class LatestSubscriber extends Component {
   }
 
   render() {
-    const { username, recipient } = this.props.subscriber;
-    const name = recipient || username;
+    const { username, months } = this.props.subscriber;
     return (
       <Wrapper className={this.props.className}>
         <Title>
           <ChevronRight color="#02fa7b" size={16} />
           {'!hype'}
         </Title>
-        {name && <Subscriber username={name} {...this.props} />}
+        {username && <Subscriber username={username} months={months} />}
       </Wrapper>
     );
   }
@@ -172,17 +162,6 @@ const Actor = styled.div`
   font-family: ${props => props.theme.gotham};
   font-weight: 700;
   flex: 1;
-`;
-
-const Prime = styled.div`
-  margin-left: 4px;
-  padding: 1px 4px 0px;
-  border-radius: 2px;
-  background: #019cdc;
-`;
-
-const Crown = styled.img`
-  width: 16px;
 `;
 
 const Length = styled.div`
