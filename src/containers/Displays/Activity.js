@@ -33,7 +33,7 @@ const Layout = ({ cameraOff, debugMode }) => (
     <StyledNotifier debugMode={debugMode} />
     <StyledSongNotifier />
     <StyledSubPointGoal />
-    {/* <StyledTicker debugMode={debugMode} /> */}
+    <StyledTicker debugMode={debugMode} />
   </Container>
 );
 

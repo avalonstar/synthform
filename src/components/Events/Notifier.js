@@ -1,39 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
-import { eventFetch, eventNotifier } from 'actions/events';
-import * as selectors from 'selectors';
+import { eventNotifier } from 'actions/events';
 
 import Notification from './Notification';
 
 const propTypes = {
-  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
   className: PropTypes.string,
-  request: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired,
-  debugMode: PropTypes.bool
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const defaultProps = {
-  className: '',
-  debugMode: false
+  className: ''
 };
 
 class Notifier extends Component {
-  componentDidMount() {
-    this.props.request(this.props.debugMode);
-  }
-
   shouldComponentUpdate(nextProps) {
     return nextProps.notifierPool[0] !== this.props.notifierPool[0];
   }
 
   onComplete = () => {
-    if (!this.props.debugMode) {
-      this.props.deleteEventFromNotifier();
-    }
+    this.props.deleteEventFromNotifier();
   };
 
   render() {
@@ -50,17 +39,8 @@ class Notifier extends Component {
 Notifier.propTypes = propTypes;
 Notifier.defaultProps = defaultProps;
 
-const mapStateToProps = state => ({
-  notifierPool: selectors.getNotifierPool(state)
+const mapDispatchToProps = dispatch => ({
+  deleteEventFromNotifier: () => dispatch(eventNotifier.delete())
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      request: debugMode => dispatch(eventFetch.request(debugMode)),
-      deleteEventFromNotifier: () => dispatch(eventNotifier.delete())
-    },
-    dispatch
-  );
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notifier);
+export default connect(null, mapDispatchToProps)(Notifier);

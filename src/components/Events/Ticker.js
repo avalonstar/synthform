@@ -11,14 +11,15 @@ import TickerItem from './TickerItem';
 const propTypes = {
   anchor: PropTypes.string,
   events: PropTypes.arrayOf(PropTypes.object),
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   timer: PropTypes.number
 };
 
 const defaultProps = {
   anchor: 'bottom',
-  timer: 5,
-  events: []
+  className: '',
+  events: [],
+  timer: 5
 };
 
 const configureAnchor = () => ({

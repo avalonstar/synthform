@@ -6,15 +6,14 @@ import { eventFetch } from 'actions/events';
 import * as selectors from 'selectors';
 
 const propTypes = {
+  children: PropTypes.func.isRequired,
   debugMode: PropTypes.bool,
-  payload: PropTypes.arrayOf(PropTypes.object),
   request: PropTypes.func.isRequired,
   user: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-  debugMode: false,
-  payload: []
+  debugMode: false
 };
 
 class EventProvider extends Component {
@@ -23,16 +22,16 @@ class EventProvider extends Component {
   }
 
   render() {
-    // eslint-disable-next-line react/prop-types
-    return this.props.children(this.props.payload);
+    return this.props.children(this.props);
   }
 }
 
 EventProvider.propTypes = propTypes;
 EventProvider.defaultProps = defaultProps;
 
-const mapStateToProps = (state, { selector = selectors.getEventList }) => ({
-  payload: selector(state)
+const mapStateToProps = state => ({
+  notifierPool: selectors.getNotifierPool(state),
+  payload: selectors.getEventList(state)
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { Ticker } from 'components/Events';
+import { Notifier, Ticker } from 'components/Events';
 import * as Providers from 'providers';
 
 import styled from 'styled-components';
@@ -14,16 +14,28 @@ const propTypes = {
 };
 
 const layoutPropTypes = {
-  user: PropTypes.string.isRequired,
-  debugMode: PropTypes.bool.isRequired
+  debugMode: PropTypes.bool.isRequired,
+  notifierPool: PropTypes.arrayOf(PropTypes.object),
+  payload: PropTypes.arrayOf(PropTypes.object),
+  user: PropTypes.string.isRequired
+};
+
+const layoutDefaultProps = {
+  notifierPool: [],
+  payload: []
 };
 
 const Layout = ({ user, debugMode }) => (
-  <div>
+  <Container>
     <Providers.Events user={user} debugMode={debugMode}>
-      {payload => <Ticker events={payload} />}
+      {props => (
+        <Fragment>
+          <StyledTicker events={props.payload} />
+          <StyledNotifier notifierPool={props.notifierPool} />
+        </Fragment>
+      )}
     </Providers.Events>
-  </div>
+  </Container>
 );
 
 const Activity = props => {
@@ -38,6 +50,7 @@ const Activity = props => {
 
 Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
+Layout.defaultProps = layoutDefaultProps;
 
 const Wrapper = styled.div`
   display: grid;
@@ -53,6 +66,35 @@ const Wrapper = styled.div`
     ${rgba('#090a0c', 0)} 85%,
     ${rgba('#090a0c', 0.4)}
   );
+`;
+
+const StyledNotifier = styled(Notifier)`
+  grid-column: 1 / span 5;
+  grid-row: 11;
+  align-self: end;
+  z-index: 300;
+
+  &[data-event='follow'] {
+    align-self: start;
+    z-index: 0;
+  }
+`;
+
+const StyledTicker = styled(Ticker)`
+  grid-column: 1 / span 17;
+  grid-row: 12;
+  margin: 0 -24px 0;
+  z-index: 200;
+`;
+
+const Container = styled.div`
+  display: grid;
+  grid-column: 2;
+  align-self: end;
+
+  grid-template-columns: repeat(17, 80px);
+  grid-template-rows: repeat(12, 62px);
+  grid-gap: 12px;
 `;
 
 export default Activity;
