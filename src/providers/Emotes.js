@@ -28,7 +28,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  request: () => dispatch(emoteFetch.request())
+  request: user => dispatch(emoteFetch.request(user))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EmoteProvider);

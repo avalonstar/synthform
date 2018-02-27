@@ -9,8 +9,8 @@ import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { emoteFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`${API_BASE_URI}/avalonstar`);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -39,9 +39,9 @@ function* read(socket) {
   }
 }
 
-function* fetchEmotes() {
+function* fetchEmotes(user) {
   try {
-    const uri = `${API_URI}/avalonstar/emotes/`;
+    const uri = `${API_URI}/${user}/emotes/`;
     const response = yield call(axios.get, uri);
     yield put(emoteFetch.success(response.data.data));
   } catch (error) {
@@ -50,10 +50,10 @@ function* fetchEmotes() {
 }
 
 function* watchEmoteFetchRequest() {
-  yield take(actions.EMOTE_FETCH.REQUEST);
-  yield call(fetchEmotes);
+  const { user } = yield take(actions.EMOTE_FETCH.REQUEST);
+  yield call(fetchEmotes, user);
 
-  const socket = yield call(connect);
+  const socket = yield call(connect, user, 'emotes');
   yield fork(read, socket);
 }
 

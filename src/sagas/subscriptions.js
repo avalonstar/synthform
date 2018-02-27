@@ -76,8 +76,8 @@ function* watchSubpointFetch() {
   const { user } = yield take(actions.SUBPOINT_FETCH.REQUEST);
   yield call(fetchSubpoints, user);
 
-  const socket = yield call(connect, 'subpoints');
-  yield fork(read, user, socket);
+  const socket = yield call(connect, user, 'subpoints');
+  yield fork(read, socket);
 }
 
 export default function* subscriptionSagas() {
