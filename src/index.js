@@ -7,6 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
+import NewActivity from 'clients/avalonstar/canvases/Activity';
 import { Activity, Break, Intertitle, Speedrunning } from 'containers/Displays';
 import Christmas from 'containers/Special';
 import baseStyles, { foundation } from 'helpers/foundation';
@@ -25,6 +26,12 @@ const render = () => {
         <ThemeProvider theme={foundation}>
           <main>
             <Switch>
+              <Route
+                exact
+                path="/avalonstar/canvases/activity"
+                component={NewActivity}
+              />
+
               <Route
                 exact
                 path="/displays/special/christmas"

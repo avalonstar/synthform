@@ -1,32 +1,24 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import FlipMove from 'react-flip-move';
 import { Motion, spring } from 'react-motion';
 
 import styled from 'styled-components';
 import { ChevronRight } from 'react-feather';
 
-import { eventFetch } from 'actions/events';
-import * as selectors from 'selectors';
-
 import TickerItem from './TickerItem';
 
 const propTypes = {
   anchor: PropTypes.string,
-  isFetching: PropTypes.bool.isRequired,
-  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  events: PropTypes.arrayOf(PropTypes.object),
   className: PropTypes.string.isRequired,
-  request: PropTypes.func.isRequired,
-  debugMode: PropTypes.bool,
   timer: PropTypes.number
 };
 
 const defaultProps = {
   anchor: 'bottom',
-  debugMode: false,
-  timer: 5
+  timer: 5,
+  events: []
 };
 
 const configureAnchor = () => ({
@@ -41,7 +33,6 @@ class Ticker extends Component {
   };
 
   componentDidMount() {
-    this.props.request(this.props.debugMode);
     this.activateTimer();
   }
 
@@ -67,56 +58,41 @@ class Ticker extends Component {
 
   render() {
     const { isVisible } = this.state;
-    const { isFetching, className, events } = this.props;
+    const { className, events } = this.props;
     const anchor = configureAnchor()[this.props.anchor];
     return (
-      !isFetching && (
-        <Motion
-          defaultStyle={{ y: anchor }}
-          style={{ y: spring(isVisible ? 0 : anchor) }}
-        >
-          {({ y }) => (
-            <StyledFlipMove
-              typeName="ol"
-              className={className}
-              easing="cubic-bezier(.62, .28, .23, .99)"
-              enterAnimation="fade"
-              staggerDurationBy={100}
-              style={{ transform: `translate3d(0, ${y}%, 0)` }}
-            >
-              <Cap>
-                <ChevronRight color="#02fa7b" size={20} />
-              </Cap>
-              {events.map(data => (
-                <TickerItem
-                  key={data.timestamp}
-                  data={data}
-                  onChange={this.resetTimer}
-                />
-              ))}
-            </StyledFlipMove>
-          )}
-        </Motion>
-      )
+      <Motion
+        defaultStyle={{ y: anchor }}
+        style={{ y: spring(isVisible ? 0 : anchor) }}
+      >
+        {({ y }) => (
+          <StyledFlipMove
+            typeName="ol"
+            className={className}
+            easing="cubic-bezier(.62, .28, .23, .99)"
+            enterAnimation="fade"
+            staggerDurationBy={100}
+            style={{ transform: `translate3d(0, ${y}%, 0)` }}
+          >
+            <Cap>
+              <ChevronRight color="#02fa7b" size={20} />
+            </Cap>
+            {events.map(data => (
+              <TickerItem
+                key={data.timestamp}
+                data={data}
+                onChange={this.resetTimer}
+              />
+            ))}
+          </StyledFlipMove>
+        )}
+      </Motion>
     );
   }
 }
 
 Ticker.propTypes = propTypes;
 Ticker.defaultProps = defaultProps;
-
-const mapStateToProps = state => ({
-  isFetching: state.events.isFetching,
-  events: selectors.getEventList(state)
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      request: debugMode => dispatch(eventFetch.request(debugMode))
-    },
-    dispatch
-  );
 
 const StyledFlipMove = styled(FlipMove)`
   background: #090a0c;
@@ -137,4 +113,4 @@ const Cap = styled.li`
   padding: 12px 4px 12px 12px;
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(Ticker);
+export default Ticker;

@@ -1,20 +1,20 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { eventFetch } from 'actions/events';
 import * as selectors from 'selectors';
 
 const propTypes = {
-  user: PropTypes.user.isRequired,
   debugMode: PropTypes.bool,
+  payload: PropTypes.arrayOf(PropTypes.object),
   request: PropTypes.func.isRequired,
-  render: PropTypes.func.isRequired
+  user: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-  debugMode: false
+  debugMode: false,
+  payload: []
 };
 
 class EventProvider extends Component {
@@ -23,24 +23,20 @@ class EventProvider extends Component {
   }
 
   render() {
-    return this.props.render(...this.props);
+    // eslint-disable-next-line react/prop-types
+    return this.props.children(this.props.payload);
   }
 }
 
 EventProvider.propTypes = propTypes;
 EventProvider.defaultProps = defaultProps;
 
-const mapStateToProps = state => ({
-  payload: selectors.getEventList(state)
+const mapStateToProps = (state, { selector = selectors.getEventList }) => ({
+  payload: selector(state)
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      request: (user, debugMode) =>
-        dispatch(eventFetch.request(user, debugMode))
-    },
-    dispatch
-  );
+const mapDispatchToProps = dispatch => ({
+  request: (user, debugMode) => dispatch(eventFetch.request(user, debugMode))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(EventProvider);
