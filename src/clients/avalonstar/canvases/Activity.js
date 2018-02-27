@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { SubPoints } from 'clients/avalonstar/components';
+import { EmoteCounter, SubPoints } from 'clients/avalonstar/components';
 import { Notifier, Ticker } from 'components/Events';
 import * as Providers from 'providers';
 
@@ -22,6 +22,9 @@ const layoutPropTypes = {
 /* eslint-disable react/prop-types */
 const Layout = ({ user, debugMode }) => (
   <Container>
+    <Providers.Emotes>
+      {props => <StyledEmoteCounter emotes={props.payload} limit={9} />}
+    </Providers.Emotes>
     <Providers.Events user={user} debugMode={debugMode}>
       {props => (
         <Fragment>
@@ -66,6 +69,10 @@ const Wrapper = styled.div`
   );
 `;
 
+const StyledEmoteCounter = styled(EmoteCounter)`
+  grid-row: 12;
+`;
+
 const StyledNotifier = styled(Notifier)`
   grid-column: 1 / span 5;
   grid-row: 11;
@@ -99,6 +106,11 @@ const Container = styled.div`
   grid-template-columns: repeat(17, 80px);
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
+
+  ${StyledEmoteCounter} {
+    grid-column: 4 / span 14;
+    padding-right: 0;
+  }
 `;
 
 export default Activity;
