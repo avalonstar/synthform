@@ -6,6 +6,8 @@ import { ellipsis } from 'polished';
 import { ChevronRight } from 'react-feather';
 import { Capsule } from 'clients/avalonstar/styles';
 
+import { getCheermoteURL } from './utils';
+
 const propTypes = {
   className: PropTypes.string,
   events: PropTypes.arrayOf(PropTypes.object).isRequired
@@ -16,13 +18,15 @@ const defaultProps = {
 };
 
 const contentPropsTypes = {
+  amount: PropTypes.number,
   username: PropTypes.string,
   months: PropTypes.string
 };
 
 const contentDefaultProps = {
-  username: '',
-  months: ''
+  amount: null,
+  months: null,
+  username: ''
 };
 
 const Content = props => (
@@ -33,6 +37,12 @@ const Content = props => (
         <span>{'\u2715'}</span>
         {props.months}
       </Length>
+    )}
+    {props.amount && (
+      <Amount>
+        <span>{props.amount}</span>
+        <Cheermote alt={props.amount} src={getCheermoteURL(props.amount)} />
+      </Amount>
     )}
   </Fragment>
 );
@@ -66,12 +76,37 @@ const Actor = styled.div`
   flex: 1;
 `;
 
+const Amount = styled.div`
+  position: relative;
+  margin-left: 4px;
+  padding: 3px 5px 3px 6px;
+  box-shadow: inset 0 0 0 1px #586674;
+  border-radius: 2px;
+  font-family: ${props => props.theme.miedinger};
+  font-weight: 500;
+
+  span {
+    position: relative;
+    z-index: 10;
+  }
+`;
+
+const Cheermote = styled.img`
+  position: absolute;
+  margin-left: 50%;
+  top: -4px;
+  left: -14px;
+  height: 28px;
+  opacity: 0.75;
+`;
+
 const Length = styled.div`
   margin-left: 4px;
   padding: 3px 5px 3px 6px;
   box-shadow: inset 0 0 0 1px #586674;
   border-radius: 2px;
   font-family: ${props => props.theme.miedinger};
+  font-weight: 500;
 
   span {
     font-size: 10px;
