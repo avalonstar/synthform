@@ -1,8 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { EmoteCounter, SubPoints } from 'clients/avalonstar/components';
-import { Ticker } from 'components/Events';
+import { EmoteCounter, SubPoints, Ticker } from 'clients/avalonstar/components';
 import * as Providers from 'providers';
 
 import styled from 'styled-components';

@@ -8,8 +8,6 @@ import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
 import { Activity, Break } from 'clients/avalonstar/canvases';
-import { Speedrunning } from 'containers/Displays';
-import Christmas from 'containers/Special';
 import baseStyles, { foundation } from 'helpers/foundation';
 
 import store, { history } from './store';
@@ -35,16 +33,6 @@ const render = () => {
                 exact
                 path="/avalonstar/canvases/break"
                 component={Break}
-              />
-              <Route
-                exact
-                path="/displays/special/christmas"
-                component={Christmas}
-              />
-              <Route
-                exact
-                path="/displays/speedrunning"
-                component={Speedrunning}
               />
               <Route component={App} />
             </Switch>
