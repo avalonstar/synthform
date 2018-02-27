@@ -16,16 +16,10 @@ const propTypes = {
 
 const layoutPropTypes = {
   debugMode: PropTypes.bool.isRequired,
-  notifierPool: PropTypes.arrayOf(PropTypes.object),
-  payload: PropTypes.arrayOf(PropTypes.object),
   user: PropTypes.string.isRequired
 };
 
-const layoutDefaultProps = {
-  notifierPool: [],
-  payload: []
-};
-
+/* eslint-disable react/prop-types */
 const Layout = ({ user, debugMode }) => (
   <Container>
     <Providers.Events user={user} debugMode={debugMode}>
@@ -41,6 +35,7 @@ const Layout = ({ user, debugMode }) => (
     </Providers.SubPoints>
   </Container>
 );
+/* eslint-enable react/prop-types */
 
 const Activity = props => {
   const query = new URLSearchParams(props.location.search);
@@ -54,7 +49,6 @@ const Activity = props => {
 
 Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
-Layout.defaultProps = layoutDefaultProps;
 
 const Wrapper = styled.div`
   display: grid;
