@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import { EmoteCounter, SubPoints } from 'clients/avalonstar/components';
+import { EmoteCounter, Panel, SubPoints } from 'clients/avalonstar/components';
 import { Notifier, Ticker } from 'components/Events';
 import * as Providers from 'providers';
 
@@ -22,14 +22,15 @@ const layoutPropTypes = {
 /* eslint-disable react/prop-types */
 const Layout = ({ user, debugMode }) => (
   <Container>
-    <Providers.Emotes>
+    <Providers.Emotes user={user}>
       {props => <StyledEmoteCounter emotes={props.payload} limit={9} />}
     </Providers.Emotes>
     <Providers.Events user={user} debugMode={debugMode}>
       {props => (
         <Fragment>
-          <StyledTicker events={props.payload} />
           <StyledNotifier notifierPool={props.notifierPool} />
+          <StyledPanel events={props.payload} />
+          <StyledTicker events={props.payload} />
         </Fragment>
       )}
     </Providers.Events>
@@ -83,6 +84,13 @@ const StyledNotifier = styled(Notifier)`
     align-self: start;
     z-index: 0;
   }
+`;
+
+const StyledPanel = styled(Panel)`
+  grid-column: 1 / span 3;
+  grid-row: 12;
+  align-self: center;
+  z-index: 100;
 `;
 
 const StyledSubPoints = styled(SubPoints)`
