@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-import { ActivityCamera } from 'components/Cameras';
+// import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
 import { Notifier, Ticker } from 'components/Events';
 // import SubPointGoal from 'components/Goals';
@@ -27,7 +27,7 @@ const layoutPropTypes = {
 
 const Layout = ({ cameraOff, debugMode }) => (
   <Container cameraOff={cameraOff}>
-    <StyledCamera />
+    {/* <StyledCamera /> */}
     <StyledCounter limit={cameraOff ? 9 : 6} />
     <StyledLatestSubscriber />
     <StyledNotifier debugMode={debugMode} />
@@ -77,12 +77,12 @@ const StyledCounter = styled(Counter)`
   grid-row: 12;
 `;
 
-const StyledCamera = styled(ActivityCamera)`
-  grid-column: 14 / span 4;
-  grid-row: 12;
-  align-self: end;
-  z-index: 400;
-`;
+// const StyledCamera = styled(ActivityCamera)`
+//   grid-column: 14 / span 4;
+//   grid-row: 12;
+//   align-self: end;
+//   z-index: 400;
+// `;
 
 const StyledLatestSubscriber = styled(LatestSubscriber)`
   grid-column: 1 / span 3;
@@ -136,11 +136,9 @@ const Container = styled.div`
     padding-right: ${props => (props.cameraOff ? 0 : 12)};
   }
 
-  ${StyledCamera} {
+  ${'' /* ${StyledCamera} {
     display: ${props => (props.cameraOff ? 'none' : 'block')};
-  }
-
-  ${'' /* ${StyledSubPointGoal} {
+  } */} ${'' /* ${StyledSubPointGoal} {
     grid-row: ${props => (props.cameraOff ? 11 : 9)};
   } */};
 `;

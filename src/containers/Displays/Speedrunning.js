@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-import { ActivityCamera } from 'components/Cameras';
+// import { ActivityCamera } from 'components/Cameras';
 import { Notifier, Ticker } from 'components/Events';
 import { Uptime } from 'components/Labels';
 // import SubPointGoal from 'components/Goals';
@@ -20,7 +20,7 @@ const Layout = () => (
   <Container>
     <Console />
     <Aside>
-      <StyledCamera flipped />
+      {/* <StyledCamera flipped /> */}
       {/* <StyledSubPointGoal /> */}
       <StyledUptime />
       <StyledNotifier />
@@ -56,13 +56,13 @@ const Wrapper = styled.div`
   background: linear-gradient(#1a1f23 25%, #090a0c);
 `;
 
-const StyledCamera = styled(ActivityCamera)`
-  grid-column: 2 / span 4;
-  grid-row: 1;
-  align-self: start;
-  margin-top: -24px;
-  z-index: 400;
-`;
+// const StyledCamera = styled(ActivityCamera)`
+//   grid-column: 2 / span 4;
+//   grid-row: 1;
+//   align-self: start;
+//   margin-top: -24px;
+//   z-index: 400;
+// `;
 
 const StyledNotifier = styled(Notifier)``;
 
