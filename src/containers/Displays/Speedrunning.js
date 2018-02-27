@@ -8,7 +8,7 @@ import { rgba } from 'polished';
 import { ActivityCamera } from 'components/Cameras';
 import { Notifier, Ticker } from 'components/Events';
 import { Uptime } from 'components/Labels';
-import SubPointGoal from 'components/Goals';
+// import SubPointGoal from 'components/Goals';
 
 import * as selectors from 'selectors';
 
@@ -21,7 +21,7 @@ const Layout = () => (
     <Console />
     <Aside>
       <StyledCamera flipped />
-      <StyledSubPointGoal />
+      {/* <StyledSubPointGoal /> */}
       <StyledUptime />
       <StyledNotifier />
       <StyledTicker />
@@ -66,11 +66,11 @@ const StyledCamera = styled(ActivityCamera)`
 
 const StyledNotifier = styled(Notifier)``;
 
-const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 2;
-  grid-row: 12;
-  align-self: center;
-`;
+// const StyledSubPointGoal = styled(SubPointGoal)`
+//   grid-column: 2;
+//   grid-row: 12;
+//   align-self: center;
+// `;
 
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 5;

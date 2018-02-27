@@ -7,7 +7,7 @@ import { rgba } from 'polished';
 
 import Counter from 'components/Emotes';
 import { Ticker } from 'components/Events';
-import SubPointGoal from 'components/Goals';
+// import SubPointGoal from 'components/Goals';
 import { Generic } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 import * as selectors from 'selectors';
@@ -28,7 +28,7 @@ const Layout = () => (
         content="Taking a quick break! Hang tight and I'll be back soon!"
       />
       <StyledSongNotifier />
-      <StyledSubPointGoal />
+      {/* <StyledSubPointGoal /> */}
       <StyledTicker anchor="top" timer={2} />
     </Container>
   </Wrapper>
@@ -90,11 +90,11 @@ const StyledSongNotifier = styled(SongNotifier)`
   align-self: start;
 `;
 
-const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 15 / span 3;
-  grid-row: 11;
-  align-self: end;
-`;
+// const StyledSubPointGoal = styled(SubPointGoal)`
+//   grid-column: 15 / span 3;
+//   grid-row: 11;
+//   align-self: end;
+// `;
 
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 17;

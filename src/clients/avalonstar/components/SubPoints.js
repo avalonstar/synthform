@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import AnimatedNumber from 'react-animated-number';
 import { Motion, spring } from 'react-motion';
 
@@ -9,13 +7,13 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { ChevronDown } from 'react-feather';
 
-import { subpointFetch } from 'actions/subscriptions';
-import * as selectors from 'selectors';
-
 const propTypes = {
-  subPoints: PropTypes.number.isRequired,
-  request: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  points: PropTypes.number.isRequired
+};
+
+const defaultProps = {
+  className: ''
 };
 
 const indicatorPropTypes = {
@@ -60,18 +58,14 @@ const Best = ({ progress }) => (
   </Motion>
 );
 
-class SubPointGoal extends Component {
+class SubPoints extends Component {
   state = {
     best: 462,
     goal: 800
   };
 
-  componentDidMount() {
-    this.props.request();
-  }
-
   render() {
-    const points = this.props.subPoints;
+    const { points } = this.props;
     const { best, goal } = this.state;
     const bestWidth = getWidth(best, goal);
     const goalWidth = getWidth(points, goal);
@@ -85,22 +79,11 @@ class SubPointGoal extends Component {
   }
 }
 
-SubPointGoal.propTypes = propTypes;
+SubPoints.propTypes = propTypes;
+SubPoints.defaultProps = defaultProps;
 Best.propTypes = indicatorPropTypes;
 Goal.propTypes = indicatorPropTypes;
 Label.propTypes = labelPropTypes;
-
-const mapStateToProps = state => ({
-  subPoints: selectors.getSubPoints(state)
-});
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      request: () => dispatch(subpointFetch.request())
-    },
-    dispatch
-  );
 
 const Wrapper = styled.div`
   font-family: ${props => props.theme.miedinger};
@@ -166,4 +149,4 @@ const Indicator = styled.div`
   }
 `;
 
-export default connect(mapStateToProps, mapDispatchToProps)(SubPointGoal);
+export default SubPoints;

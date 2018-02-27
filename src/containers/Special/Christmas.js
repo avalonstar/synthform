@@ -8,7 +8,7 @@ import { christmasFetch } from 'actions/christmas';
 import * as selectors from 'selectors';
 
 import { Notifier, Ticker } from 'components/Events';
-import SubPointGoal from 'components/Goals';
+// import SubPointGoal from 'components/Goals';
 import { Generic, Uptime } from 'components/Labels';
 
 const propTypes = {
@@ -24,7 +24,7 @@ const Layout = () => (
     <StyledUptime title="#AVCC2017" />
     <StyledGeneric title="Live Now" content="Avalonstar" />
     <Branding>A Very Crusader Christmas: 2017 Edition</Branding>
-    <StyledSubPointGoal />
+    {/* <StyledSubPointGoal /> */}
     <Background />
   </Container>
 );
@@ -96,11 +96,11 @@ const StyledNotifier = styled(Notifier)`
   }
 `;
 
-const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 15 / span 3;
-  grid-row: 12;
-  align-self: center;
-`;
+// const StyledSubPointGoal = styled(SubPointGoal)`
+//   grid-column: 15 / span 3;
+//   grid-row: 12;
+//   align-self: center;
+// `;
 
 const StyledTicker = styled(Ticker)`
   grid-column: 7 / span 11;

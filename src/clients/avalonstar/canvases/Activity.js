@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
+import { SubPoints } from 'clients/avalonstar/components';
 import { Notifier, Ticker } from 'components/Events';
 import * as Providers from 'providers';
 
@@ -35,6 +36,9 @@ const Layout = ({ user, debugMode }) => (
         </Fragment>
       )}
     </Providers.Events>
+    <Providers.SubPoints user={user}>
+      {props => <StyledSubPoints points={props.payload} />}
+    </Providers.SubPoints>
   </Container>
 );
 
@@ -78,6 +82,12 @@ const StyledNotifier = styled(Notifier)`
     align-self: start;
     z-index: 0;
   }
+`;
+
+const StyledSubPoints = styled(SubPoints)`
+  grid-column: 15 / span 3;
+  grid-row: 11;
+  align-self: end;
 `;
 
 const StyledTicker = styled(Ticker)`

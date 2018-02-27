@@ -9,8 +9,8 @@ import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { latestSubscriberFetch, subpointFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`${API_BASE_URI}/avalonstar`);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -35,8 +35,8 @@ const subscribe = socket =>
     return () => {};
   });
 
-function* read(socket) {
-  const ec = yield call(subscribe, socket);
+function* read(user, socket) {
+  const ec = yield call(subscribe, user, socket);
   while (true) {
     const action = yield take(ec);
     yield put(action);
@@ -54,9 +54,9 @@ function* fetchLatestSubscriber() {
   }
 }
 
-function* fetchSubpoints() {
+function* fetchSubpoints(user) {
   try {
-    const uri = `${API_URI}/avalonstar/subpoints/`;
+    const uri = `${API_URI}/${user}/subpoints/`;
     const response = yield call(axios.get, uri);
     yield put(subpointFetch.success(response.data.data));
   } catch (error) {
@@ -73,11 +73,11 @@ function* watchLatestSubscriberFetch() {
 }
 
 function* watchSubpointFetch() {
-  yield take(actions.SUBPOINT_FETCH.REQUEST);
-  yield call(fetchSubpoints);
+  const { user } = yield take(actions.SUBPOINT_FETCH.REQUEST);
+  yield call(fetchSubpoints, user);
 
   const socket = yield call(connect, 'subpoints');
-  yield fork(read, socket);
+  yield fork(read, user, socket);
 }
 
 export default function* subscriptionSagas() {

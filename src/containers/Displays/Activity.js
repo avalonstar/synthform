@@ -8,7 +8,7 @@ import { rgba } from 'polished';
 import { ActivityCamera } from 'components/Cameras';
 import Counter from 'components/Emotes';
 import { Notifier, Ticker } from 'components/Events';
-import SubPointGoal from 'components/Goals';
+// import SubPointGoal from 'components/Goals';
 import { LatestSubscriber } from 'components/Labels';
 import { Notifier as SongNotifier } from 'components/Songs';
 import * as selectors from 'selectors';
@@ -32,7 +32,7 @@ const Layout = ({ cameraOff, debugMode }) => (
     <StyledLatestSubscriber />
     <StyledNotifier debugMode={debugMode} />
     <StyledSongNotifier />
-    <StyledSubPointGoal />
+    {/* <StyledSubPointGoal /> */}
     <StyledTicker debugMode={debugMode} />
   </Container>
 );
@@ -109,11 +109,11 @@ const StyledSongNotifier = styled(SongNotifier)`
   align-self: start;
 `;
 
-const StyledSubPointGoal = styled(SubPointGoal)`
-  grid-column: 15 / span 3;
-  grid-row: 9;
-  align-self: end;
-`;
+// const StyledSubPointGoal = styled(SubPointGoal)`
+//   grid-column: 15 / span 3;
+//   grid-row: 9;
+//   align-self: end;
+// `;
 
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 17;
@@ -140,9 +140,9 @@ const Container = styled.div`
     display: ${props => (props.cameraOff ? 'none' : 'block')};
   }
 
-  ${StyledSubPointGoal} {
+  ${'' /* ${StyledSubPointGoal} {
     grid-row: ${props => (props.cameraOff ? 11 : 9)};
-  }
+  } */};
 `;
 
 export default connect(mapStateToProps)(Activity);
