@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { List } from 'immutable';
 import moment from 'moment';
 import 'moment-duration-format';
 
@@ -10,22 +7,20 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 import { Play, Pause, PlusSquare, XSquare } from 'react-feather';
 
-import { subathonFetch } from 'actions/subathon';
 import { CountdownTimer, Stopwatch } from 'components/Timers';
-import * as selectors from 'selectors';
 
 import Notification from './Notification';
 
 const propTypes = {
   active: PropTypes.bool,
   addedMinutes: PropTypes.number,
-  elapsedTime: PropTypes.number,
-  remainingTime: PropTypes.number,
-  events: PropTypes.instanceOf(List),
   contributions: PropTypes.bool,
+  elapsedTime: PropTypes.number,
   endTime: PropTypes.number,
-  startTime: PropTypes.number,
-  request: PropTypes.func.isRequired
+  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  remainingTime: PropTypes.number,
+  request: PropTypes.func.isRequired,
+  startTime: PropTypes.number
 };
 
 const statusPropTypes = {
@@ -40,10 +35,11 @@ const contributionPropTypes = {
 const defaultProps = {
   active: false,
   addedMinutes: 0,
-  elapsedTime: 0,
-  events: List(),
   contributions: false,
+  elapsedTime: 0,
   endTime: null,
+  events: [],
+  remainingTime: 0,
   startTime: null
 };
 
@@ -190,26 +186,4 @@ SubathonStatus.propTypes = statusPropTypes;
 SubathonTimer.propTypes = propTypes;
 SubathonTimer.defaultProps = defaultProps;
 
-function mapStateToProps(state) {
-  return {
-    active: selectors.getSubathonState(state),
-    addedMinutes: selectors.getSubathonAddedMinutes(state),
-    elapsedTime: selectors.getSubathonElapsedTime(state),
-    remainingTime: selectors.getSubathonRemainingTime(state),
-    events: selectors.getNotifierPool(state),
-    contributions: selectors.getSubathonContributionState(state),
-    endTime: selectors.getSubathonEndTime(state),
-    startTime: selectors.getSubathonStartTime(state)
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators(
-    {
-      request: () => dispatch(subathonFetch.request())
-    },
-    dispatch
-  );
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SubathonTimer);
+export default SubathonTimer;
