@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { messageFetch } from 'actions/events';
+import { messageFetch } from 'actions/messages';
 import * as selectors from 'selectors';
 
 const propTypes = {
