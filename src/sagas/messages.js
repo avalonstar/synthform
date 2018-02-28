@@ -24,6 +24,7 @@ const subscribe = socket =>
     socket.on('messages', data => {
       emit(messageFetch.success(data));
     });
+
     socket.on('disconnect', () => {
       // TODO: Handle this.
     });

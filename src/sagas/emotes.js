@@ -24,6 +24,7 @@ const subscribe = socket =>
     socket.on('emotes', data => {
       emit(emoteFetch.success(data));
     });
+
     socket.on('disconnect', () => {
       // TODO: Handle this.
     });

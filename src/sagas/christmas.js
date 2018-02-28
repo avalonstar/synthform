@@ -9,8 +9,8 @@ import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { christmasFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`${API_BASE_URI}/avalonstar`);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -40,9 +40,9 @@ function* read(socket) {
   }
 }
 
-function* fetchChristmasConfiguration() {
+function* fetchChristmasConfiguration(user) {
   try {
-    const uri = `${API_URI}/avalonstar/special/christmas/`;
+    const uri = `${API_URI}/${user}/special/christmas/`;
     const response = yield call(axios.get, uri);
     yield put(christmasFetch.success(response.data.data, Date.now()));
   } catch (error) {
@@ -51,10 +51,10 @@ function* fetchChristmasConfiguration() {
 }
 
 function* watchChristmasFetchRequest() {
-  yield take(actions.CHRISTMAS_FETCH.REQUEST);
-  yield call(fetchChristmasConfiguration);
+  const { user } = yield take(actions.CHRISTMAS_FETCH.REQUEST);
+  yield call(fetchChristmasConfiguration, user);
 
-  const socket = yield call(connect, 'christmas');
+  const socket = yield call(connect, user, 'christmas');
   yield fork(read, socket);
 }
 

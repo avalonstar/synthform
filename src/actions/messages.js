@@ -1,7 +1,5 @@
 import { action, createRequestTypes } from './utils';
 
-export const SONG_FETCH = createRequestTypes('SONG_FETCH');
-
 export const MESSAGE_FETCH = createRequestTypes('MESSAGE_FETCH');
 
 export const messageFetch = {

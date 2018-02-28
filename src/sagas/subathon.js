@@ -9,8 +9,8 @@ import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { subathonFetch } = actions;
 
-const connect = saga => {
-  const socket = io(`${API_BASE_URI}/avalonstar`);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -40,9 +40,9 @@ function* read(socket) {
   }
 }
 
-function* fetchSubathonConfiguration() {
+function* fetchSubathonConfiguration(user) {
   try {
-    const uri = `${API_URI}/avalonstar/subathon/configuration/`;
+    const uri = `${API_URI}/${user}/subathon/configuration/`;
     const response = yield call(axios.get, uri);
     yield put(subathonFetch.success(response.data.data, Date.now()));
   } catch (error) {
@@ -51,10 +51,10 @@ function* fetchSubathonConfiguration() {
 }
 
 function* watchSubathonFetchRequest() {
-  yield take(actions.SUBATHON_FETCH.REQUEST);
-  yield call(fetchSubathonConfiguration);
+  const { user } = yield take(actions.SUBATHON_FETCH.REQUEST);
+  yield call(fetchSubathonConfiguration, user);
 
-  const socket = yield call(connect, 'subathon');
+  const socket = yield call(connect, user, 'subathon');
   yield fork(read, socket);
 }
 

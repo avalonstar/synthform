@@ -7,7 +7,7 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import * as actions from 'actions/subscriptions';
 import { API_BASE_URI, API_URI } from 'configurations/constants';
 
-const { latestSubscriberFetch, subpointFetch } = actions;
+const { subpointFetch } = actions;
 
 const connect = (user, saga) => {
   const socket = io(`${API_BASE_URI}/${user}`);
@@ -21,9 +21,6 @@ const connect = (user, saga) => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on('subscriptions', data => {
-      emit(latestSubscriberFetch.success(data.slice(-1)[0]));
-    });
     socket.on('subpoints', data => {
       emit(subpointFetch.success(data));
     });
@@ -43,17 +40,6 @@ function* read(user, socket) {
   }
 }
 
-function* fetchLatestSubscriber() {
-  try {
-    const uri = `${API_URI}/avalonstar/subscriptions/`;
-    const response = yield call(axios.get, uri);
-    const payload = response.data.data.slice(-1)[0];
-    yield put(latestSubscriberFetch.success(payload));
-  } catch (error) {
-    yield put(latestSubscriberFetch.failure(error));
-  }
-}
-
 function* fetchSubpoints(user) {
   try {
     const uri = `${API_URI}/${user}/subpoints/`;
@@ -62,14 +48,6 @@ function* fetchSubpoints(user) {
   } catch (error) {
     yield put(subpointFetch.failure(error));
   }
-}
-
-function* watchLatestSubscriberFetch() {
-  yield take(actions.LATEST_SUBSCRIBER_FETCH.REQUEST);
-  yield call(fetchLatestSubscriber);
-
-  const socket = yield call(connect, 'latestSubscriber');
-  yield fork(read, socket);
 }
 
 function* watchSubpointFetch() {
@@ -81,6 +59,5 @@ function* watchSubpointFetch() {
 }
 
 export default function* subscriptionSagas() {
-  yield fork(watchLatestSubscriberFetch);
   yield fork(watchSubpointFetch);
 }
