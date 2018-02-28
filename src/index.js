@@ -7,8 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
-import { Activity, Break, Intertitle, Speedrunning } from 'containers/Displays';
-import Christmas from 'containers/Special';
+import { Activity, Break } from 'clients/avalonstar/canvases';
 import baseStyles, { foundation } from 'helpers/foundation';
 
 import store, { history } from './store';
@@ -27,17 +26,13 @@ const render = () => {
             <Switch>
               <Route
                 exact
-                path="/displays/special/christmas"
-                component={Christmas}
+                path="/avalonstar/canvases/activity"
+                component={Activity}
               />
-
-              <Route exact path="/displays/activity" component={Activity} />
-              <Route exact path="/displays/break" component={Break} />
-              <Route exact path="/displays/intertitle" component={Intertitle} />
               <Route
                 exact
-                path="/displays/speedrunning"
-                component={Speedrunning}
+                path="/avalonstar/canvases/break"
+                component={Break}
               />
               <Route component={App} />
             </Switch>

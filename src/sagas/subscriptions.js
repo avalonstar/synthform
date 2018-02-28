@@ -5,12 +5,12 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/subscriptions';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 
-const { latestSubscriberFetch, subpointFetch } = actions;
+const { subpointFetch } = actions;
 
-const connect = saga => {
-  const socket = io(socketUri);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
       socket.emit('channel', { channel: 'api', saga });
@@ -21,9 +21,6 @@ const connect = saga => {
 
 const subscribe = socket =>
   eventChannel(emit => {
-    socket.on('subscriptions', data => {
-      emit(latestSubscriberFetch.success(data.slice(-1)[0]));
-    });
     socket.on('subpoints', data => {
       emit(subpointFetch.success(data));
     });
@@ -35,28 +32,17 @@ const subscribe = socket =>
     return () => {};
   });
 
-function* read(socket) {
-  const ec = yield call(subscribe, socket);
+function* read(user, socket) {
+  const ec = yield call(subscribe, user, socket);
   while (true) {
     const action = yield take(ec);
     yield put(action);
   }
 }
 
-function* fetchLatestSubscriber() {
+function* fetchSubpoints(user) {
   try {
-    const uri = `${apiUri}/subscriptions/`;
-    const response = yield call(axios.get, uri);
-    const payload = response.data.data.slice(-1)[0];
-    yield put(latestSubscriberFetch.success(payload));
-  } catch (error) {
-    yield put(latestSubscriberFetch.failure(error));
-  }
-}
-
-function* fetchSubpoints() {
-  try {
-    const uri = `${apiUri}/subpoints/`;
+    const uri = `${API_URI}/${user}/subpoints/`;
     const response = yield call(axios.get, uri);
     yield put(subpointFetch.success(response.data.data));
   } catch (error) {
@@ -64,23 +50,14 @@ function* fetchSubpoints() {
   }
 }
 
-function* watchLatestSubscriberFetch() {
-  yield take(actions.LATEST_SUBSCRIBER_FETCH.REQUEST);
-  yield call(fetchLatestSubscriber);
-
-  const socket = yield call(connect, 'latestSubscriber');
-  yield fork(read, socket);
-}
-
 function* watchSubpointFetch() {
-  yield take(actions.SUBPOINT_FETCH.REQUEST);
-  yield call(fetchSubpoints);
+  const { user } = yield take(actions.SUBPOINT_FETCH.REQUEST);
+  yield call(fetchSubpoints, user);
 
-  const socket = yield call(connect, 'subpoints');
+  const socket = yield call(connect, user, 'subpoints');
   yield fork(read, socket);
 }
 
 export default function* subscriptionSagas() {
-  yield fork(watchLatestSubscriberFetch);
   yield fork(watchSubpointFetch);
 }

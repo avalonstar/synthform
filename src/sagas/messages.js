@@ -5,14 +5,15 @@ import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/messages';
-import { apiUri, socketUri } from 'configurations/constants';
+import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { messageFetch } = actions;
 
-const connect = () => {
-  const socket = io(socketUri);
+const connect = (user, saga) => {
+  const socket = io(`${API_BASE_URI}/${user}`);
   return new Promise(resolve => {
     socket.on('connect', () => {
+      socket.emit('channel', { channel: 'api', saga });
       resolve(socket);
     });
   });
@@ -23,6 +24,7 @@ const subscribe = socket =>
     socket.on('messages', data => {
       emit(messageFetch.success(data));
     });
+
     socket.on('disconnect', () => {
       // TODO: Handle this.
     });
@@ -38,9 +40,9 @@ function* read(socket) {
   }
 }
 
-function* fetchMessages() {
+function* fetchMessages(user) {
   try {
-    const uri = `${apiUri}/messages/`;
+    const uri = `${API_URI}/${user}/messages/`;
     const response = yield call(axios.get, uri);
     yield put(messageFetch.success(response.data.data));
   } catch (error) {
@@ -49,10 +51,10 @@ function* fetchMessages() {
 }
 
 function* watchMessageFetchRequest() {
-  yield take(actions.MESSAGE_FETCH.REQUEST);
-  yield call(fetchMessages);
+  const { user } = yield take(actions.MESSAGE_FETCH.REQUEST);
+  yield call(fetchMessages, user);
 
-  const socket = yield call(connect);
+  const socket = yield call(connect, user, 'messages');
   yield fork(read, socket);
 }
 
