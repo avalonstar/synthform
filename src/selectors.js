@@ -15,6 +15,8 @@ export const getNotifierPool = state => state.events.notifierPool;
 export const getEventList = state => state.events.events;
 export const getShouldNotify = state => state.events.notificationsActive;
 
+export const getMessages = state => state.messages.messages;
+
 export const getLatestSubscription = state => state.subscriptions.latest;
 export const getSubPoints = state => state.subscriptions.subPoints;
 
