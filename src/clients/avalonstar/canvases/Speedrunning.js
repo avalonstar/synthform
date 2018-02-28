@@ -1,48 +1,50 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-// import { ActivityCamera } from 'components/Cameras';
-import { Notifier, Ticker } from 'components/Events';
-import { Uptime } from 'components/Labels';
-// import SubPointGoal from 'components/Goals';
+import {
+  Panel,
+  Notifier,
+  SubPoints,
+  Uptime
+} from 'clients/avalonstar/components';
+import * as Providers from 'providers';
 
-import * as selectors from 'selectors';
+const propTypes = {};
 
-const propTypes = {
-  isFetching: PropTypes.bool.isRequired
-};
-
-const Layout = () => (
+/* eslint-disable react/prop-types */
+const Layout = ({ user }) => (
   <Container>
     <Console />
     <Aside>
       {/* <StyledCamera flipped /> */}
-      {/* <StyledSubPointGoal /> */}
-      <StyledUptime />
-      <StyledNotifier />
-      <StyledTicker />
+      <Providers.Events user={user}>
+        {props => (
+          <Fragment>
+            <StyledNotifier notifierPool={props.notifierPool} />
+            <Panel events={props.payload} />
+          </Fragment>
+        )}
+      </Providers.Events>
+      <Providers.SubPoints user={user}>
+        {props => <StyledSubPoints points={props.payload} />}
+      </Providers.SubPoints>
+      <Providers.Uptime user={user}>
+        {props => <StyledUptime title="!uptime" startTime={props.payload} />}
+      </Providers.Uptime>
     </Aside>
   </Container>
 );
+/* eslint-enable react/prop-types */
 
-const Speedrunning = props =>
-  props.isFetching ? (
-    <Wrapper />
-  ) : (
-    <Wrapper>
-      <Layout />
-    </Wrapper>
-  );
+const Speedrunning = () => (
+  <Wrapper>
+    <Layout user="avalonstar" />
+  </Wrapper>
+);
 
 Speedrunning.propTypes = propTypes;
-
-const mapStateToProps = state => ({
-  isFetching: selectors.getFetchState(state)
-});
 
 const Wrapper = styled.div`
   display: grid;
@@ -66,15 +68,10 @@ const Wrapper = styled.div`
 
 const StyledNotifier = styled(Notifier)``;
 
-// const StyledSubPointGoal = styled(SubPointGoal)`
-//   grid-column: 2;
-//   grid-row: 12;
-//   align-self: center;
-// `;
-
-const StyledTicker = styled(Ticker)`
-  grid-column: 1 / span 5;
+const StyledSubPoints = styled(SubPoints)`
+  grid-column: 2;
   grid-row: 12;
+  align-self: center;
 `;
 
 const StyledUptime = styled(Uptime)`
@@ -134,4 +131,4 @@ const Console = styled.div`
   margin: -24px 0 0 -24px;
 `;
 
-export default connect(mapStateToProps)(Speedrunning);
+export default Speedrunning;
