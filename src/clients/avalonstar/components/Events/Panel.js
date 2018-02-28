@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 import { ellipsis } from 'polished';
-import { ChevronRight } from 'react-feather';
 import { Capsule } from 'clients/avalonstar/styles';
+import { ChevronRight } from 'react-feather';
 
 import { getCheermoteURL } from './utils';
 

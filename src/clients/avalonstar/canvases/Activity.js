@@ -6,7 +6,8 @@ import {
   Panel,
   Notifier,
   Ticker,
-  SubPoints
+  SubPoints,
+  Uptime
 } from 'clients/avalonstar/components';
 import * as Providers from 'providers';
 
@@ -42,6 +43,9 @@ const Layout = ({ user, debugMode }) => (
     <Providers.SubPoints user={user}>
       {props => <StyledSubPoints points={props.payload} />}
     </Providers.SubPoints>
+    <Providers.Uptime user={user}>
+      {props => <StyledUptime title="!uptime" startTime={props.payload} />}
+    </Providers.Uptime>
   </Container>
 );
 /* eslint-enable react/prop-types */
@@ -109,6 +113,12 @@ const StyledTicker = styled(Ticker)`
   grid-row: 12;
   margin: 0 -24px 0;
   z-index: 200;
+`;
+
+const StyledUptime = styled(Uptime)`
+  display: none;
+  grid-column: 1 / span 2;
+  align-self: start;
 `;
 
 const Container = styled.div`
