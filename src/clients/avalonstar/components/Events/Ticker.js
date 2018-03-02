@@ -58,18 +58,20 @@ class Ticker extends Component {
   };
 
   render() {
-    const { isVisible } = this.state;
-    const { className, events } = this.props;
     const anchor = configureAnchor()[this.props.anchor];
+    const blacklistedEvents = ['host'];
+    const events = this.props.events.filter(
+      e => !blacklistedEvents.includes(e.event)
+    );
     return (
       <Motion
         defaultStyle={{ y: anchor }}
-        style={{ y: spring(isVisible ? 0 : anchor) }}
+        style={{ y: spring(this.state.isVisible ? 0 : anchor) }}
       >
         {({ y }) => (
           <StyledFlipMove
             typeName="ol"
-            className={className}
+            className={this.props.className}
             easing="cubic-bezier(.62, .28, .23, .99)"
             enterAnimation="fade"
             staggerDurationBy={100}
