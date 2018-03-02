@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 
 import styled from 'styled-components';
 import { rgba } from 'polished';
+import { Frame } from 'clients/avalonstar/styles';
 
 import {
   Panel,
@@ -39,24 +40,12 @@ const Layout = ({ user }) => (
 /* eslint-enable react/prop-types */
 
 const Speedrunning = () => (
-  <Wrapper>
+  <Frame.Wrapper>
     <Layout user="avalonstar" />
-  </Wrapper>
+  </Frame.Wrapper>
 );
 
 Speedrunning.propTypes = propTypes;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 24px 1fr 24px;
-
-  position: absolute;
-  overflow: hidden;
-  width: 1600px;
-  height: 900px;
-
-  background: linear-gradient(#1a1f23 25%, #090a0c);
-`;
 
 // const StyledCamera = styled(ActivityCamera)`
 //   grid-column: 2 / span 4;

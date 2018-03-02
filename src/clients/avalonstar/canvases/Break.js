@@ -5,7 +5,7 @@ import { EmoteCounter, SubPoints, Ticker } from 'clients/avalonstar/components';
 import * as Providers from 'providers';
 
 import styled from 'styled-components';
-import { rgba } from 'polished';
+import { Frame } from 'clients/avalonstar/styles';
 
 const layoutPropTypes = {
   user: PropTypes.string.isRequired
@@ -32,28 +32,12 @@ const Layout = ({ user }) => (
 /* eslint-enable react/prop-types */
 
 const Break = () => (
-  <Wrapper>
+  <Frame.Wrapper>
     <Layout user="avalonstar" />
-  </Wrapper>
+  </Frame.Wrapper>
 );
 
 Layout.propTypes = layoutPropTypes;
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-columns: 24px 1fr 24px;
-
-  position: absolute;
-  overflow: hidden;
-  width: 1600px;
-  height: 900px;
-
-  background: linear-gradient(
-    105deg,
-    ${rgba('#090a0c', 0)} 85%,
-    ${rgba('#090a0c', 0.4)}
-  );
-`;
 
 const Container = styled.div`
   display: grid;
