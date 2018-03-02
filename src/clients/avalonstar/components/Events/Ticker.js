@@ -19,7 +19,7 @@ const defaultProps = {
   anchor: 'bottom',
   className: '',
   events: [],
-  timer: 5
+  timer: 3
 };
 
 const configureAnchor = () => ({
