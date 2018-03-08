@@ -3,15 +3,15 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 
 import * as Providers from 'providers';
-import { Cheers, Events } from 'clients/special/components';
+import { Cheers, Notifier } from 'clients/special/components';
 
 const Whammy = () => (
   <Wrapper>
     <Providers.Whammy>
-      {({ cheers, events }) => (
+      {({ cheers, notifierPool }) => (
         <Fragment>
           <Cheers payload={cheers} />
-          <Events payload={events} />
+          <Notifier notifierPool={notifierPool} />
         </Fragment>
       )}
     </Providers.Whammy>

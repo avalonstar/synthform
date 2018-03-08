@@ -2,12 +2,14 @@ import axios from 'axios';
 import io from 'socket.io-client';
 
 import { eventChannel } from 'redux-saga';
-import { call, fork, put, take } from 'redux-saga/effects';
+import { all, call, fork, put, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/whammy';
 import { API_BASE_URI, API_URI } from 'configurations/constants';
 
-const { whammyFetch } = actions;
+const { whammyFetch, whammyNotifier } = actions;
+
+const cheerWhitelist = ['1000', '2500', '5000', '10000'];
 
 const connect = (user, saga) => {
   const socket = io(`${API_BASE_URI}/${user}`);
@@ -40,6 +42,19 @@ function* read(socket) {
   }
 }
 
+function* triggerNotification() {
+  while (true) {
+    const action = yield take(actions.WHAMMY_FETCH.SUCCESS);
+    const payload = action.payload.events[0];
+    if (
+      payload.event !== 'cheer' ||
+      (payload.event === 'cheer' && cheerWhitelist.includes(payload.bits))
+    ) {
+      yield put(whammyNotifier.add(payload));
+    }
+  }
+}
+
 function* fetchWhammy(user) {
   try {
     const uri = `${API_URI}/${user}/special/whammy/`;
@@ -59,5 +74,5 @@ function* watchWhammyFetchRequest() {
 }
 
 export default function* whammySagas() {
-  yield fork(watchWhammyFetchRequest);
+  yield all([fork(watchWhammyFetchRequest), fork(triggerNotification)]);
 }

@@ -120,20 +120,23 @@ Objective.propTypes = objectivePropTypes;
 Breakdown.propTypes = breakdownPropTypes;
 
 const Wrapper = styled.div`
+  position: relative;
+  z-index: 100;
+
   box-shadow: 0 0 2px #111;
   color: #fff;
+  font-family: ${props => props.theme.chronotype};
   text-shadow: 0 2px 0 #111;
 `;
 
 const StyledBorder = styled.div`
   background: url(${windowBackground});
-  border: 8px double black;
-  border-image: url(${windowBorder}) 8 8 8 8 repeat repeat;
-  font-family: ${props => props.theme.chronotype};
+  border: 16px double black;
+  border-image: url(${windowBorder}) 32 32 32 32 repeat repeat;
 `;
 
 const BarContainer = styled(StyledBorder)`
-  padding: 2px 6px 0;
+  padding: 0 4px;
 `;
 
 const Bar = styled.div`
@@ -190,7 +193,7 @@ const Title = styled.span`
 `;
 
 const BreakdownContainer = styled(StyledBorder)`
-  padding: 8px 6px 2px;
+  padding: 8px 4px 0;
 
   border-top: 0;
   color: #8c9494;
@@ -205,7 +208,7 @@ const BreakdownItem = styled.li`
     position: absolute;
     top: 1px;
     height: 14px;
-    width: 14px;
+    width: 8px;
 
     background: red;
     box-shadow: 0 2px 0 #111, inset 0 -2px 0 ${rgba('#111', 0.2)};
@@ -228,7 +231,7 @@ const BreakdownItem = styled.li`
 
 const Name = styled.span`
   flex: 1;
-  padding-left: 20px;
+  padding-left: 14px;
   color: #fff;
 `;
 

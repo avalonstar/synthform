@@ -1,1 +1,1 @@
-export { Cheers, Events } from './Whammy';
+export { Cheers, Events, Notifier } from './Whammy';

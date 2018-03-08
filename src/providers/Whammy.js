@@ -24,7 +24,8 @@ WhammyProvider.propTypes = propTypes;
 
 const mapStateToProps = state => ({
   cheers: selectors.getWhammyCheers(state),
-  events: selectors.getWhammyEvents(state)
+  events: selectors.getWhammyEvents(state),
+  notifierPool: selectors.getWhammyNotifierPool(state)
 });
 
 const mapDispatchToProps = dispatch => ({
