@@ -18,9 +18,9 @@ const defaultProps = {
 };
 
 const contentPropsTypes = {
-  amount: PropTypes.number,
+  amount: PropTypes.string,
   username: PropTypes.string,
-  months: PropTypes.string
+  months: PropTypes.number
 };
 
 const contentDefaultProps = {

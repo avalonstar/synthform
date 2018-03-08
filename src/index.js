@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
 import { Activity, Break } from 'clients/avalonstar/canvases';
+import { Whammy } from 'clients/special/canvases';
 import baseStyles, { foundation } from 'helpers/foundation';
 
 import store, { history } from './store';
@@ -34,6 +35,8 @@ const render = () => {
                 path="/avalonstar/canvases/break"
                 component={Break}
               />
+
+              <Route exact path="/special/canvases/chrono" component={Whammy} />
               <Route component={App} />
             </Switch>
           </main>

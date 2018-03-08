@@ -43,3 +43,6 @@ export const getSubathonContributionState = createSelector(
 
 export const getCurrentChristmasBroadcaster = state => state.christmas.current;
 export const getNextChristmasBroadcaster = state => state.christmas.next;
+
+export const getWhammyCheers = state => state.whammy.cheers;
+export const getWhammyEvents = state => state.whammy.events;
