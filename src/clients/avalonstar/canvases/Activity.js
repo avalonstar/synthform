@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import {
+  ActivityCamera,
   EmoteCounter,
   Panel,
   Notifier,
@@ -26,10 +27,13 @@ const layoutPropTypes = {
 };
 
 /* eslint-disable react/prop-types */
-const Layout = ({ user, debugMode }) => (
-  <Container>
+const Layout = ({ user, cameraMode, debugMode }) => (
+  <Container cameraMode={cameraMode}>
+    <StyledCamera />
     <Providers.Emotes user={user}>
-      {props => <StyledEmoteCounter emotes={props.payload} limit={9} />}
+      {props => (
+        <StyledEmoteCounter emotes={props.payload} limit={cameraMode ? 6 : 9} />
+      )}
     </Providers.Emotes>
     <Providers.Events user={user} debugMode={debugMode}>
       {props => (
@@ -52,16 +56,25 @@ const Layout = ({ user, debugMode }) => (
 
 const Activity = props => {
   const query = new URLSearchParams(props.location.search);
+  const cameraMode = JSON.parse(query.get('camera'));
+  console.log(cameraMode);
   const debugMode = query.get('debug') === 'true';
   return (
     <Frame.Wrapper>
-      <Layout user="avalonstar" debugMode={debugMode} />
+      <Layout user="avalonstar" cameraMode={cameraMode} debugMode={debugMode} />
     </Frame.Wrapper>
   );
 };
 
 Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
+
+const StyledCamera = styled(ActivityCamera)`
+  grid-column: 14 / span 4;
+  grid-row: 12;
+  align-self: end;
+  z-index: 400;
+`;
 
 const StyledEmoteCounter = styled(EmoteCounter)`
   grid-row: 12;
@@ -114,9 +127,15 @@ const Container = styled.div`
   grid-template-rows: repeat(12, 62px);
   grid-gap: 12px;
 
+  ${StyledCamera} {
+    display: ${props => (props.cameraMode ? 'block' : 'none')};
+  }
   ${StyledEmoteCounter} {
-    grid-column: 4 / span 14;
-    padding-right: 0;
+    grid-column: 4 / span ${props => (props.cameraMode ? 10 : 14)};
+    padding-right: ${props => (props.cameraMode ? 12 : 0)};
+  }
+  ${StyledSubPoints} {
+    grid-row: ${props => (props.cameraMode ? 9 : 11)};
   }
 `;
 
