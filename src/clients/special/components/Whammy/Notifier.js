@@ -9,11 +9,13 @@ import Notification from './Notification';
 const propTypes = {
   className: PropTypes.string,
   deleteEventFromNotifier: PropTypes.func.isRequired,
+  isFlipped: PropTypes.bool,
   notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const defaultProps = {
-  className: ''
+  className: '',
+  isFlipped: false
 };
 
 class Notifier extends Component {
@@ -22,13 +24,14 @@ class Notifier extends Component {
   }
 
   onComplete = () => {
-    this.props.deleteEventFromNotifier();
+    // this.props.deleteEventFromNotifier();
   };
 
   render() {
     return (
       <Notification
         className={this.props.className}
+        isFlipped={this.props.isFlipped}
         event={this.props.notifierPool[0]}
         onComplete={this.onComplete}
       />

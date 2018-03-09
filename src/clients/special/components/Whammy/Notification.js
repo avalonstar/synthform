@@ -10,26 +10,28 @@ import windowBorder from './windowBorder.png';
 import windowBackground from './windowBackground.png';
 
 const propTypes = {
+  className: PropTypes.string.isRequired,
   event: PropTypes.shape({
     event: PropTypes.string,
-    username: PropTypes.string,
-    length: PropTypes.number
+    length: PropTypes.number,
+    username: PropTypes.string
   }),
-  className: PropTypes.string.isRequired,
+  isFlipped: PropTypes.bool.isRequired,
   onComplete: PropTypes.func.isRequired
 };
 
 const defaultProps = {
   event: {
     event: '',
-    username: '',
-    length: 0
+    length: 0,
+    username: ''
   }
 };
 
 const eventPropTypes = {
   bits: PropTypes.string,
   event: PropTypes.string.isRequired,
+  isFlipped: PropTypes.bool.isRequired,
   isVisible: PropTypes.bool.isRequired,
   penaltyActor: PropTypes.string,
   penaltyType: PropTypes.number,
@@ -72,7 +74,8 @@ const Event = props => (
     {({ y }) => (
       <EventContainer
         data-event={props.event}
-        style={{ transform: `translate3d(0, -${y}%, 0)` }}
+        isFlipped={props.isFlipped}
+        style={{ transform: `translate3d(0, ${props.isFlipped ? y : -y}%, 0)` }}
       >
         <Cause>{getEventType(props)[props.event]}</Cause>
         {props.penaltyActor && (
@@ -129,8 +132,16 @@ class Notification extends Component {
     return !data.event ? (
       <div className={this.props.className} />
     ) : (
-      <Wrapper className={this.props.className} data-event={data.event}>
-        <Event isVisible={this.state.isVisible} {...data} />
+      <Wrapper
+        className={this.props.className}
+        isFlipped={this.props.isFlipped}
+        data-event={data.event}
+      >
+        <Event
+          isVisible={this.state.isVisible}
+          isFlipped={this.props.isFlipped}
+          {...data}
+        />
         <Sound
           url="https://synthform.s3.amazonaws.com/audio/special/whammy.wav"
           playStatus={this.state.playStatus}
@@ -148,17 +159,19 @@ Event.propTypes = eventPropTypes;
 Event.defaultProps = eventDefaultProps;
 
 const Wrapper = styled.div`
+  order: ${props => (props.isFlipped ? '-1' : '1')};
+
   color: #fff;
   font-family: ${props => props.theme.chronotype};
   text-shadow: 0 2px 0 #111;
 `;
 
 const EventContainer = styled.div`
-  padding: 8px 4px 0;
+  padding: ${props => (props.isFlipped ? '0 4px 8px' : '8px 4px 0')};
 
   background: url(${windowBackground});
   border: 16px double black;
-  border-top: 0;
+  ${props => (props.isFlipped ? 'border-bottom' : 'border-top')}: 0;
   border-image: url(${windowBorder}) 32 32 32 32 repeat repeat;
   box-shadow: 0 0 2px #111;
   font-size: 18px;

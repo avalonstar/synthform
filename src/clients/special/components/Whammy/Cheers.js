@@ -193,6 +193,7 @@ const Title = styled.span`
 `;
 
 const BreakdownContainer = styled(StyledBorder)`
+  height: 104px;
   padding: 8px 4px 0;
 
   border-top: 0;
