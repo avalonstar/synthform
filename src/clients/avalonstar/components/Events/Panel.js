@@ -19,19 +19,21 @@ const defaultProps = {
 
 const contentPropsTypes = {
   amount: PropTypes.string,
-  username: PropTypes.string,
-  months: PropTypes.number
+  months: PropTypes.number,
+  recipient: PropTypes.string,
+  username: PropTypes.string
 };
 
 const contentDefaultProps = {
   amount: null,
   months: null,
+  recipient: '',
   username: ''
 };
 
 const Content = props => (
   <Fragment>
-    <Actor>{props.username}</Actor>
+    <Actor>{props.recipient || props.username}</Actor>
     {props.months && (
       <Length>
         <span>{'\u2715'}</span>

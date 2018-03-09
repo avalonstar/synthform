@@ -132,9 +132,7 @@ class Notification extends Component {
       <Wrapper className={this.props.className} data-event={data.event}>
         <Event isVisible={this.state.isVisible} {...data} />
         <Sound
-          url={`http://synthform.s3.amazonaws.com/audio/avalonstar/${
-            data.event
-          }.ogg`}
+          url="https://synthform.s3.amazonaws.com/audio/special/whammy.wav"
           playStatus={this.state.playStatus}
           onFinishedPlaying={this.handleSongFinishedPlaying}
           volume={25}
@@ -168,7 +166,7 @@ const EventContainer = styled.div`
 
 const Effect = styled.div`
   font-size: 24px;
-  line-height: normal;
+  line-height: 0.9;
 `;
 
 const Actor = styled.span`
@@ -180,7 +178,7 @@ const Penalty = styled.span``;
 const Cause = styled.div`
   padding-bottom: 4px;
   color: #8c9494;
-  line-height: normal;
+  line-height: 1;
 `;
 
 export default Notification;
