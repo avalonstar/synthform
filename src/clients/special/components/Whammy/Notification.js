@@ -50,7 +50,7 @@ const getEventType = eventData => ({
   )}`,
   resub: `${eventData.displayName} resubbed to ${eventData.channel}`,
   subgift: `${eventData.displayName} gifted a sub`,
-  subscription: `subbed to ${eventData.channel}`
+  subscription: `${eventData.displayName} subbed to ${eventData.channel}`
 });
 
 const getPenalty = {
