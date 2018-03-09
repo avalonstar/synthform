@@ -24,7 +24,7 @@ class Notifier extends Component {
   }
 
   onComplete = () => {
-    // this.props.deleteEventFromNotifier();
+    this.props.deleteEventFromNotifier();
   };
 
   render() {
