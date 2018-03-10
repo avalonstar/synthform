@@ -54,7 +54,7 @@ const getEventType = eventData => ({
 });
 
 const getPenalty = {
-  1: ` is blindfolded for 1 fight.`,
+  1: ` is blindfolded for 1 minute.`,
   2: ` can't heal for 1 fight.`,
   3: ` cannot use items for 1 fight.`,
   4: ` cannot use dual- or triple-techs for 1 fight.`,
