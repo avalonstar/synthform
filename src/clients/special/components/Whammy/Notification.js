@@ -54,10 +54,10 @@ const getEventType = eventData => ({
 });
 
 const getPenalty = {
-  1: ` is blindfolded for 1m.`,
-  2: ` can't heal for 1m.`,
-  3: ` cannot use items for 1m.`,
-  4: ` cannot use dual- or triple-techs for 1m.`,
+  1: ` is blindfolded for 1 fight.`,
+  2: ` can't heal for 1 fight.`,
+  3: ` cannot use items for 1 fight.`,
+  4: ` cannot use dual- or triple-techs for 1 fight.`,
   1000: ', choose your 1,000 bit reward!',
   2500: ', will you arm or disarm a racer?',
   5000: ', will you give or deprive items?',
