@@ -18,6 +18,7 @@ const Wrapper = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
+  height: 100%;
   padding: 9px 10px 9px 8px;
   margin-right: 10px;
 
