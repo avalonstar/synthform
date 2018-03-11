@@ -8,7 +8,6 @@ import songSagas from './songs';
 import subathonSagas from './subathon';
 import subscriptionSagas from './subscriptions';
 import uptimeSagas from './uptime';
-import whammySagas from './whammy';
 
 export default function* rootSaga() {
   yield all([
@@ -19,7 +18,6 @@ export default function* rootSaga() {
     spawn(songSagas),
     spawn(subathonSagas),
     spawn(subscriptionSagas),
-    spawn(uptimeSagas),
-    spawn(whammySagas)
+    spawn(uptimeSagas)
   ]);
 }

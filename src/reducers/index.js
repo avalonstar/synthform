@@ -9,7 +9,6 @@ import subathon from './subathon';
 import subscriptions from './subscriptions';
 import tmi from './tmi';
 import uptime from './uptime';
-import whammy from './whammy';
 
 const rootReducer = combineReducers({
   christmas,
@@ -20,8 +19,7 @@ const rootReducer = combineReducers({
   subathon,
   subscriptions,
   tmi,
-  uptime,
-  whammy
+  uptime
 });
 
 export default rootReducer;
