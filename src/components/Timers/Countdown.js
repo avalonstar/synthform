@@ -6,6 +6,7 @@ import 'moment-duration-format';
 const propTypes = {
   active: PropTypes.bool.isRequired,
   endTime: PropTypes.number.isRequired,
+  minimumLength: PropTypes.number.isRequired,
   remainingTime: PropTypes.number.isRequired
 };
 
@@ -64,7 +65,7 @@ class Timer extends Component {
   render() {
     const remainingTime = this.props.remainingTime
       ? moment.duration(this.props.remainingTime).format('h:mm:ss')
-      : moment.duration(8, 'hours').format('h:mm:ss');
+      : moment.duration(this.props.minimumLength, 'hours').format('h:mm:ss');
     return (
       <span className="timer">
         {this.props.active ? this.state.time : remainingTime}
