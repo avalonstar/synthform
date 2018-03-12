@@ -46,10 +46,6 @@ function* onSocketInitRequest(action) {
   yield fork(read, socket);
 }
 
-function* watchSocketInitRequest() {
-  yield takeLatest(actions.SOCKET_INIT.REQUEST, onSocketInitRequest);
-}
-
 export default function* socketSagas() {
-  yield fork(watchSocketInitRequest);
+  yield takeLatest(actions.SOCKET_INIT.REQUEST, onSocketInitRequest);
 }
