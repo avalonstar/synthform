@@ -71,4 +71,4 @@ const StyledTicker = styled(Ticker)`
   z-index: 200;
 `;
 
-export default Break;
+export default Providers.Sockets('avalonstar')(Break);

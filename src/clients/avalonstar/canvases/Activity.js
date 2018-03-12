@@ -57,7 +57,6 @@ const Layout = ({ user, cameraMode, debugMode }) => (
 const Activity = props => {
   const query = new URLSearchParams(props.location.search);
   const cameraMode = JSON.parse(query.get('camera'));
-  console.log(cameraMode);
   const debugMode = query.get('debug') === 'true';
   return (
     <Frame.Wrapper>
@@ -106,6 +105,7 @@ const StyledSubPoints = styled(SubPoints)`
 `;
 
 const StyledTicker = styled(Ticker)`
+  display: none;
   grid-column: 1 / span 17;
   grid-row: 12;
   margin: 0 -24px 0;
@@ -139,4 +139,4 @@ const Container = styled.div`
   }
 `;
 
-export default Activity;
+export default Providers.Sockets('avalonstar')(Activity);

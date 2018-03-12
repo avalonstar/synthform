@@ -120,4 +120,4 @@ const Console = styled.div`
   margin: -24px 0 0 -24px;
 `;
 
-export default Speedrunning;
+export default Providers.Sockets('avalonstar')(Speedrunning);

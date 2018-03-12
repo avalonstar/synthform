@@ -1,13 +1,11 @@
 /* eslint-disable prefer-destructuring */
 
 import axios from 'axios';
-import io from 'socket.io-client';
 
-import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, select, take } from 'redux-saga/effects';
 
 import * as actions from 'actions/events';
-import { API_BASE_URI, API_URI } from 'configurations/constants';
+import { API_URI } from 'configurations/constants';
 import * as selectors from 'selectors';
 
 const { eventFetch, eventNotifier } = actions;
@@ -18,38 +16,6 @@ let subathon = false;
 
 const subathonPassthroughEvents = ['follow', 'host'];
 const blacklistedEvents = ['autohost'];
-
-const connect = (user, saga) => {
-  const socket = io(`${API_BASE_URI}/${user}`);
-  return new Promise(resolve => {
-    socket.on('connect', () => {
-      socket.emit('channel', { channel: 'api', saga });
-      resolve(socket);
-    });
-  });
-};
-
-const subscribe = socket =>
-  eventChannel(emit => {
-    const requestPath = debugMode ? 'testevents' : 'events';
-    socket.on(`${requestPath}`, data => {
-      emit(eventFetch.success(data));
-    });
-
-    socket.on('disconnect', () => {
-      // TODO: Handle this.
-    });
-
-    return () => {};
-  });
-
-function* read(socket) {
-  const evc = yield call(subscribe, socket);
-  while (true) {
-    const action = yield take(evc);
-    yield put(action);
-  }
-}
 
 function* triggerNotification() {
   while (true) {
@@ -88,9 +54,6 @@ function* watchEventFetchRequest() {
   const request = yield take(actions.EVENT_FETCH.REQUEST);
   debugMode = request.debugMode;
   yield call(fetchEvents, request.user);
-
-  const socket = yield call(connect, request.user, 'events');
-  yield fork(read, socket);
 }
 
 export default function* eventSagas() {
