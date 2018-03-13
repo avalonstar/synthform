@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   box-shadow: 0 1px 3px ${rgba('#090a0c', 0.12)},
     0 1px 2px ${rgba('#090a0c', 0.24)};
   color: #f3f5f6;
-  font-size: 13px;
+  font-size: 14px;
 `;
 
 const Title = styled.div`
@@ -25,7 +25,7 @@ const Title = styled.div`
 
   background: linear-gradient(#23292f, #1a1f23);
   color: #738596;
-  font-family: ${props => props.theme.dinc};
+  font-family: ${props => props.theme.dinsc};
   font-weight: 700;
   text-transform: uppercase;
 `;

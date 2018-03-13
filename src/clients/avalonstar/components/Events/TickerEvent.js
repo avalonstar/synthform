@@ -142,7 +142,7 @@ const Piece = styled.div`
   position: relative;
 
   color: #697a8c;
-  font-family: ${props => props.theme.forza};
+  font-family: ${props => props.theme.dinsc};
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;

@@ -104,7 +104,7 @@ const Cheermote = styled.img`
 
 const Length = styled.div`
   margin-left: 4px;
-  padding: 3px 5px 3px 6px;
+  padding: 3px 5px 2px 6px;
   box-shadow: inset 0 0 0 1px #586674;
   border-radius: 2px;
   font-family: ${props => props.theme.miedinger};
