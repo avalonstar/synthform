@@ -39,7 +39,7 @@ const Goal = ({ progress }) => (
 
 const Label = ({ points, goal }) => (
   <LabelContainer>
-    <Title>NEWEMOTE</Title>
+    <Title>PERSONA5</Title>
     <Points>
       <AnimatedNumber value={points} duration={500} stepPrecision={0} />
     </Points>
@@ -61,7 +61,7 @@ const Best = ({ progress }) => (
 class SubPoints extends Component {
   state = {
     best: 462,
-    goal: 800
+    goal: 500
   };
 
   render() {
@@ -85,9 +85,7 @@ Best.propTypes = indicatorPropTypes;
 Goal.propTypes = indicatorPropTypes;
 Label.propTypes = labelPropTypes;
 
-const Wrapper = styled.div`
-  font-family: ${props => props.theme.miedinger};
-`;
+const Wrapper = styled.div``;
 
 const Bar = styled.div`
   width: 100%;
@@ -120,6 +118,7 @@ const LabelContainer = styled.div`
   align-items: baseline;
 
   color: #aeb8c2;
+  font-family: ${props => props.theme.miedinger};
   font-size: 14px;
   font-weight: 500;
   text-shadow: 0 1px 2px #1a1f23;
