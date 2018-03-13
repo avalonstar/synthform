@@ -2,6 +2,9 @@ import { injectGlobal } from 'styled-components';
 import { fontFace, normalize } from 'polished';
 
 export const foundation = {
+  din: 'urw-din',
+  dinc: 'urw-din-condensed',
+  dinsc: 'urw-din-semi-condensed',
   forza: "'Forza SSm A', 'Forza SSm B'",
   chronotype: 'Chronotype',
   gotham: "'Gotham SSm A', 'Gotham SSm B'",
