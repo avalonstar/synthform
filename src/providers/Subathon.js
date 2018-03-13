@@ -24,7 +24,8 @@ class SubathonProvider extends Component {
 SubathonProvider.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  payload: selectors.getSubPoints(state)
+  notifierPool: selectors.getNotifierPool(state),
+  payload: selectors.getSubathon(state)
 });
 
 const mapDispatchToProps = dispatch => ({

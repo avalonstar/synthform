@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
 
 import styled from 'styled-components';
+import { Capsule } from 'clients/avalonstar/styles';
 import { AlertTriangle, PlusSquare } from 'react-feather';
 
 const propTypes = {
@@ -20,11 +21,11 @@ const defaultProps = {
 };
 
 const getEventText = () => ({
-  cheer: 'CHEER > 500',
+  cheer: 'CHEER >= 100',
   resub: 'RESUB',
   subgift: 'SUBGIFT',
   subscription: 'SUBSCRIPTION',
-  tip: 'TIP > $5'
+  tip: 'TIP >= $1'
 });
 
 const getPlanText = () => ({
@@ -32,59 +33,6 @@ const getPlanText = () => ({
   2000: ' / TIER 2',
   3000: ' / TIER 3'
 });
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  overflow: hidden;
-
-  background: linear-gradient(#2c333a, #23292f);
-  border-radius: 4px;
-  color: #f3f5f6;
-`;
-
-const Icon = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  padding: 9px 6px 5px 8px;
-
-  background: linear-gradient(#23292f, #1a1f23);
-  border-top-left-radius: 4px;
-  border-bottom-left-radius: 4px;
-`;
-
-const Header = styled.div`
-  padding: 10px 10px 5px 40px;
-
-  color: #738596;
-  font-family: 'Forza SSm A', 'Forza SSm B';
-  font-weight: 700;
-  font-size: 14px;
-`;
-
-const Content = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0px 10px 10px 40px;
-
-  font-family: 'Gotham SSm A', 'Gotham SSm B';
-
-  svg {
-    margin: 0 4px;
-  }
-`;
-
-const Minutes = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-
-  color: #8b99a7;
-`;
 
 class Notification extends Component {
   state = {
@@ -134,19 +82,21 @@ class Notification extends Component {
       >
         {({ y }) => (
           <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
-            <Icon>
+            <Capsule.Title>
               <AlertTriangle color="#f5515f" size={18} />
-            </Icon>
-            <Header>
-              {getEventText()[data.event]}
-              {data.plan && getPlanText()[data.plan]}
-            </Header>
+            </Capsule.Title>
             <Content>
-              <strong>{data.username}</strong>
-              <Minutes>
-                <PlusSquare color="#02fa7b" size={14} />
-                {data.minutes} min
-              </Minutes>
+              <Header>
+                {getEventText()[data.event]}
+                {data.plan && getPlanText()[data.plan]}
+              </Header>
+              <Info>
+                <strong>{data.username}</strong>
+                <Minutes>
+                  <PlusSquare color="#02fa7b" size={14} />
+                  {data.minutes} min
+                </Minutes>
+              </Info>
             </Content>
           </Wrapper>
         )}
@@ -157,5 +107,46 @@ class Notification extends Component {
 
 Notification.propTypes = propTypes;
 Notification.defaultProps = defaultProps;
+
+const Wrapper = styled(Capsule.Wrapper)`
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  font-size: 14px;
+`;
+
+const Content = styled.div`
+  flex: 1;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 5px 0;
+
+  color: #738596;
+  font-family: ${props => props.theme.forza};
+  font-weight: 700;
+`;
+
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2px 10px 0;
+
+  font-family: ${props => props.theme.gotham};
+`;
+
+const Minutes = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  color: #8b99a7;
+`;
 
 export default Notification;

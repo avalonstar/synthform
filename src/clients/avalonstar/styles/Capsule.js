@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 
 const Wrapper = styled.div`
-  display: flex;
   align-items: center;
-  padding-right: 8px;
+  display: flex;
   overflow: hidden;
+  padding-right: 8px;
+  position: relative;
 
   background: linear-gradient(#2c333a, #23292f);
   border-radius: 4px;
@@ -18,14 +19,15 @@ const Wrapper = styled.div`
 const Title = styled.div`
   display: flex;
   align-items: center;
-  height: 100%;
+  align-self: stretch;
   padding: 9px 10px 9px 8px;
   margin-right: 10px;
 
   background: linear-gradient(#23292f, #1a1f23);
   color: #738596;
-  font-family: ${props => props.theme.forza};
+  font-family: ${props => props.theme.dinc};
   font-weight: 700;
+  text-transform: uppercase;
 `;
 
 const Content = styled.div`

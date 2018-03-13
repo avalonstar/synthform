@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import 'moment-duration-format';
 
 import styled from 'styled-components';
-import { rgba } from 'polished';
+import { Capsule } from 'clients/avalonstar/styles';
 import { Play, Pause, PlusSquare, XSquare } from 'react-feather';
 
 import { CountdownTimer, Stopwatch } from 'components/Timers';
@@ -12,19 +12,29 @@ import { CountdownTimer, Stopwatch } from 'components/Timers';
 import Notification from './Notification';
 
 const propTypes = {
+  className: PropTypes.string,
   active: PropTypes.bool,
   addedMinutes: PropTypes.number,
   contributions: PropTypes.bool,
   elapsedTime: PropTypes.number,
-  endTime: PropTypes.number,
-  events: PropTypes.arrayOf(PropTypes.object).isRequired,
+  endTimestamp: PropTypes.number,
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
+  minimumLength: PropTypes.number,
   remainingTime: PropTypes.number,
-  request: PropTypes.func.isRequired,
-  startTime: PropTypes.number
+  startTimestamp: PropTypes.number
 };
 
 const statusPropTypes = {
   active: PropTypes.bool.isRequired
+};
+
+const timerPropTypes = {
+  active: PropTypes.bool.isRequired,
+  elapsedTime: PropTypes.number.isRequired,
+  endTimestamp: PropTypes.number.isRequired,
+  minimumLength: PropTypes.number.isRequired,
+  remainingTime: PropTypes.number.isRequired,
+  startTimestamp: PropTypes.number.isRequired
 };
 
 const contributionPropTypes = {
@@ -35,155 +45,136 @@ const contributionPropTypes = {
 const defaultProps = {
   active: false,
   addedMinutes: 0,
+  className: '',
   contributions: false,
   elapsedTime: 0,
-  endTime: null,
-  events: [],
+  endTimestamp: Date.now(),
+  notifierPool: [],
+  minimumLength: 4,
   remainingTime: 0,
-  startTime: null
+  startTimestamp: Date.now()
 };
 
-const Wrapper = styled.div`
-  position: relative;
-  display: flex;
-  overflow: hidden;
-
-  background: linear-gradient(#2c333a, #23292f);
-  border-radius: 4px;
-  box-shadow: 0 1px 3px ${rgba('#090a0c', 0.12)},
-    0 1px 2px ${rgba('#090a0c', 0.24)};
-  color: #f3f5f6;
-  font-size: 14px;
-
-  .ss-icon {
-    padding: 9px 6px 5px 8px;
-    background: linear-gradient(#23292f, #1a1f23);
-  }
-
-  .ss-content {
-    flex: 1;
-  }
-
-  .ss-header {
-    display: flex;
-    align-items: center;
-    padding: 10px 10px 5px 8px;
-
-    color: #738596;
-    font-family: ${props => props.theme.forza};
-    font-weight: 700;
-    font-size: 14px;
-
-    svg {
-      margin-right: 2px;
-    }
-  }
-
-  .ss-info {
-    display: flex;
-    align-items: center;
-    padding: 0px 10px 10px 8px;
-
-    font-family: ${props => props.theme.gotham};
-  }
-
-  .ss-timer {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-
-    font-weight: 700;
-  }
-
-  .timer-separator {
-    color: #8b99a7;
-    padding: 0 1px;
-  }
-
-  .ss-minutes {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    color: #8b99a7;
-    font-family: ${props => props.theme.gotham};
-    font-weight: 600;
-
-    svg {
-      margin-right: 2px;
-    }
-  }
-`;
-
-const ContributionStatus = props => (
-  <div className="ss-minutes">
+const ContributionState = props => (
+  <StatusCounter>
     {props.active ? (
       <PlusSquare color="#02fa7b" size={14} />
     ) : (
       <XSquare color="#f5515f" size={14} />
     )}
     {moment.duration(props.addedMinutes, 'minutes').format('hh[h]mm[m]')}
-  </div>
+  </StatusCounter>
 );
 
-const SubathonStatus = props =>
-  props.active ? (
-    <Play color="#02fa7b" size={18} />
-  ) : (
-    <Pause color="#f5515f" size={18} />
-  );
+const SubathonState = props => (
+  <Capsule.Title>
+    {props.active ? (
+      <Play color="#02fa7b" size={18} />
+    ) : (
+      <Pause color="#f5515f" size={18} />
+    )}
+  </Capsule.Title>
+);
 
-class SubathonTimer extends Component {
-  componentDidMount() {
-    this.props.request();
+const SubathonTimer = props => (
+  <Timer>
+    <Stopwatch
+      active={props.active}
+      startTime={moment
+        .unix(props.startTimestamp)
+        .subtract(moment.duration(props.elapsedTime))
+        .unix()}
+      elapsedTime={props.elapsedTime}
+    />
+    <TimerSeparator>/</TimerSeparator>
+    <CountdownTimer
+      active={props.active}
+      endTime={props.endTimestamp}
+      minimumLength={props.minimumLength}
+      remainingTime={props.remainingTime}
+    />
+  </Timer>
+);
+
+const Status = props => (
+  <Wrapper className={props.className}>
+    <Notification event={props.notifierPool[0]} />
+    <SubathonState active={props.active} />
+    <Content>
+      <Header>!subathon</Header>
+      <Info>
+        <SubathonTimer {...props} />
+        <ContributionState
+          active={props.contributions}
+          addedMinutes={props.addedMinutes}
+        />
+      </Info>
+    </Content>
+  </Wrapper>
+);
+
+ContributionState.propTypes = contributionPropTypes;
+SubathonState.propTypes = statusPropTypes;
+SubathonTimer.propTypes = timerPropTypes;
+Status.propTypes = propTypes;
+Status.defaultProps = defaultProps;
+
+const Wrapper = styled(Capsule.Wrapper)`
+  font-size: 14px;
+`;
+
+const Content = styled.div`
+  flex: 1;
+`;
+
+const Header = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 10px 5px 0;
+
+  color: #738596;
+  font-family: ${props => props.theme.forza};
+  font-weight: 700;
+
+  svg {
+    margin-right: 2px;
   }
+`;
 
-  render() {
-    const startTime = moment
-      .unix(this.props.startTime)
-      .subtract(moment.duration(this.props.elapsedTime))
-      .unix();
-    return (
-      <Wrapper>
-        <Notification event={this.props.events.get(0)} />
-        <div className="ss-icon">
-          <SubathonStatus active={this.props.active} />
-        </div>
-        <div className="ss-content">
-          <div className="ss-header">!subathon (day 3)</div>
-          <div className="ss-info">
-            <div className="ss-timer">
-              {this.props.startTime && (
-                <Stopwatch
-                  active={this.props.active}
-                  startTime={startTime}
-                  elapsedTime={this.props.elapsedTime}
-                />
-              )}
-              <span className="timer-separator">/</span>
-              {this.props.endTime && (
-                <CountdownTimer
-                  active={this.props.active}
-                  endTime={this.props.endTime}
-                  remainingTime={this.props.remainingTime}
-                />
-              )}
-            </div>
-            <ContributionStatus
-              active={this.props.contributions}
-              addedMinutes={this.props.addedMinutes}
-            />
-          </div>
-        </div>
-      </Wrapper>
-    );
+const StatusCounter = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  color: #8b99a7;
+  font-family: ${props => props.theme.gotham};
+  font-weight: 600;
+
+  svg {
+    margin-right: 2px;
   }
-}
+`;
 
-ContributionStatus.propTypes = contributionPropTypes;
-SubathonStatus.propTypes = statusPropTypes;
-SubathonTimer.propTypes = propTypes;
-SubathonTimer.defaultProps = defaultProps;
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0 2px 10px 0;
 
-export default SubathonTimer;
+  font-family: ${props => props.theme.gotham};
+`;
+
+const Timer = styled.div`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  font-weight: 700;
+`;
+
+const TimerSeparator = styled.div`
+  color: #8b99a7;
+  padding: 0 1px;
+`;
+
+export default Status;

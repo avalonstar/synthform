@@ -22,13 +22,8 @@ const subathon = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        active: action.payload.active,
-        addedMinutes: action.payload.addedMinutes,
-        contributionCap: action.payload.contributionCap,
-        elapsedTime: action.payload.elapsedTime,
-        remainingTime: action.payload.remainingTime,
-        endTimestamp: action.payload.endTimestamp,
-        startTimestamp: action.payload.startTimestamp
+        isActive: action.payload.active,
+        payload: action.payload
       };
     default:
       return state;

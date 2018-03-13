@@ -25,21 +25,8 @@ export const getStreamStartTime = state => state.uptime.startTime;
 export const getCurrentSong = state => state.songs.currentSong;
 export const getQueueSize = state => state.songs.queueSize;
 
-export const getSubathonAddedMinutes = state => state.subathon.addedMinutes;
-export const getSubathonContributionCap = state =>
-  state.subathon.contributionCap;
-export const getSubathonEndTime = state => state.subathon.endTimestamp;
-export const getSubathonStartTime = state => state.subathon.startTimestamp;
-export const getSubathonElapsedTime = state => state.subathon.elapsedTime || 0;
-export const getSubathonRemainingTime = state => state.subathon.remainingTime;
-export const getSubathonState = state => state.subathon.active;
-
-export const getSubathonContributionState = createSelector(
-  getSubathonState,
-  getSubathonAddedMinutes,
-  getSubathonContributionCap,
-  (state, minutes, cap) => state && minutes < cap
-);
+export const getSubathon = state => state.subathon.payload;
+export const getSubathonState = state => state.subathon.isActive;
 
 export const getCurrentChristmasBroadcaster = state => state.christmas.current;
 export const getNextChristmasBroadcaster = state => state.christmas.next;

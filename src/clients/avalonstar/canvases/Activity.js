@@ -7,6 +7,7 @@ import {
   Panel,
   Notifier,
   Ticker,
+  Status as SubathonStatus,
   SubPoints,
   Uptime
 } from 'clients/avalonstar/components';
@@ -44,6 +45,14 @@ const Layout = ({ user, cameraMode, debugMode }) => (
         </Fragment>
       )}
     </Providers.Events>
+    <Providers.Subathon user={user}>
+      {props => (
+        <StyledSubathonStatus
+          notifierPool={props.notifierPool}
+          {...props.payload}
+        />
+      )}
+    </Providers.Subathon>
     <Providers.SubPoints user={user}>
       {props => <StyledSubPoints points={props.payload} />}
     </Providers.SubPoints>
@@ -98,6 +107,13 @@ const StyledPanel = styled(Panel)`
   z-index: 100;
 `;
 
+const StyledSubathonStatus = styled(SubathonStatus)`
+  display: none;
+  grid-column: 15 / span 3;
+  grid-row: 10;
+  align-self: end;
+`;
+
 const StyledSubPoints = styled(SubPoints)`
   grid-column: 15 / span 3;
   grid-row: 11;
@@ -105,7 +121,6 @@ const StyledSubPoints = styled(SubPoints)`
 `;
 
 const StyledTicker = styled(Ticker)`
-  display: none;
   grid-column: 1 / span 17;
   grid-row: 12;
   margin: 0 -24px 0;
