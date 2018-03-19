@@ -16,7 +16,9 @@ const Counter = props => (
   <StyledFlipMove
     typeName="ol"
     className={props.className}
-    enterAnimation={false}
+    easing="cubic-bezier(.62, .28, .23, .99)"
+    enterAnimation="fade"
+    staggerDurationBy={100}
   >
     {props.emotes
       .slice(0, props.limit)
