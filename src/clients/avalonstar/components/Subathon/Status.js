@@ -39,20 +39,21 @@ const timerPropTypes = {
 
 const contributionPropTypes = {
   active: PropTypes.bool.isRequired,
-  addedMinutes: PropTypes.number.isRequired
+  addedMinutes: PropTypes.number.isRequired,
+  minimumLength: PropTypes.number.isRequired
 };
 
 const defaultProps = {
-  active: false,
+  active: true,
   addedMinutes: 0,
   className: '',
-  contributions: false,
+  contributions: true,
   elapsedTime: 0,
-  endTimestamp: Date.now(),
+  endTimestamp: moment().unix(),
   notifierPool: [],
   minimumLength: 4,
   remainingTime: 0,
-  startTimestamp: Date.now()
+  startTimestamp: moment().unix()
 };
 
 const ContributionState = props => (
@@ -62,7 +63,10 @@ const ContributionState = props => (
     ) : (
       <XSquare color="#f5515f" size={14} />
     )}
-    {moment.duration(props.addedMinutes, 'minutes').format('hh[h]mm[m]')}
+    {moment
+      .duration(props.addedMinutes, 'minutes')
+      .add(props.minimumLength, 'h')
+      .format('hh[h]mm[m]')}
   </StatusCounter>
 );
 
@@ -78,6 +82,13 @@ const SubathonState = props => (
 
 const SubathonTimer = props => (
   <Timer>
+    <CountdownTimer
+      active={props.active}
+      endTime={props.endTimestamp}
+      minimumLength={props.minimumLength}
+      remainingTime={props.remainingTime}
+    />
+    <TimerSeparator>/</TimerSeparator>
     <Stopwatch
       active={props.active}
       startTime={moment
@@ -85,13 +96,6 @@ const SubathonTimer = props => (
         .subtract(moment.duration(props.elapsedTime))
         .unix()}
       elapsedTime={props.elapsedTime}
-    />
-    <TimerSeparator>/</TimerSeparator>
-    <CountdownTimer
-      active={props.active}
-      endTime={props.endTimestamp}
-      minimumLength={props.minimumLength}
-      remainingTime={props.remainingTime}
     />
   </Timer>
 );
@@ -101,12 +105,13 @@ const Status = props => (
     <Notification event={props.notifierPool[0]} />
     <SubathonState active={props.active} />
     <Content>
-      <Header>!subathon</Header>
+      <Header>Subathon Status</Header>
       <Info>
         <SubathonTimer {...props} />
         <ContributionState
           active={props.contributions}
           addedMinutes={props.addedMinutes}
+          minimumLength={props.minimumLength}
         />
       </Info>
     </Content>

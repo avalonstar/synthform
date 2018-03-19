@@ -68,9 +68,7 @@ class Notification extends Component {
 
   render() {
     const data = this.props.event;
-    return !data.event ? (
-      <Wrapper />
-    ) : (
+    return (
       <Motion
         defaultStyle={{ y: -100 }}
         style={{
@@ -81,7 +79,10 @@ class Notification extends Component {
         }}
       >
         {({ y }) => (
-          <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+          <Wrapper
+            event={data.event}
+            style={{ transform: `translate3d(0, ${y}%, 0)` }}
+          >
             <Capsule.Title>
               <AlertTriangle color="#f5515f" size={18} />
             </Capsule.Title>
@@ -116,6 +117,8 @@ const Wrapper = styled(Capsule.Wrapper)`
   left: 0;
 
   font-size: 14px;
+  opacity: ${props => (!props.event ? 0 : 1)};
+  transition: 250ms all cubic-bezier(0.62, 0.28, 0.23, 0.99);
 `;
 
 const Content = styled.div`
