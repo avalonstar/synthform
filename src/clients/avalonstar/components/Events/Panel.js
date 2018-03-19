@@ -18,7 +18,7 @@ const defaultProps = {
 };
 
 const contentPropsTypes = {
-  amount: PropTypes.string,
+  amount: PropTypes.number,
   months: PropTypes.number,
   recipient: PropTypes.string,
   username: PropTypes.string
