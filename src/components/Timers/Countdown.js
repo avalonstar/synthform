@@ -21,6 +21,10 @@ class Timer extends Component {
     this.tickTime();
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.state.time !== nextState.time;
+  }
+
   componentDidUpdate(prevProps) {
     this.onUpdate(prevProps);
   }
@@ -58,7 +62,10 @@ class Timer extends Component {
     const now = moment();
     const endTime = moment.unix(this.state.internalEndTime);
     const diff = moment.duration(endTime.diff(now));
-    const time = diff.format('h:mm:ss', { trim: false });
+    const time =
+      diff.milliseconds() > 0
+        ? diff.format('h:mm:ss', { trim: false })
+        : '0:00:00';
     this.setState({ time });
   };
 
