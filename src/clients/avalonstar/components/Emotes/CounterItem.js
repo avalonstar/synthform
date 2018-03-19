@@ -1,5 +1,3 @@
-/* eslint-disable react/prefer-stateless-function */
-
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import AnimatedNumber from 'react-animated-number';
@@ -15,6 +13,10 @@ const propTypes = {
 };
 
 class Counter extends Component {
+  shouldComponentUpdate(nextProps) {
+    return nextProps.count !== this.props.count;
+  }
+
   render() {
     return (
       <Item>

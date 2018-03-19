@@ -39,6 +39,10 @@ class TickerItem extends Component {
     this.props.onChange();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.data !== this.props.data;
+  }
+
   render() {
     const { data, data: { event, timestamp } } = this.props;
     const username = event === 'subgift' ? data.recipient : data.username;
@@ -62,8 +66,8 @@ const Item = styled.div`
     moment().isSame(parseInt(props.timestamp, 10), 'day') ? 1 : 0.5};
 `;
 
-const Wrapper = styled.div`
-  &:nth-of-type(1) {
+const Wrapper = styled.li`
+  &:nth-of-type(2) {
     ${Item} {
       margin-right: 8px;
       padding-left: 0;

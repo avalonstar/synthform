@@ -37,6 +37,10 @@ class Ticker extends Component {
     this.activateTimer();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.events !== this.props.events;
+  }
+
   timerExpired = () => {
     this.setState({ isVisible: false });
   };
