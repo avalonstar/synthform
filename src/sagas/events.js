@@ -16,6 +16,7 @@ import * as selectors from 'selectors';
 const { eventFetch, eventNotifier } = actions;
 
 let debugMode = false;
+let initialEvent = {};
 let shouldNotify = true;
 let subathon = false;
 
@@ -23,15 +24,16 @@ const subathonPassthroughEvents = ['follow', 'host'];
 const blacklistedEvents = ['autohost'];
 
 function* triggerNotification(action) {
-  const payload = action.payload[0];
-
   subathon = yield select(selectors.getSubathonState);
   shouldNotify = yield select(selectors.getShouldNotify);
-  if (
+
+  const payload = action.payload[0];
+  const subathonConstraints =
     subathon &&
     !payload.minutes &&
-    !subathonPassthroughEvents.includes(payload.event)
-  ) {
+    !subathonPassthroughEvents.includes(payload.event);
+
+  if (subathonConstraints || payload === initialEvent) {
     shouldNotify = false;
   }
   if (shouldNotify && !blacklistedEvents.includes(payload.event)) {
@@ -44,6 +46,7 @@ function* fetchEvents(user) {
     const requestPath = debugMode ? 'testEvents' : 'events';
     const uri = `${API_URI}/${user}/${requestPath}/`;
     const { data } = yield call(axios.get, uri);
+    initialEvent = data.data[0]; // eslint-disable-line
 
     shouldNotify = false;
     yield put(eventFetch.success(data.data));
