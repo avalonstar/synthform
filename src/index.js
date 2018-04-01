@@ -7,7 +7,7 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
-import { Activity, Break } from 'clients/avalonstar/canvases';
+import { Activity, Break, Speedrunning } from 'clients/avalonstar/canvases';
 import { Whammy } from 'clients/special/canvases';
 import baseStyles, { foundation } from 'helpers/foundation';
 
@@ -23,23 +23,22 @@ const render = () => {
     <Provider store={store}>
       <ConnectedRouter history={history}>
         <ThemeProvider theme={foundation}>
-          <main>
-            <Switch>
-              <Route
-                exact
-                path="/avalonstar/canvases/activity"
-                component={Activity}
-              />
-              <Route
-                exact
-                path="/avalonstar/canvases/break"
-                component={Break}
-              />
+          <Switch>
+            <Route
+              exact
+              path="/avalonstar/canvases/activity"
+              component={Activity}
+            />
+            <Route exact path="/avalonstar/canvases/break" component={Break} />
+            <Route
+              exact
+              path="/avalonstar/canvases/speedrunning"
+              component={Speedrunning}
+            />
 
-              <Route exact path="/special/canvases/chrono" component={Whammy} />
-              <Route component={App} />
-            </Switch>
-          </main>
+            <Route exact path="/special/canvases/chrono" component={Whammy} />
+            <Route component={App} />
+          </Switch>
         </ThemeProvider>
       </ConnectedRouter>
     </Provider>,
