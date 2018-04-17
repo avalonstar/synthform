@@ -21,10 +21,6 @@ class Timer extends Component {
     this.tickTime();
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return this.state.time !== nextState.time;
-  }
-
   componentDidUpdate(prevProps) {
     this.onUpdate(prevProps);
   }
