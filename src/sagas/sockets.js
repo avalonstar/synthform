@@ -26,7 +26,7 @@ const subscribe = socket =>
     socket.on('messages', data => emit(messageFetch.success(data)));
     socket.on('startTime', data => emit(uptimeFetch.success(data)));
     socket.on('subpoints', data => emit(subpointFetch.success(data)));
-    socket.on('testEvents', data => emit(eventFetch.success(data)));
+    socket.on('testevents', data => emit(eventFetch.success(data)));
     socket.on(`subathon`, data => emit(subathonFetch.success(data)));
 
     socket.on('disconnect', reason => console.log(reason));
