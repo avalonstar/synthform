@@ -23,14 +23,16 @@ const contentPropsTypes = {
   amount: PropTypes.number,
   months: PropTypes.number,
   recipient: PropTypes.string,
-  username: PropTypes.string
+  username: PropTypes.string,
+  formattedAmount: PropTypes.string
 };
 
 const contentDefaultProps = {
   amount: null,
   months: null,
   recipient: '',
-  username: ''
+  username: '',
+  formattedAmount: '$0.00'
 };
 
 const Content = props => (
@@ -50,7 +52,7 @@ const Content = props => (
     )}
     {props.event === 'tip' && (
       <Amount>
-        <span>{numeral(props.amount).format('$0,0')}</span>
+        <span>{props.formattedAmount}</span>
       </Amount>
     )}
   </Fragment>

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
+import numeral from 'numeral';
 
 import styled from 'styled-components';
 import { rgba } from 'polished';
@@ -42,8 +43,7 @@ const resubPropTypes = {
 
 const tipPropTypes = {
   ...eventPropTypes,
-  currency: PropTypes.string.isRequired,
-  amount: PropTypes.number.isRequired
+  formattedAmount: PropTypes.string.isRequired
 };
 
 const NotificationWrapper = ({ isVisible, url, children }) => (
@@ -168,7 +168,7 @@ export const ResubEvent = ({ event, visibility, username, months }) => (
   </NotificationWrapper>
 );
 
-export const TipEvent = ({ event, visibility, username, currency, amount }) => (
+export const TipEvent = ({ event, visibility, username, formattedAmount }) => (
   <NotificationWrapper
     url="https://static-cdn.jtvnw.net/emoticons/v1/459215/2.0"
     event={event}
@@ -178,8 +178,7 @@ export const TipEvent = ({ event, visibility, username, currency, amount }) => (
       <strong>{username}</strong>
       {' just tipped '}
       <strong>
-        {currency}
-        {amount}
+        {formattedAmount}
         {'!'}
       </strong>
     </Header>
