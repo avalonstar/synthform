@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
+import numeral from 'numeral';
 
 import styled from 'styled-components';
 import { ellipsis } from 'polished';
@@ -18,6 +19,7 @@ const defaultProps = {
 };
 
 const contentPropsTypes = {
+  event: PropTypes.string.isRequired,
   amount: PropTypes.number,
   months: PropTypes.number,
   recipient: PropTypes.string,
@@ -40,10 +42,15 @@ const Content = props => (
         {props.months}
       </Length>
     )}
-    {props.amount && (
+    {props.event === 'cheer' && (
       <Amount>
-        <span>{props.amount}</span>
+        <span>{numeral(props.amount).format('0,0')}</span>
         <Cheermote alt={props.amount} src={getCheermoteURL(props.amount)} />
+      </Amount>
+    )}
+    {props.event === 'tip' && (
+      <Amount>
+        <span>{numeral(props.amount).format('$0,0')}</span>
       </Amount>
     )}
   </Fragment>
