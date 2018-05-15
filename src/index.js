@@ -7,7 +7,12 @@ import { ConnectedRouter } from 'react-router-redux';
 import { ThemeProvider } from 'styled-components';
 
 import App from 'containers/App';
-import { Activity, Break, Speedrunning } from 'clients/avalonstar/canvases';
+import {
+  Activity,
+  Audio,
+  Break,
+  Speedrunning
+} from 'clients/avalonstar/canvases';
 import { Whammy } from 'clients/special/canvases';
 import baseStyles, { foundation } from 'helpers/foundation';
 
@@ -24,6 +29,7 @@ const render = () => {
       <ConnectedRouter history={history}>
         <ThemeProvider theme={foundation}>
           <Switch>
+            <Route exact path="/avalonstar/canvases/audio" component={Audio} />
             <Route
               exact
               path="/avalonstar/canvases/activity"

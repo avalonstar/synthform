@@ -1,6 +1,6 @@
 export { default as ActivityCamera } from './Cameras';
 export { default as EmoteCounter } from './Emotes';
-export { Panel, Notifier, Ticker } from './Events';
+export { Notifier, SoundNotifier, Panel, Ticker } from './Events';
 export { default as Generic } from './Generic';
 export { Status } from './Subathon';
 export { default as SubPoints } from './SubPoints';

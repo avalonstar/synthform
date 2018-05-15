@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Motion, spring } from 'react-motion';
-import numeral from 'numeral';
 
 import styled from 'styled-components';
 import { rgba } from 'polished';

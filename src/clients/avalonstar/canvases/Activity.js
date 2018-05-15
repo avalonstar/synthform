@@ -37,9 +37,12 @@ const Layout = ({ user, cameraMode, debugMode }) => (
       )}
     </Providers.Emotes>
     <Providers.Events user={user} debugMode={debugMode}>
-      {props => (
+      {(props, onComplete) => (
         <Fragment>
-          <StyledNotifier notifierPool={props.notifierPool} />
+          <StyledNotifier
+            notifierPool={props.notifierPool}
+            onComplete={onComplete}
+          />
           <StyledPanel events={props.payload} />
           <StyledTicker events={props.payload} />
         </Fragment>
@@ -115,6 +118,7 @@ const StyledSubathonStatus = styled(SubathonStatus)`
 `;
 
 const StyledSubPoints = styled(SubPoints)`
+  display: none;
   grid-column: 15 / span 3;
   grid-row: 11;
   align-self: end;

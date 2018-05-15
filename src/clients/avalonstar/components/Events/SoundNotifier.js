@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import Notification from './Notification';
+import SoundNotification from './SoundNotification';
 
 const propTypes = {
-  className: PropTypes.string,
   notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
   onComplete: PropTypes.func.isRequired
 };
 
-const defaultProps = {
-  className: ''
-};
-
-class Notifier extends Component {
+class SoundNotifier extends Component {
   shouldComponentUpdate(nextProps) {
     return nextProps.notifierPool[0] !== this.props.notifierPool[0];
   }
 
   render() {
     return (
-      <Notification
-        className={this.props.className}
+      <SoundNotification
         event={this.props.notifierPool[0]}
         onComplete={this.props.onComplete}
       />
@@ -29,7 +23,6 @@ class Notifier extends Component {
   }
 }
 
-Notifier.propTypes = propTypes;
-Notifier.defaultProps = defaultProps;
+SoundNotifier.propTypes = propTypes;
 
-export default Notifier;
+export default SoundNotifier;
