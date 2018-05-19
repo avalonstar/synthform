@@ -90,14 +90,14 @@ export const HostEvent = ({ event, visibility, username }) => (
   </NotificationWrapper>
 );
 
-export const SubscriptionEvent = ({ event, visibility, username }) => (
+export const SubscriptionEvent = ({ event, visibility, displayName }) => (
   <NotificationWrapper
     url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
     event={event}
     isVisible={visibility}
   >
     <Header>
-      <strong>{username}</strong>
+      <strong>{displayName}</strong>
       {' has just subscribed!'}
     </Header>
     <Message>
@@ -114,23 +114,23 @@ export const SubscriptionEvent = ({ event, visibility, username }) => (
   </NotificationWrapper>
 );
 
-export const SubGiftEvent = ({ event, visibility, username, recipient }) => (
+export const SubGiftEvent = ({ event, visibility, gifter, displayName }) => (
   <NotificationWrapper
     url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
     event={event}
     isVisible={visibility}
   >
     <Header>
-      <strong>{username}</strong>
+      <strong>{gifter}</strong>
       {' gifted '}
-      <strong>{recipient}</strong>
+      <strong>{displayName}</strong>
       {' a subscription!'}
     </Header>
     <Message>
       <strong>Enjoy the subscription</strong>
       {'  and spam those emotes! Welcome to the family! '}
       {'Thank you for your generosity, '}
-      {username}
+      {displayName}
       {'!'}
     </Message>
     <Footer>
@@ -141,14 +141,14 @@ export const SubGiftEvent = ({ event, visibility, username, recipient }) => (
   </NotificationWrapper>
 );
 
-export const ResubEvent = ({ event, visibility, username, months }) => (
+export const ResubEvent = ({ event, visibility, displayName, months }) => (
   <NotificationWrapper
     url="https://static-cdn.jtvnw.net/emoticons/v1/309775/2.0"
     event={event}
     isVisible={visibility}
   >
     <Header>
-      <strong>{username}</strong>
+      <strong>{displayName}</strong>
       {' subscribed for '}
       <strong>{`${months} months in a row!`}</strong>
     </Header>
@@ -167,14 +167,19 @@ export const ResubEvent = ({ event, visibility, username, months }) => (
   </NotificationWrapper>
 );
 
-export const TipEvent = ({ event, visibility, username, formattedAmount }) => (
+export const TipEvent = ({
+  event,
+  visibility,
+  displayName,
+  formattedAmount
+}) => (
   <NotificationWrapper
     url="https://static-cdn.jtvnw.net/emoticons/v1/459215/2.0"
     event={event}
     isVisible={visibility}
   >
     <Header>
-      <strong>{username}</strong>
+      <strong>{displayName}</strong>
       {' just tipped '}
       <strong>
         {formattedAmount}
