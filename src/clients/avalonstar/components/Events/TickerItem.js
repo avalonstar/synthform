@@ -44,8 +44,11 @@ class TickerItem extends Component {
   }
 
   render() {
-    const { data, data: { event, timestamp } } = this.props;
-    const username = event === 'subgift' ? data.recipient : data.username;
+    const {
+      data,
+      data: { event, timestamp }
+    } = this.props;
+    const username = data.displayName || data.username;
     return (
       <Wrapper data-event={event}>
         <Item timestamp={timestamp}>
