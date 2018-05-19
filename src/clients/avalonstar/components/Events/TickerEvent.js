@@ -27,7 +27,7 @@ const cheerDefaultProps = {
 };
 
 const subgiftPropTypes = {
-  username: PropTypes.string.isRequired
+  gifter: PropTypes.string.isRequired
 };
 
 const resubPropTypes = {
@@ -99,7 +99,7 @@ export const SubGiftEvent = props => (
     <MinuteModifier {...props} />
     <Event>
       {'subgift from '}
-      {props.username}
+      {props.gifter}
     </Event>
   </Piece>
 );
