@@ -44,7 +44,7 @@ const Layout = ({ user, cameraMode, debugMode }) => (
             onComplete={onComplete}
           />
           <StyledPanel events={props.payload} />
-          <StyledTicker events={props.payload} />
+          <StyledTicker events={props.payload} anchor="top" />
         </Fragment>
       )}
     </Providers.Events>
@@ -81,13 +81,14 @@ Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
 
 const StyledCamera = styled(ActivityCamera)`
-  grid-column: 14 / span 4;
-  grid-row: 12;
+  grid-column: 24 / span 7;
+  grid-row: 20;
   align-self: end;
   z-index: 400;
 `;
 
 const StyledEmoteCounter = styled(EmoteCounter)`
+  display: none;
   grid-row: 12;
 `;
 
@@ -104,10 +105,11 @@ const StyledNotifier = styled(Notifier)`
 `;
 
 const StyledPanel = styled(Panel)`
-  grid-column: 1 / span 3;
-  grid-row: 12;
-  align-self: center;
+  grid-column: 24 / span 7;
+  grid-row: 21;
   z-index: 100;
+
+  border-radius: 0;
 `;
 
 const StyledSubathonStatus = styled(SubathonStatus)`
@@ -125,9 +127,9 @@ const StyledSubPoints = styled(SubPoints)`
 `;
 
 const StyledTicker = styled(Ticker)`
-  grid-column: 1 / span 17;
-  grid-row: 12;
-  margin: 0 -24px 0;
+  grid-column: 1 / span 30;
+  grid-row: 1;
+  margin: 0 -36px 0;
   z-index: 200;
 `;
 
@@ -142,8 +144,8 @@ const Container = styled.div`
   grid-column: 2;
   align-self: end;
 
-  grid-template-columns: repeat(17, 80px);
-  grid-template-rows: repeat(12, 62px);
+  grid-template-columns: repeat(30, 50px);
+  grid-template-rows: repeat(21, 40px);
   grid-gap: 12px;
 
   ${StyledCamera} {
