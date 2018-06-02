@@ -93,8 +93,8 @@ const StyledEmoteCounter = styled(EmoteCounter)`
 `;
 
 const StyledNotifier = styled(Notifier)`
-  grid-column: 1 / span 5;
-  grid-row: 11;
+  grid-column: 1 / span 8;
+  grid-row: 20;
   align-self: end;
   z-index: 300;
 
