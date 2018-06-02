@@ -44,7 +44,7 @@ const Layout = ({ user, cameraMode, debugMode }) => (
             onComplete={onComplete}
           />
           <StyledPanel events={props.payload} />
-          <StyledTicker events={props.payload} anchor="top" />
+          <StyledTicker events={props.payload} anchor="bottom" />
         </Fragment>
       )}
     </Providers.Events>
@@ -128,7 +128,7 @@ const StyledSubPoints = styled(SubPoints)`
 
 const StyledTicker = styled(Ticker)`
   grid-column: 1 / span 30;
-  grid-row: 1;
+  grid-row: 21;
   margin: 0 -36px 0;
   z-index: 200;
 `;

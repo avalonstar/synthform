@@ -3,17 +3,17 @@ import { rgba } from 'polished';
 
 const Wrapper = styled.div`
   display: grid;
-  grid-template-columns: 24px 1fr 24px;
+  grid-template-columns: 36px 1fr 36px;
 
   position: absolute;
   overflow: hidden;
-  width: 1600px;
-  height: 900px;
+  width: 1920px;
+  height: 1080px;
 
   background: linear-gradient(
     105deg,
-    ${rgba('#090a0c', 0)} 85%,
-    ${rgba('#090a0c', 0.4)}
+    ${rgba('#000', 0)} 85%,
+    ${rgba('#000', 0.4)}
   );
 `;
 
