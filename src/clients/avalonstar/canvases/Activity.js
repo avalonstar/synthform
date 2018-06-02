@@ -99,7 +99,7 @@ const StyledNotifier = styled(Notifier)`
   z-index: 300;
 
   &[data-event='follow'] {
-    align-self: start;
+    align-self: center;
     z-index: 0;
   }
 `;
