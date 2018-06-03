@@ -63,7 +63,9 @@ class TickerItem extends Component {
 TickerItem.propTypes = propTypes;
 
 const Item = styled.div`
-  padding: 14px 16px 15px 16px;
+  display: flex;
+  align-items: baseline;
+  padding: 11px 14px 11px 14px;
   color: #e8ebed;
   opacity: ${props =>
     moment().isSame(parseInt(props.timestamp, 10), 'day') ? 1 : 0.5};
@@ -81,10 +83,10 @@ const Wrapper = styled.li`
 `;
 
 const Actor = styled.div`
-  padding-bottom: 1px;
   font-family: ${props => props.theme.gotham};
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
+  padding-right: 8px;
 `;
 
 export default TickerItem;

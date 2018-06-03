@@ -100,12 +100,6 @@ export const SubscriptionEvent = ({ event, visibility, displayName }) => (
       <strong>{displayName}</strong>
       {' has just subscribed!'}
     </Header>
-    <Message>
-      <strong>Welcome to AVLN</strong>
-      {
-        ' and thanks for subscribing! Chat, bring the hype for the newest member of the family!'
-      }
-    </Message>
     <Footer>
       <EventType>subscription</EventType>
       <TrendingUp size={14} />
@@ -126,13 +120,6 @@ export const SubGiftEvent = ({ event, visibility, gifter, displayName }) => (
       <strong>{displayName}</strong>
       {' a subscription!'}
     </Header>
-    <Message>
-      <strong>Enjoy the subscription</strong>
-      {'  and spam those emotes! Welcome to the family! '}
-      {'Thank you for your generosity, '}
-      {displayName}
-      {'!'}
-    </Message>
     <Footer>
       <EventType>subgift</EventType>
       <TrendingUp size={14} />
@@ -152,9 +139,6 @@ export const ResubEvent = ({ event, visibility, displayName, months }) => (
       {' subscribed for '}
       <strong>{`${months} months in a row!`}</strong>
     </Header>
-    <Message>
-      {`Thank you for marching forward with us! Chat, let's bring the hype for them!`}
-    </Message>
     <Footer>
       <EventType>
         {'resub'}
@@ -186,9 +170,6 @@ export const TipEvent = ({
         {'!'}
       </strong>
     </Header>
-    <Message>
-      {`Holy moly! Thank you for your generosity and your support! Chat, please shower all of the love on them!`}
-    </Message>
     <Footer>
       <EventType>tip</EventType>
       <Heart size={14} />

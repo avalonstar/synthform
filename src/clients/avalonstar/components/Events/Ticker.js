@@ -119,7 +119,7 @@ const StyledFlipMove = styled(FlipMove)`
 
 const Cap = styled.li`
   background: linear-gradient(#1a1f23, #121417);
-  padding: 12px 4px 12px 12px;
+  padding: 9px 4px 9px 12px;
 `;
 
 export default Ticker;

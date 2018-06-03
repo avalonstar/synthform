@@ -13,7 +13,7 @@ const Wrapper = styled.div`
   box-shadow: 0 1px 3px ${rgba('#090a0c', 0.12)},
     0 1px 2px ${rgba('#090a0c', 0.24)};
   color: #f3f5f6;
-  font-size: 14px;
+  font-size: 16px;
 `;
 
 const Title = styled.div`
