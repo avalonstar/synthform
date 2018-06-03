@@ -7,8 +7,6 @@ export const getFetchState = state => {
   return isFetching.every(Boolean);
 };
 
-export const getTotalEmoteCounts = state => state.emotes.emotes;
-
 export const getMessages = state => state.messages.messages;
 
 export const getLatestSubscription = state => state.subscriptions.latest;

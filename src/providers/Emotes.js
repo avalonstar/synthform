@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { emoteFetch } from 'actions/emotes';
-import * as selectors from 'selectors';
+import * as selectors from './selectors';
 
 const propTypes = {
   children: PropTypes.func.isRequired,
@@ -24,7 +24,7 @@ class EmoteProvider extends Component {
 EmoteProvider.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  payload: selectors.getTotalEmoteCounts(state)
+  payload: selectors.getEmotes(state)
 });
 
 const mapDispatchToProps = dispatch => ({
