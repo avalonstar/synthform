@@ -1,12 +1,3 @@
-export const getFetchState = state => {
-  const isFetching = [
-    state.events.isFetching,
-    state.subscriptions.isFetchingLatestSubscriber,
-    state.subscriptions.isFetchingSubPoints
-  ];
-  return isFetching.every(Boolean);
-};
-
 export const getMessages = state => state.messages.messages;
 
 export const getLatestSubscription = state => state.subscriptions.latest;
