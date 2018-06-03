@@ -4,17 +4,17 @@ import { createSelector } from 'reselect';
 import * as actions from 'actions/events';
 
 const allIds = (state = [], action) => {
-  if (action.response) {
-    return [...action.response.result];
+  if (action.events) {
+    return [...action.events.result];
   }
   return state;
 };
 
 const byId = (state = {}, action) => {
-  if (action.response) {
+  if (action.events) {
     return {
       ...state,
-      ...action.response.entities.events
+      ...action.events.entities.events
     };
   }
   return state;

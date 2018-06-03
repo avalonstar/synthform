@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { normalize } from 'normalizr';
 import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
@@ -15,7 +16,7 @@ let shouldNotify = true;
 function* triggerNotification(action) {
   shouldNotify = true;
 
-  const event = action.response.result[0];
+  const event = action.events.result[0];
   if (event === initialEvent) {
     shouldNotify = false;
   }
@@ -29,10 +30,10 @@ function* fetchEvents(user) {
     const requestPath = debugMode ? 'testEvents' : 'events';
     const uri = `${API_URI}/${user}/${requestPath}/`;
     const { data } = yield call(axios.get, uri);
-    initialEvent = data.data[0]; // eslint-disable-line
+    initialEvent = data.data[0].id; // eslint-disable-line
 
     shouldNotify = false;
-    yield put(eventFetch.success(normalize(data.data, schema.eventList)));
+    yield put(eventFetch.success(user, normalize(data.data, schema.eventList)));
   } catch (error) {
     yield put(eventFetch.failure(error));
   }
