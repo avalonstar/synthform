@@ -1,43 +1,26 @@
 import axios from 'axios';
+import { normalize } from 'normalizr';
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
-import {
-  all,
-  call,
-  put,
-  select,
-  takeEvery,
-  takeLatest
-} from 'redux-saga/effects';
-
+import * as schema from 'actions/schema';
 import * as actions from 'actions/events';
 import { API_URI } from 'configurations/constants';
-import * as selectors from 'selectors';
 
 const { eventFetch, eventNotifier } = actions;
 
 let debugMode = false;
 let initialEvent = {};
 let shouldNotify = true;
-let subathon = false;
-
-const subathonPassthroughEvents = ['follow', 'host'];
-const blacklistedEvents = ['autohost'];
 
 function* triggerNotification(action) {
-  subathon = yield select(selectors.getSubathonState);
-  shouldNotify = yield select(selectors.getShouldNotify);
+  shouldNotify = true;
 
-  const payload = action.payload[0];
-  const subathonConstraints =
-    subathon &&
-    !payload.minutes &&
-    !subathonPassthroughEvents.includes(payload.event);
-
-  if (subathonConstraints || payload === initialEvent) {
+  const event = action.response.result[0];
+  if (event === initialEvent) {
     shouldNotify = false;
   }
-  if (shouldNotify && !blacklistedEvents.includes(payload.event)) {
-    yield put(eventNotifier.add(payload));
+  if (shouldNotify) {
+    yield put(eventNotifier.add(event));
   }
 }
 
@@ -49,7 +32,7 @@ function* fetchEvents(user) {
     initialEvent = data.data[0]; // eslint-disable-line
 
     shouldNotify = false;
-    yield put(eventFetch.success(data.data));
+    yield put(eventFetch.success(normalize(data.data, schema.eventList)));
   } catch (error) {
     yield put(eventFetch.failure(error));
   }

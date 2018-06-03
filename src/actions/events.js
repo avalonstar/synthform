@@ -7,7 +7,7 @@ export const EVENT_NOTIFIER_DELETE = 'EVENT_NOTIFIER_DELETE';
 export const eventFetch = {
   request: (user, debugMode) =>
     action(EVENT_FETCH.REQUEST, { user, debugMode }),
-  success: payload => action(EVENT_FETCH.SUCCESS, { payload }),
+  success: response => action(EVENT_FETCH.SUCCESS, { response }),
   failure: error => action(EVENT_FETCH.FAILURE, { error })
 };
 

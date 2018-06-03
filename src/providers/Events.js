@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { eventFetch, eventNotifier } from 'actions/events';
-import * as selectors from 'selectors';
+import * as selectors from './selectors';
 
 const propTypes = {
   children: PropTypes.func.isRequired,
@@ -23,6 +23,7 @@ class EventProvider extends Component {
   }
 
   onComplete = () => {
+    console.log('event deleted');
     this.props.deleteEventFromNotifier();
   };
 
@@ -35,8 +36,8 @@ EventProvider.propTypes = propTypes;
 EventProvider.defaultProps = defaultProps;
 
 const mapStateToProps = state => ({
-  notifierPool: selectors.getNotifierPool(state),
-  payload: selectors.getEventList(state)
+  notifierPool: selectors.getNotifications(state),
+  payload: selectors.getEvents(state)
 });
 
 const mapDispatchToProps = dispatch => ({
