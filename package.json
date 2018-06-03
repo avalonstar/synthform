@@ -13,6 +13,7 @@
     "lodash": "^4.17.5",
     "moment": "^2.22.1",
     "moment-duration-format": "^2.2.2",
+    "normalizr": "^3.2.4",
     "numeral": "^2.0.6",
     "polished": "^1.9.2",
     "prettier": "^1.12.0",
