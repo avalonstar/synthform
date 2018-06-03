@@ -5,7 +5,7 @@ import { ConnectedRouter } from 'react-router-redux';
 
 import { ThemeProvider } from 'styled-components';
 
-import App from 'containers/App';
+import App from 'scenes/App';
 import {
   Activity,
   Audio,
