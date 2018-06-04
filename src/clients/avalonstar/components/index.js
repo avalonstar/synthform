@@ -1,4 +1,5 @@
 export { default as ActivityCamera } from './Cameras';
+export { default as Messages } from './Chat';
 export { default as EmoteCounter } from './Emotes';
 export { Notifier, SoundNotifier, Panel, Ticker } from './Events';
 export { default as Generic } from './Generic';
