@@ -29,7 +29,9 @@ const subscribe = (socket, user) =>
     socket.on('events', data =>
       emit(eventFetch.success(user, normalize(data, schema.eventList)))
     );
-    socket.on('messages', data => emit(messageFetch.success(data)));
+    socket.on('messages', data =>
+      emit(messageFetch.success(user, normalize(data, schema.messageList)))
+    );
     socket.on('startTime', data => emit(uptimeFetch.success(data)));
     socket.on('subpoints', data => emit(subpointFetch.success(data)));
     socket.on('testevents', data =>
