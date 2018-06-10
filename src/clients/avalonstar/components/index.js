@@ -5,3 +5,4 @@ export { default as Generic } from './Generic';
 export { Status } from './Subathon';
 export { default as SubPoints } from './SubPoints';
 export { default as Uptime } from './Uptime';
+export { default as WindowChrome } from './Windows';
