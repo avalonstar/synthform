@@ -7,23 +7,25 @@ import { rgba } from 'polished';
 const propTypes = {
   className: PropTypes.string.isRequired,
   title: PropTypes.string,
+  explicitHeight: PropTypes.bool,
   children: PropTypes.node.isRequired
 };
 
 const defaultProps = {
-  title: 'Untitled Window'
+  title: 'Untitled Window',
+  explicitHeight: false
 };
 
 const WindowChrome = props => (
-  <Wrapper className={props.className}>
-    <CameraHeader>
+  <Wrapper className={props.className} explicitHeight={props.explicitHeight}>
+    <Header>
       <ChromeButtons>
         <ChromeCircle color="#ff5f57" />
         <ChromeCircle color="#ffc130" />
         <ChromeCircle color="#02fa7b" />
       </ChromeButtons>
       <ChromeTitle>{props.title}</ChromeTitle>
-    </CameraHeader>
+    </Header>
     {props.children}
   </Wrapper>
 );
@@ -34,23 +36,26 @@ WindowChrome.defaultProps = defaultProps;
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  height: ${props => (props.explicitHeight ? '100%' : 'auto')};
+  overflow: hidden;
 
   box-shadow: 0 10px 20px ${rgba('#000', 0.19)}, 0 6px 6px ${rgba('#000', 0.23)};
   border-radius: 6px;
 `;
 
-const CameraZone = styled.div`
+const Zone = styled.div`
   display: block;
+  flex: 1;
   position: relative;
-  width: 100%;
-  padding-top: ${9 / 16 * 100}%;
+  overflow: hidden;
 
   background: #090a0c;
+  color: #f3f5f6;
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px;
 `;
 
-const CameraHeader = styled.div`
+const Header = styled.div`
   position: relative;
   align-items: center;
   padding: 12px;
