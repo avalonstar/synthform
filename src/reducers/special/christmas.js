@@ -1,4 +1,4 @@
-import * as actions from 'actions/christmas';
+import * as actions from 'actions/special/christmas';
 
 const initialState = {
   isFetching: false,
