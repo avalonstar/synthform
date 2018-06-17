@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-  title: 'Untitled Broadcaster'
+  title: 'Untitled Publisher'
 };
 
 const ActivityCamera = props => (
@@ -24,14 +24,7 @@ ActivityCamera.propTypes = propTypes;
 ActivityCamera.defaultProps = defaultProps;
 
 const Zone = styled.div`
-  display: block;
-  position: relative;
-  width: 100%;
   padding-top: ${9 / 16 * 100}%;
-
-  background: #090a0c;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
 `;
 
 export default ActivityCamera;

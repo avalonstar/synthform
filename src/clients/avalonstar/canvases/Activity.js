@@ -30,7 +30,7 @@ const layoutPropTypes = {
 /* eslint-disable react/prop-types */
 const Layout = ({ user, cameraMode, debugMode }) => (
   <Container cameraMode={cameraMode}>
-    <StyledCamera />
+    <StyledCamera title="Untitled Go Fast Person" />
     <Providers.Emotes user={user}>
       {props => (
         <StyledEmoteCounter emotes={props.payload} limit={cameraMode ? 6 : 9} />
