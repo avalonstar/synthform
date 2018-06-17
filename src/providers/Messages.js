@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { messageFetch } from 'actions/messages';
-import * as selectors from 'selectors';
+import * as selectors from './selectors';
 
 const propTypes = {
   children: PropTypes.func.isRequired,

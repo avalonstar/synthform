@@ -4,7 +4,9 @@ import io from 'socket.io-client';
 
 import { eventChannel } from 'redux-saga';
 import { call, fork, put, take, takeLatest } from 'redux-saga/effects';
+import { normalize } from 'normalizr';
 
+import * as schema from 'actions/schema';
 import * as actions from 'actions/sockets';
 import { emoteFetch } from 'actions/emotes';
 import { eventFetch } from 'actions/events';
@@ -19,22 +21,30 @@ const connect = user => {
   return new Promise(resolve => socket.on('connect', () => resolve(socket)));
 };
 
-const subscribe = socket =>
+const subscribe = (socket, user) =>
   eventChannel(emit => {
-    socket.on('emotes', data => emit(emoteFetch.success(data)));
-    socket.on('events', data => emit(eventFetch.success(data)));
-    socket.on('messages', data => emit(messageFetch.success(data)));
+    socket.on('emotes', data =>
+      emit(user, emoteFetch.success(normalize(data, schema.emoteList)))
+    );
+    socket.on('events', data =>
+      emit(eventFetch.success(user, normalize(data, schema.eventList)))
+    );
+    socket.on('messages', data =>
+      emit(messageFetch.success(user, normalize(data, schema.messageList)))
+    );
     socket.on('startTime', data => emit(uptimeFetch.success(data)));
     socket.on('subpoints', data => emit(subpointFetch.success(data)));
-    socket.on('testevents', data => emit(eventFetch.success(data)));
+    socket.on('testevents', data =>
+      emit(eventFetch.success(user, normalize(data, schema.eventList)))
+    );
     socket.on(`subathon`, data => emit(subathonFetch.success(data)));
 
     socket.on('disconnect', reason => console.log(reason));
     return () => {};
   });
 
-function* read(socket) {
-  const evc = yield call(subscribe, socket);
+function* read(socket, user) {
+  const evc = yield call(subscribe, socket, user);
   while (true) {
     const action = yield take(evc);
     yield put(action);
@@ -43,7 +53,7 @@ function* read(socket) {
 
 function* onSocketInitRequest(action) {
   const socket = yield call(connect, action.user);
-  yield fork(read, socket);
+  yield fork(read, socket, action.user);
 }
 
 export default function* socketSagas() {

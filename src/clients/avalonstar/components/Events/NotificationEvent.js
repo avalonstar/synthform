@@ -213,14 +213,6 @@ const Header = styled.div`
   font-size: 18px;
 `;
 
-const Message = styled.div`
-  margin-top: -6px;
-  padding: 0 18px 18px;
-  color: #738596;
-  font-family: ${props => props.theme.whitney};
-  font-size: 16px;
-`;
-
 const Footer = styled.div`
   display: flex;
   align-items: baseline;

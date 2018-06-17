@@ -7,7 +7,7 @@ import {
   Panel,
   Notifier,
   Ticker,
-  Status as SubathonStatus,
+  // Status as SubathonStatus,
   SubPoints,
   Uptime
 } from 'clients/avalonstar/components';
@@ -30,7 +30,7 @@ const layoutPropTypes = {
 /* eslint-disable react/prop-types */
 const Layout = ({ user, cameraMode, debugMode }) => (
   <Container cameraMode={cameraMode}>
-    <StyledCamera />
+    <StyledCamera title="Untitled Go Fast Person" />
     <Providers.Emotes user={user}>
       {props => (
         <StyledEmoteCounter emotes={props.payload} limit={cameraMode ? 6 : 9} />
@@ -48,14 +48,14 @@ const Layout = ({ user, cameraMode, debugMode }) => (
         </Fragment>
       )}
     </Providers.Events>
-    <Providers.Subathon user={user}>
+    {/* <Providers.Subathon user={user}>
       {props => (
         <StyledSubathonStatus
           notifierPool={props.notifierPool}
           {...props.payload}
         />
       )}
-    </Providers.Subathon>
+    </Providers.Subathon> */}
     <Providers.SubPoints user={user}>
       {props => <StyledSubPoints points={props.payload} />}
     </Providers.SubPoints>
@@ -112,12 +112,12 @@ const StyledPanel = styled(Panel)`
   border-radius: 0;
 `;
 
-const StyledSubathonStatus = styled(SubathonStatus)`
-  display: none;
-  grid-column: 15 / span 3;
-  grid-row: 10;
-  align-self: end;
-`;
+// const StyledSubathonStatus = styled(SubathonStatus)`
+//   display: none;
+//   grid-column: 15 / span 3;
+//   grid-row: 10;
+//   align-self: end;
+// `;
 
 const StyledSubPoints = styled(SubPoints)`
   display: none;

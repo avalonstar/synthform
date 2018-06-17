@@ -57,7 +57,7 @@ class Notification extends Component {
 
   handleRest = () => {
     if (!this.state.isVisible) {
-      // setTimeout(() => this.props.onComplete(), 500);
+      setTimeout(() => this.props.onComplete(), 500);
     }
   };
 
