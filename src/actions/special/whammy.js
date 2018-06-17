@@ -1,4 +1,4 @@
-import { action, createRequestTypes } from './utils';
+import { action, createRequestTypes } from '../utils';
 
 export const WHAMMY_FETCH = createRequestTypes('WHAMMY_FETCH');
 export const WHAMMY_NOTIFIER_ADD = 'WHAMMY_NOTIFIER_ADD';

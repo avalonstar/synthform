@@ -7,6 +7,8 @@ import socketSagas from './sockets';
 import subscriptionSagas from './subscriptions';
 import uptimeSagas from './uptime';
 
+import rpgmSagas from './special/rpgm';
+
 export default function* rootSaga() {
   yield all([
     spawn(emoteSagas),
@@ -14,6 +16,8 @@ export default function* rootSaga() {
     spawn(messageSagas),
     spawn(socketSagas),
     spawn(subscriptionSagas),
-    spawn(uptimeSagas)
+    spawn(uptimeSagas),
+
+    spawn(rpgmSagas)
   ]);
 }

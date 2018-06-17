@@ -1,4 +1,4 @@
-import { action, createRequestTypes } from './utils';
+import { action, createRequestTypes } from '../utils';
 
 export const CHRISTMAS_FETCH = createRequestTypes('CHRISTMAS_FETCH');
 export const CHRISTMAS_END_SET = 'CHRISTMAS_END_SET';

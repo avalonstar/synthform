@@ -1,4 +1,4 @@
-import * as actions from 'actions/whammy';
+import * as actions from 'actions/special/whammy';
 
 const initialState = {
   isFetching: false,
