@@ -28,7 +28,7 @@ const Main = () => (
     />
 
     <Route exact path="/special/canvases/madness" component={Madness} />
-    <Route exact path="/special/canvases/chrono" component={Whammy} />
+    {/* <Route exact path="/special/canvases/chrono" component={Whammy} /> */}
     <Route component={App} />
   </Switch>
 );
