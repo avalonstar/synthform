@@ -10,7 +10,7 @@ import {
   Activity,
   Audio,
   Break,
-  Speedrunning
+  Discussion
 } from 'clients/avalonstar/canvases';
 import { Whammy } from 'clients/special/canvases';
 import { foundation } from 'helpers/foundation';
@@ -23,8 +23,8 @@ const Main = () => (
     <Route exact path="/avalonstar/canvases/break" component={Break} />
     <Route
       exact
-      path="/avalonstar/canvases/speedrunning"
-      component={Speedrunning}
+      path="/avalonstar/canvases/discussion"
+      component={Discussion}
     />
 
     <Route exact path="/special/canvases/chrono" component={Whammy} />
