@@ -1,5 +1,5 @@
-import * as fromRpgm from 'reducers/special/rpgm';
+import * as fromMadness from 'reducers/special/madness';
 
-export const getRpgmCheers = state => fromRpgm.getCheers(state.events);
-export const getRpgmNotifications = state =>
-  fromRpgm.getNotifications(state.events);
+export const getMadnessCheers = state => fromMadness.getCheers(state.events);
+export const getMadnessNotifications = state =>
+  fromMadness.getNotifications(state.events);

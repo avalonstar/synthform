@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { rpgmFetch } from 'actions/special/rpgm';
+import { madnessFetch } from 'actions/special/madness';
 import * as selectors from './selectors';
 
 const propTypes = {
@@ -10,7 +10,7 @@ const propTypes = {
   request: PropTypes.func.isRequired
 };
 
-class RPGMProvider extends Component {
+class MadnessProvider extends Component {
   componentDidMount() {
     this.props.request('avalonstar');
   }
@@ -20,15 +20,15 @@ class RPGMProvider extends Component {
   }
 }
 
-RPGMProvider.propTypes = propTypes;
+MadnessProvider.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  cheers: selectors.getRpgmCheers(state),
-  notifierPool: selectors.getRpgmNotifications(state)
+  cheers: selectors.getMadnessCheers(state),
+  notifierPool: selectors.getMadnessNotifications(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  request: user => dispatch(rpgmFetch.request(user))
+  request: user => dispatch(madnessFetch.request(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RPGMProvider);
+export default connect(mapStateToProps, mapDispatchToProps)(MadnessProvider);
