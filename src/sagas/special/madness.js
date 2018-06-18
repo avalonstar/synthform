@@ -34,7 +34,7 @@ const connect = (user, saga) => {
 
 const subscribe = (user, socket) =>
   eventChannel(emit => {
-    socket.on('rpgm', data =>
+    socket.on('madness', data =>
       emit(
         madnessFetch.success(
           user,
@@ -69,7 +69,7 @@ function* triggerNotification(action) {
 
 function* fetchMadness(user) {
   try {
-    const uri = `${API_URI}/${user}/special/rpgm/`;
+    const uri = `${API_URI}/${user}/special/madness/`;
     const { data } = yield call(axios.get, uri);
     initialEvent = data.data.events[0].id; // eslint-disable-line
 
