@@ -21,13 +21,13 @@ const progressionPropTypes = {
   progress: PropTypes.number.isRequired
 };
 
-const getWidth = (span, end) => span / end * 100;
+const getWidth = (span, end) => Math.min(span / end * 100, 100);
 
 const Progression = ({ progress }) => (
   <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
     {({ x }) => (
       <ProgressBar>
-        <Progress style={{ width: `${x}%` }} />
+        <Progress style={{ width: `${x}%` }} width={x} />
       </ProgressBar>
     )}
   </Motion>
@@ -56,16 +56,17 @@ const Broadcaster = styled.div``;
 
 const ProgressBar = styled.div`
   margin-bottom: 2px;
-
+  padding: 2px 3px;
   height: 11px;
+
   border: 2px solid #ffffff;
   border-radius: 100px;
 `;
 
 const Progress = styled.div`
-  background: #fff;
-  margin: 2px 3px;
   height: 3px;
+  background-color: ${props => (props.width === 100 ? '#f8e000' : '#fff')};
+  transition: background-color 250ms ease;
 `;
 
 const Details = styled.div`

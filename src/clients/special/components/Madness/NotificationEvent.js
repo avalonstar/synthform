@@ -79,7 +79,7 @@ export const CheerEvent = ({ event, visibility, displayName, bits }) => (
 );
 
 NotifictionWrapper.propTypes = wrapperPropTypes;
-NotifictionWrapper.defaultStyle = wrapperDefaultProps;
+NotifictionWrapper.defaultProps = wrapperDefaultProps;
 CheerEvent.propTypes = cheerPropTypes;
 SubscriptionEvent.propTypes = subscriptionPropTypes;
 SubGiftEvent.propTypes = subgiftPropTypes;
@@ -89,7 +89,7 @@ const Wrapper = styled.div`
   display: flex;
   position: relative;
   width: 422px;
-  margin: 12px auto 0;
+  margin: 0 auto;
   padding: 12px 24px;
   z-index: 10;
 

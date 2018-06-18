@@ -10,8 +10,7 @@ import hand from './hand.png';
 
 const propTypes = {
   cheered: PropTypes.number,
-  goal: PropTypes.number,
-  goalName: PropTypes.string.isRequired
+  goal: PropTypes.number
 };
 
 const defaultProps = {
@@ -22,10 +21,7 @@ const defaultProps = {
 const Overview = props => (
   <CheersContainer>
     <Hand src={hand} />
-    <Title>
-      {'Incentive: '}
-      <strong>{props.goalName}</strong>
-    </Title>
+    <Title>{'Next Incentive'}</Title>
     <Total>
       <AnimatedNumber
         value={props.cheered}
