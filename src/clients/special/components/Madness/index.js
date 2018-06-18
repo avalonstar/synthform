@@ -1,1 +1,2 @@
-export { default as Cheers } from './Cheers';
+export { default as Progression } from './Progression';
+export { default as Notifier } from './Notifier';

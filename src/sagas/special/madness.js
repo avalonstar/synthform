@@ -32,15 +32,23 @@ const connect = (user, saga) => {
   });
 };
 
-const subscribe = socket =>
+const subscribe = (user, socket) =>
   eventChannel(emit => {
-    socket.on('rpgm', data => emit(madnessFetch.success(data)));
+    socket.on('rpgm', data =>
+      emit(
+        madnessFetch.success(
+          user,
+          data.cheers,
+          normalize(data.events, schema.eventList)
+        )
+      )
+    );
     socket.on('disconnect', reason => console.log(reason)); // eslint-disable-line
     return () => {};
   });
 
-function* read(socket) {
-  const evc = yield call(subscribe, socket);
+function* read(user, socket) {
+  const evc = yield call(subscribe, user, socket);
   while (true) {
     const action = yield take(evc);
     yield put(action);
@@ -82,7 +90,7 @@ function* onMadnessFetchRequest(action) {
   yield call(fetchMadness, action.user);
 
   const socket = yield call(connect, action.user, 'madness');
-  yield fork(read, socket);
+  yield fork(read, action.user, socket);
 }
 
 export default function* madnessSagas() {
