@@ -1,5 +1,4 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import logger from 'redux-logger';
 import { routerMiddleware, routerReducer } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
@@ -14,14 +13,16 @@ const configureStore = () => {
 
   const initialState = {};
   const enhancers = [];
-  const middleware = [sagaMiddleware, routerMiddleware(history), logger];
+  const middleware = [sagaMiddleware, routerMiddleware(history)];
 
   if (process.env.NODE_ENV === 'development') {
     const { devToolsExtension } = window;
-
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension());
     }
+
+    const { logger } = require(`redux-logger`); // eslint-disable-line
+    middleware.push(logger);
   }
 
   const composedEnhancers = compose(
