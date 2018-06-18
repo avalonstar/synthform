@@ -7,13 +7,18 @@ import subscriptions from './subscriptions';
 import tmi from './tmi';
 import uptime from './uptime';
 
+import madness from './special/madness';
+
 const rootReducer = combineReducers({
   emotes,
   events,
   messages,
   subscriptions,
   tmi,
-  uptime
+  uptime,
+
+  // Special events.
+  madness
 });
 
 export default rootReducer;

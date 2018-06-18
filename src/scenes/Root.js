@@ -12,7 +12,7 @@ import {
   Break,
   Discussion
 } from 'clients/avalonstar/canvases';
-import { Whammy } from 'clients/special/canvases';
+import { Madness, Whammy } from 'clients/special/canvases';
 import { foundation } from 'helpers/foundation';
 import { history } from 'store';
 
@@ -27,7 +27,8 @@ const Main = () => (
       component={Discussion}
     />
 
-    <Route exact path="/special/canvases/chrono" component={Whammy} />
+    <Route exact path="/special/canvases/madness" component={Madness} />
+    {/* <Route exact path="/special/canvases/chrono" component={Whammy} /> */}
     <Route component={App} />
   </Switch>
 );

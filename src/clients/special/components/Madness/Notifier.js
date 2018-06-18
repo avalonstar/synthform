@@ -2,20 +2,18 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { whammyNotifier } from 'actions/special/whammy';
+import { madnessNotifier } from 'actions/special/madness';
 
 import Notification from './Notification';
 
 const propTypes = {
   className: PropTypes.string,
   deleteEventFromNotifier: PropTypes.func.isRequired,
-  isFlipped: PropTypes.bool,
   notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 const defaultProps = {
-  className: '',
-  isFlipped: false
+  className: ''
 };
 
 class Notifier extends Component {
@@ -31,7 +29,6 @@ class Notifier extends Component {
     return (
       <Notification
         className={this.props.className}
-        isFlipped={this.props.isFlipped}
         event={this.props.notifierPool[0]}
         onComplete={this.onComplete}
       />
@@ -43,7 +40,7 @@ Notifier.propTypes = propTypes;
 Notifier.defaultProps = defaultProps;
 
 const mapDispatchToProps = dispatch => ({
-  deleteEventFromNotifier: () => dispatch(whammyNotifier.delete())
+  deleteEventFromNotifier: () => dispatch(madnessNotifier.delete())
 });
 
 export default connect(null, mapDispatchToProps)(Notifier);

@@ -2,7 +2,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { whammyFetch } from 'actions/whammy';
+import { whammyFetch } from 'actions/special/whammy';
 import * as selectors from 'selectors';
 
 const propTypes = {

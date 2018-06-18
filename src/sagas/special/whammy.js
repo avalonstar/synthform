@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { all, call, fork, put, take } from 'redux-saga/effects';
 
-import * as actions from 'actions/whammy';
+import * as actions from 'actions/special/whammy';
 import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { whammyFetch, whammyNotifier } = actions;

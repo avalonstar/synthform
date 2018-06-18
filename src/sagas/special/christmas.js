@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { eventChannel } from 'redux-saga';
 import { call, fork, put, take } from 'redux-saga/effects';
 
-import * as actions from 'actions/christmas';
+import * as actions from 'actions/special/christmas';
 import { API_BASE_URI, API_URI } from 'configurations/constants';
 
 const { christmasFetch } = actions;
