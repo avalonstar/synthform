@@ -13,10 +13,13 @@ const propTypes = {};
 const Madness = () => (
   <Wrapper>
     <Providers.Madness>
-      {({ cheers, notifierPool }) => (
+      {(props, onComplete) => (
         <Container>
-          <StyledProgression payload={cheers} />
-          <StyledNotifier notifierPool={notifierPool} />
+          <StyledProgression payload={props.cheers} />
+          <StyledNotifier
+            notifierPool={props.notifierPool}
+            onComplete={onComplete}
+          />
         </Container>
       )}
     </Providers.Madness>

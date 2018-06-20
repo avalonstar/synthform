@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-
-import { madnessNotifier } from 'actions/special/madness';
 
 import Notification from './Notification';
 
 const propTypes = {
   className: PropTypes.string,
-  deleteEventFromNotifier: PropTypes.func.isRequired,
-  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onComplete: PropTypes.func.isRequired
 };
 
 const defaultProps = {
@@ -21,16 +18,12 @@ class Notifier extends Component {
     return nextProps.notifierPool[0] !== this.props.notifierPool[0];
   }
 
-  onComplete = () => {
-    this.props.deleteEventFromNotifier();
-  };
-
   render() {
     return (
       <Notification
         className={this.props.className}
         event={this.props.notifierPool[0]}
-        onComplete={this.onComplete}
+        onComplete={this.props.onComplete}
       />
     );
   }
@@ -39,8 +32,4 @@ class Notifier extends Component {
 Notifier.propTypes = propTypes;
 Notifier.defaultProps = defaultProps;
 
-const mapDispatchToProps = dispatch => ({
-  deleteEventFromNotifier: () => dispatch(madnessNotifier.delete())
-});
-
-export default connect(null, mapDispatchToProps)(Notifier);
+export default Notifier;
