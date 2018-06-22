@@ -37,7 +37,7 @@ const getEventType = (eventData, visibility) => ({
 const getSoundUrl = eventData => {
   if (eventData.event === 'cheer') {
     const { bits } = eventData;
-    const specialAmounts = ['404', '776', '1337', '6969'];
+    const specialAmounts = ['404', '420', '776', '1337', '6969'];
     if (specialAmounts.includes(bits)) return `${bits}bits`;
     if (bits < 100) return `0bits`;
     if (bits >= 100 && bits < 1000) return `100bits`;
