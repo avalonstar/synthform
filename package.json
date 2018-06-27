@@ -21,6 +21,7 @@
     "react-animated-number": "^0.4.4",
     "react-dom": "^16.2.0",
     "react-feather": "^1.0.8",
+    "react-firestore": "^0.8.1",
     "react-flip-move": "^3.0.1",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.7",
