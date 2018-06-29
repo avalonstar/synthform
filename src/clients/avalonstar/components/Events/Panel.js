@@ -21,7 +21,7 @@ const defaultProps = {
 const contentPropsTypes = {
   event: PropTypes.string.isRequired,
   amount: PropTypes.number,
-  months: PropTypes.string,
+  months: PropTypes.number,
   recipient: PropTypes.string,
   username: PropTypes.string,
   formattedAmount: PropTypes.string

@@ -26,17 +26,11 @@ const subscribe = (socket, user) =>
     socket.on('emotes', data =>
       emit(user, emoteFetch.success(normalize(data, schema.emoteList)))
     );
-    socket.on('events', data =>
-      emit(eventFetch.success(user, normalize(data, schema.eventList)))
-    );
     socket.on('messages', data =>
       emit(messageFetch.success(user, normalize(data, schema.messageList)))
     );
     socket.on('startTime', data => emit(uptimeFetch.success(data)));
     socket.on('subpoints', data => emit(subpointFetch.success(data)));
-    socket.on('testevents', data =>
-      emit(eventFetch.success(user, normalize(data, schema.eventList)))
-    );
     socket.on(`subathon`, data => emit(subathonFetch.success(data)));
 
     socket.on('disconnect', reason => console.log(reason));

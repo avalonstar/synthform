@@ -1,48 +1,80 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withFirestore } from 'react-firestore';
 
-import { eventFetch, eventNotifier } from 'actions/events';
+import { eventNotifier } from 'actions/events';
 import * as selectors from './selectors';
 
+/* eslint-disable react/forbid-prop-types */
 const propTypes = {
   children: PropTypes.func.isRequired,
-  debugMode: PropTypes.bool,
-  request: PropTypes.func.isRequired,
-  deleteEventFromNotifier: PropTypes.func.isRequired,
-  user: PropTypes.string.isRequired
+  firestore: PropTypes.object.isRequired,
+  notifierPool: PropTypes.array.isRequired,
+  addEventToNotifier: PropTypes.func.isRequired,
+  deleteEventFromNotifier: PropTypes.func.isRequired
 };
-
-const defaultProps = {
-  debugMode: false
-};
+/* eslint-enable react/forbid-prop-types */
 
 class EventProvider extends Component {
+  state = {
+    data: [],
+    snapshot: null
+  };
+
   componentDidMount() {
-    this.props.request(this.props.user, this.props.debugMode);
+    this.props.firestore
+      .collection('events')
+      .orderBy('timestamp', 'desc')
+      .limit(20)
+      .onSnapshot(snapshot => this.setData(snapshot));
   }
 
   onComplete = () => {
-    console.log('event deleted');
     this.props.deleteEventFromNotifier();
   };
 
+  setData = snapshot => {
+    this.addEventToNotifier(snapshot);
+    this.setState({
+      data: snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })),
+      snapshot
+    });
+  };
+
+  addEventToNotifier = snapshot => {
+    if (this.state.snapshot && !this.state.snapshot.isEqual(snapshot)) {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'modified') {
+          this.props.addEventToNotifier(change.doc.data());
+        }
+      });
+    }
+  };
+
   render() {
-    return this.props.children(this.props, this.onComplete);
+    return this.props.children(
+      this.state,
+      this.props.notifierPool,
+      this.onComplete
+    );
   }
 }
 
 EventProvider.propTypes = propTypes;
-EventProvider.defaultProps = defaultProps;
 
 const mapStateToProps = state => ({
-  notifierPool: selectors.getNotifications(state),
-  payload: selectors.getEvents(state)
+  notifierPool: selectors.getNotifications(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  request: (user, debugMode) => dispatch(eventFetch.request(user, debugMode)),
+  addEventToNotifier: event => dispatch(eventNotifier.add(event)),
   deleteEventFromNotifier: () => dispatch(eventNotifier.delete())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(EventProvider);
+export default withFirestore(
+  connect(mapStateToProps, mapDispatchToProps)(EventProvider)
+);

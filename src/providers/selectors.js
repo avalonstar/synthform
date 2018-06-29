@@ -4,7 +4,6 @@ import * as fromMessages from 'reducers/messages';
 
 export const getEmotes = state => fromEmotes.getEmotes(state.emotes);
 
-export const getEvents = state => fromEvents.getEvents(state.events);
 export const getNotifications = state =>
   fromEvents.getNotifications(state.events);
 
