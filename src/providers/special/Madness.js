@@ -1,41 +1,95 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { withFirestore } from 'react-firestore';
 
-import { madnessFetch, madnessNotifier } from 'actions/special/madness';
+import { madnessNotifier } from 'actions/special/madness';
 import * as selectors from './selectors';
 
 const propTypes = {
   children: PropTypes.func.isRequired,
-  request: PropTypes.func.isRequired,
+  firestore: PropTypes.object.isRequired, // eslint-disable-line
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
+  addEventToNotifier: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired
 };
 
 class MadnessProvider extends Component {
+  state = {
+    bits: {},
+    data: [],
+    snapshot: null
+  };
+
   componentDidMount() {
-    this.props.request('avalonstar');
+    const collection = this.props.firestore
+      .collection('specials')
+      .doc('madness');
+
+    collection
+      .collection('events')
+      .orderBy('timestamp', 'desc')
+      .limit(20)
+      .onSnapshot(snapshot => this.setData(snapshot));
+
+    collection
+      .collection('totals')
+      .onSnapshot(snapshot => this.setBits(snapshot));
   }
 
   onComplete = () => {
-    console.log('event deleted');
     this.props.deleteEventFromNotifier();
   };
 
+  setBits = snapshot => {
+    const totals = {};
+    snapshot.docs.forEach(doc => {
+      totals[doc.id] = doc.data().bits;
+    });
+    this.setState({ bits: totals });
+  };
+
+  setData = snapshot => {
+    this.addEventToNotifier(snapshot);
+    this.setState({
+      data: snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      })),
+      snapshot
+    });
+  };
+
+  addEventToNotifier = snapshot => {
+    if (this.state.snapshot && !this.state.snapshot.isEqual(snapshot)) {
+      snapshot.docChanges().forEach(change => {
+        if (change.type === 'added') {
+          this.props.addEventToNotifier(change.doc.data());
+        }
+      });
+    }
+  };
+
   render() {
-    return this.props.children(this.props, this.onComplete);
+    return this.props.children(
+      this.state,
+      this.props.notifierPool,
+      this.onComplete
+    );
   }
 }
 
 MadnessProvider.propTypes = propTypes;
 
 const mapStateToProps = state => ({
-  cheers: selectors.getMadnessCheers(state),
   notifierPool: selectors.getMadnessNotifications(state)
 });
 
 const mapDispatchToProps = dispatch => ({
-  request: user => dispatch(madnessFetch.request(user)),
+  addEventToNotifier: event => dispatch(madnessNotifier.add(event)),
   deleteEventFromNotifier: () => dispatch(madnessNotifier.delete())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MadnessProvider);
+export default withFirestore(
+  connect(mapStateToProps, mapDispatchToProps)(MadnessProvider)
+);
