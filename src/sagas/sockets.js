@@ -9,7 +9,6 @@ import { normalize } from 'normalizr';
 import * as schema from 'actions/schema';
 import * as actions from 'actions/sockets';
 import { emoteFetch } from 'actions/emotes';
-import { eventFetch } from 'actions/events';
 import { messageFetch } from 'actions/messages';
 import { subathonFetch } from 'actions/subathon';
 import { subpointFetch } from 'actions/subscriptions';

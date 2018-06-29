@@ -23,28 +23,24 @@ const propTypes = {
 };
 
 const layoutPropTypes = {
-  debugMode: PropTypes.bool.isRequired,
   user: PropTypes.string.isRequired
 };
 
 /* eslint-disable react/prop-types */
-const Layout = ({ user, cameraMode, debugMode }) => (
+const Layout = ({ user, cameraMode }) => (
   <Container cameraMode={cameraMode}>
-    <StyledCamera title="Untitled Go Fast Person" />
+    <StyledCamera title="Untitled Broadcaster (1)" />
     <Providers.Emotes user={user}>
       {props => (
         <StyledEmoteCounter emotes={props.payload} limit={cameraMode ? 6 : 9} />
       )}
     </Providers.Emotes>
-    <Providers.Events user={user} debugMode={debugMode}>
-      {(props, onComplete) => (
+    <Providers.Events>
+      {(state, notifierPool, onComplete) => (
         <Fragment>
-          <StyledNotifier
-            notifierPool={props.notifierPool}
-            onComplete={onComplete}
-          />
-          <StyledPanel events={props.payload} />
-          <StyledTicker events={props.payload} anchor="bottom" />
+          <StyledNotifier notifierPool={notifierPool} onComplete={onComplete} />
+          <StyledPanel events={state.data} />
+          <StyledTicker events={state.data} anchor="bottom" />
         </Fragment>
       )}
     </Providers.Events>
@@ -81,7 +77,7 @@ Activity.propTypes = propTypes;
 Layout.propTypes = layoutPropTypes;
 
 const StyledCamera = styled(ActivityCamera)`
-  grid-column: 24 / span 7;
+  grid-column: 21 / span 7;
   grid-row: 20;
   align-self: end;
   z-index: 400;
@@ -105,7 +101,7 @@ const StyledNotifier = styled(Notifier)`
 `;
 
 const StyledPanel = styled(Panel)`
-  grid-column: 24 / span 7;
+  grid-column: 21 / span 7;
   grid-row: 21;
   z-index: 100;
 
