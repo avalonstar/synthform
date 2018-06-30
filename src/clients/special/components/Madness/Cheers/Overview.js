@@ -10,7 +10,7 @@ import { GameContext } from 'clients/special/components/Madness';
 import hand from './hand.png';
 import {
   WindowDecoration,
-  EarthBoundWindowDecoration,
+  EBWindowDecoration,
   FF5WindowDecoration
 } from '../Styles';
 
@@ -59,7 +59,7 @@ const CheersContainer = WindowDecoration.extend`
   width: 176px;
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
-    props.game === 'eb' && EarthBoundWindowDecoration};
+    props.game === 'eb' && EBWindowDecoration};
 `;
 
 const Hand = styled.img`

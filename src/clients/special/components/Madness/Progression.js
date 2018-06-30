@@ -7,7 +7,7 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 
 import { GameContext } from 'clients/special/components/Madness';
-import { EarthBoundWindowDecoration, FF5WindowDecoration } from './Styles';
+import { EBWindowDecoration, FF5WindowDecoration } from './Styles';
 
 import Incentive from './Incentive';
 import Detail from './Cheers/Detail';
@@ -96,7 +96,7 @@ const Wrapper = styled.div`
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
-    props.game === 'eb' && EarthBoundWindowDecoration};
+    props.game === 'eb' && EBWindowDecoration};
 `;
 
 const BroadcasterContainer = styled.div`

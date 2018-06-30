@@ -13,7 +13,7 @@ export const FF5WindowDecoration = `
     0 10px 20px 0 ${rgba('#000', 0.19)};
 `;
 
-export const EarthBoundWindowDecoration = `
+export const EBWindowDecoration = `
     background-color: #000;
     box-shadow: inset 0 0 0 1px #fff, inset 0 0 0 4px #889090,
       inset 0 0 0 7px #101010, inset 0 0 0 6px ${rgba('#000', 0.25)}, 
