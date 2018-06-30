@@ -40,7 +40,7 @@ const Wrapper = styled.div`
   border-radius: 6px;
   color: #fff;
   font-family: ${props => props.theme.din};
-  font-size: 13px;
+  font-size: 16px;
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
@@ -49,7 +49,7 @@ const Wrapper = styled.div`
 
 const Objective = styled.div`
   margin-bottom: 2px;
-  font-size: 12px;
+  font-size: 13px;
 `;
 
 export default Incentive;
