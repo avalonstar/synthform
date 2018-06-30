@@ -92,7 +92,6 @@ const Wrapper = styled.div`
   border-radius: 6px;
   color: #fff;
   font-family: ${props => props.theme.din};
-  font-style: italic;
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>

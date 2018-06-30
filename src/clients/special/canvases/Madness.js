@@ -50,7 +50,7 @@ const StyledProgression = styled(Progression)`
 `;
 
 const StyledNotifier = styled(Notifier)`
-  margin: -56px auto 0;
+  margin: -58px auto 0;
 `;
 
 const Container = styled.div``;

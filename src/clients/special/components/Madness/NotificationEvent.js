@@ -6,10 +6,14 @@ import { Motion, spring } from 'react-motion';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
-import { GameContext } from 'clients/special/components/Madness';
-import { EBWindowDecoration, FF5WindowDecoration } from './Styles';
+import {
+  WindowDecoration,
+  EBWindowDecoration,
+  FF5WindowDecoration
+} from './Styles';
 
 const wrapperPropTypes = {
+  game: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   isVisible: PropTypes.bool
 };
@@ -42,47 +46,52 @@ const resubPropTypes = {
   months: PropTypes.number.isRequired
 };
 
-const NotifictionWrapper = ({ isVisible, children }) => (
+const NotifictionWrapper = ({ game, isVisible, children }) => (
   <Motion
     defaultStyle={{ y: -150 }}
     style={{ y: spring(isVisible ? 0 : -150, { stiffness: 120, damping: 14 }) }}
   >
     {({ y }) => (
-      <GameContext.Consumer>
-        {game => (
-          <Wrapper
-            game={game}
-            style={{ transform: `translate3d(0, ${y}%, 0)` }}
-          >
-            <Content>{children}</Content>
-          </Wrapper>
-        )}
-      </GameContext.Consumer>
+      <Wrapper game={game} style={{ transform: `translate3d(0, ${y}%, 0)` }}>
+        <Content>{children}</Content>
+      </Wrapper>
     )}
   </Motion>
 );
 
-export const SubscriptionEvent = ({ event, visibility, displayName }) => (
-  <NotifictionWrapper event={event} isVisible={visibility}>
+export const SubscriptionEvent = ({ game, event, visibility, displayName }) => (
+  <NotifictionWrapper game={game} event={event} isVisible={visibility}>
     <strong>{displayName}</strong> just subscribed!
   </NotifictionWrapper>
 );
 
-export const SubGiftEvent = ({ event, visibility, recipient, displayName }) => (
-  <NotifictionWrapper event={event} isVisible={visibility}>
+export const SubGiftEvent = ({
+  game,
+  event,
+  visibility,
+  recipient,
+  displayName
+}) => (
+  <NotifictionWrapper game={game} event={event} isVisible={visibility}>
     <strong>{displayName}</strong> gifted a sub to <strong>{recipient}</strong>!
   </NotifictionWrapper>
 );
 
-export const ResubEvent = ({ event, visibility, displayName, months }) => (
-  <NotifictionWrapper event={event} isVisible={visibility}>
+export const ResubEvent = ({
+  game,
+  event,
+  visibility,
+  displayName,
+  months
+}) => (
+  <NotifictionWrapper game={game} event={event} isVisible={visibility}>
     <strong>{displayName}</strong> resubbed for <strong>{months}</strong>{' '}
     months!
   </NotifictionWrapper>
 );
 
-export const CheerEvent = ({ event, visibility, displayName, bits }) => (
-  <NotifictionWrapper event={event} isVisible={visibility}>
+export const CheerEvent = ({ game, event, visibility, displayName, bits }) => (
+  <NotifictionWrapper game={game} event={event} isVisible={visibility}>
     <strong>{displayName}</strong> cheered{' '}
     <strong>{numeral(bits).format('0,0')}</strong> bits!
   </NotifictionWrapper>
@@ -95,11 +104,11 @@ SubscriptionEvent.propTypes = subscriptionPropTypes;
 SubGiftEvent.propTypes = subgiftPropTypes;
 ResubEvent.propTypes = resubPropTypes;
 
-const Wrapper = styled.div`
+const Wrapper = WindowDecoration.extend`
   display: flex;
   position: relative;
   width: 422px;
-  margin: 0 auto;
+  margin: -2px auto;
   padding: 12px 24px;
   z-index: 10;
 

@@ -28,7 +28,7 @@ const Overview = props => (
   <GameContext.Consumer>
     {game => (
       <CheersContainer game={game}>
-        <Hand src={hand} />
+        {game === 'ffv' && <Hand src={hand} />}
         <Title>Next Incentive</Title>
         <Total>
           <AnimatedNumber
