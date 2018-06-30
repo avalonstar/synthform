@@ -78,6 +78,7 @@ const Details = styled.div`
 const Name = styled.div`
   flex: 1;
   font-weight: 600;
+  text-align: left;
   text-transform: capitalize;
 `;
 

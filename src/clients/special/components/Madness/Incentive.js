@@ -45,6 +45,8 @@ const Wrapper = styled.div`
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
     props.game === 'eb' && EBWindowDecoration};
+
+  text-align: left;
 `;
 
 const Objective = styled.div`

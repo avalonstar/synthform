@@ -119,6 +119,8 @@ const Wrapper = WindowDecoration.extend`
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
     props.game === 'eb' && EBWindowDecoration};
+
+  text-align: center;
 `;
 
 const Content = styled.div`

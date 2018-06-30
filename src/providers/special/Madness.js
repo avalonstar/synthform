@@ -63,7 +63,7 @@ class MadnessProvider extends Component {
   addEventToNotifier = snapshot => {
     if (this.state.snapshot && !this.state.snapshot.isEqual(snapshot)) {
       snapshot.docChanges().forEach(change => {
-        if (change.type === 'added') {
+        if (change.type === 'modified') {
           this.props.addEventToNotifier(change.doc.data());
         }
       });
