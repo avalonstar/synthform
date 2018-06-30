@@ -17,7 +17,7 @@ const incentives = {
   65000: {
     goal: 65000,
     game: 'Final Fantasy V',
-    name: 'OwO'
+    name: 'OwO (Omega)'
   },
   75000: {
     goal: 75000,
