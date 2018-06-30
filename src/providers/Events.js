@@ -6,15 +6,13 @@ import { withFirestore } from 'react-firestore';
 import { eventNotifier } from 'actions/events';
 import * as selectors from './selectors';
 
-/* eslint-disable react/forbid-prop-types */
 const propTypes = {
   children: PropTypes.func.isRequired,
-  firestore: PropTypes.object.isRequired,
-  notifierPool: PropTypes.array.isRequired,
+  firestore: PropTypes.object.isRequired, // eslint-disable-line
+  notifierPool: PropTypes.arrayOf(PropTypes.object).isRequired,
   addEventToNotifier: PropTypes.func.isRequired,
   deleteEventFromNotifier: PropTypes.func.isRequired
 };
-/* eslint-enable react/forbid-prop-types */
 
 class EventProvider extends Component {
   state = {
