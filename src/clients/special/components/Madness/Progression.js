@@ -6,6 +6,9 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
+import { GameContext } from 'clients/special/components/Madness';
+import { EarthBoundWindowDecoration, FF5WindowDecoration } from './Styles';
+
 import Incentive from './Incentive';
 import Detail from './Cheers/Detail';
 import Overview from './Cheers/Overview';
@@ -50,22 +53,26 @@ class Progression extends Component {
 
     return (
       !_.isEmpty(cheers) && (
-        <Fragment>
-          <Wrapper className={this.props.className}>
-            <BroadcasterContainer>
-              {Object.keys(cheers).map(broadcaster => (
-                <Detail
-                  key={broadcaster}
-                  name={broadcaster}
-                  cheers={cheers[broadcaster]}
-                  goal={goal}
-                />
-              ))}
-            </BroadcasterContainer>
-            <Overview cheered={totalCheered} goal={totalGoal} />
-          </Wrapper>
-          <StyledIncentive goal={goal} game={game} name={name} />
-        </Fragment>
+        <GameContext.Consumer>
+          {selectedGame => (
+            <Fragment>
+              <Wrapper game={selectedGame} className={this.props.className}>
+                <BroadcasterContainer>
+                  {Object.keys(cheers).map(broadcaster => (
+                    <Detail
+                      key={broadcaster}
+                      name={broadcaster}
+                      cheers={cheers[broadcaster]}
+                      goal={goal}
+                    />
+                  ))}
+                </BroadcasterContainer>
+                <Overview cheered={totalCheered} goal={totalGoal} />
+              </Wrapper>
+              <StyledIncentive goal={goal} game={game} name={name} />
+            </Fragment>
+          )}
+        </GameContext.Consumer>
       )
     );
   }
@@ -82,15 +89,14 @@ const Wrapper = styled.div`
   padding: 24px 24px 24px 194px;
   z-index: 100;
 
-  background-image: linear-gradient(-180deg, #3838d0 0%, #2020a0 100%);
-  box-shadow: inset 0 0 0 1px #979797, inset 0 0 0 4px #fff,
-    inset 0 0 0 6px ${rgba('#000', 0.25)}, 0 6px 6px 0 ${rgba('#000', 0.26)},
-    0 10px 20px 0 ${rgba('#000', 0.19)};
   border-radius: 6px;
   color: #fff;
   font-family: ${props => props.theme.din};
   font-style: italic;
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
+
+  ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
+    props.game === 'eb' && EarthBoundWindowDecoration};
 `;
 
 const BroadcasterContainer = styled.div`

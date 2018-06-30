@@ -5,6 +5,9 @@ import numeral from 'numeral';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
+import { GameContext } from 'clients/special/components/Madness';
+import { EarthBoundWindowDecoration, FF5WindowDecoration } from './Styles';
+
 const propTypes = {
   className: PropTypes.string,
   goal: PropTypes.number.isRequired,
@@ -16,12 +19,16 @@ const defaultProps = {
 };
 
 const Incentive = props => (
-  <Wrapper className={props.className}>
-    <Objective>
-      At <strong>{numeral(props.goal).format('0,0')} bits</strong> each
-    </Objective>
-    <strong>{props.name}</strong>
-  </Wrapper>
+  <GameContext.Consumer>
+    {game => (
+      <Wrapper game={game} className={props.className}>
+        <Objective>
+          At <strong>{numeral(props.goal).format('0,0')} bits</strong> each
+        </Objective>
+        <strong>{props.name}</strong>
+      </Wrapper>
+    )}
+  </GameContext.Consumer>
 );
 
 Incentive.propTypes = propTypes;
@@ -30,15 +37,14 @@ Incentive.defaultProps = defaultProps;
 const Wrapper = styled.div`
   padding: 12px 24px;
 
-  background-image: linear-gradient(-180deg, #3838d0 0%, #2020a0 100%);
-  box-shadow: inset 0 0 0 1px #979797, inset 0 0 0 4px #fff,
-    inset 0 0 0 6px ${rgba('#000', 0.25)}, 0 6px 6px 0 ${rgba('#000', 0.26)},
-    0 10px 20px 0 ${rgba('#000', 0.19)};
   border-radius: 6px;
   color: #fff;
   font-family: ${props => props.theme.din};
   font-size: 13px;
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
+
+  ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
+    props.game === 'eb' && EarthBoundWindowDecoration};
 `;
 
 const Objective = styled.div`

@@ -4,9 +4,15 @@ import numeral from 'numeral';
 import AnimatedNumber from 'react-animated-number';
 
 import styled from 'styled-components';
-import { rgba } from 'polished';
+
+import { GameContext } from 'clients/special/components/Madness';
 
 import hand from './hand.png';
+import {
+  WindowDecoration,
+  EarthBoundWindowDecoration,
+  FF5WindowDecoration
+} from '../Styles';
 
 const propTypes = {
   cheered: PropTypes.number,
@@ -19,40 +25,41 @@ const defaultProps = {
 };
 
 const Overview = props => (
-  <CheersContainer>
-    <Hand src={hand} />
-    <Title>{'Next Incentive'}</Title>
-    <Total>
-      <AnimatedNumber
-        value={props.cheered}
-        duration={500}
-        stepPrecision={0}
-        formatValue={n => numeral(n).format('0,0')}
-      />
-    </Total>
-    <Goal>
-      {'of '}
-      {numeral(props.goal).format('0,0')}
-      {' bits'}
-    </Goal>
-  </CheersContainer>
+  <GameContext.Consumer>
+    {game => (
+      <CheersContainer game={game}>
+        <Hand src={hand} />
+        <Title>Next Incentive</Title>
+        <Total>
+          <AnimatedNumber
+            value={props.cheered}
+            duration={500}
+            stepPrecision={0}
+            formatValue={n => numeral(n).format('0,0')}
+          />
+        </Total>
+        <Goal>
+          {'of '}
+          {numeral(props.goal).format('0,0')}
+          {' bits'}
+        </Goal>
+      </CheersContainer>
+    )}
+  </GameContext.Consumer>
 );
 
 Overview.propTypes = propTypes;
 Overview.defaultProps = defaultProps;
 
-const CheersContainer = styled.div`
+const CheersContainer = WindowDecoration.extend`
   position: absolute;
   top: 0;
   left: 0;
   padding: 24px;
   width: 176px;
 
-  text-align: right;
-  background-image: linear-gradient(-180deg, #3838d0 0%, #2020a0 100%);
-  box-shadow: inset 0 0 0 1px #979797, inset 0 0 0 4px #fff,
-    inset 0 0 0 6px ${rgba('#000', 0.25)};
-  border-radius: 6px;
+  ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
+    props.game === 'eb' && EarthBoundWindowDecoration};
 `;
 
 const Hand = styled.img`

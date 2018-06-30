@@ -6,6 +6,9 @@ import { Motion, spring } from 'react-motion';
 import styled from 'styled-components';
 import { rgba } from 'polished';
 
+import { GameContext } from 'clients/special/components/Madness';
+import { EarthBoundWindowDecoration, FF5WindowDecoration } from './Styles';
+
 const wrapperPropTypes = {
   children: PropTypes.node.isRequired,
   isVisible: PropTypes.bool
@@ -45,9 +48,16 @@ const NotifictionWrapper = ({ isVisible, children }) => (
     style={{ y: spring(isVisible ? 0 : -150, { stiffness: 120, damping: 14 }) }}
   >
     {({ y }) => (
-      <Wrapper style={{ transform: `translate3d(0, ${y}%, 0)` }}>
-        <Content>{children}</Content>
-      </Wrapper>
+      <GameContext.Consumer>
+        {game => (
+          <Wrapper
+            game={game}
+            style={{ transform: `translate3d(0, ${y}%, 0)` }}
+          >
+            <Content>{children}</Content>
+          </Wrapper>
+        )}
+      </GameContext.Consumer>
     )}
   </Motion>
 );
@@ -93,14 +103,13 @@ const Wrapper = styled.div`
   padding: 12px 24px;
   z-index: 10;
 
-  background-image: linear-gradient(-180deg, #3838d0 0%, #2020a0 100%);
-  box-shadow: inset 0 0 0 1px #979797, inset 0 0 0 4px #fff,
-    inset 0 0 0 6px ${rgba('#000', 0.25)}, 0 6px 6px 0 ${rgba('#000', 0.26)},
-    0 10px 20px 0 ${rgba('#000', 0.19)};
   border-radius: 6px;
   color: #fff;
   font-family: ${props => props.theme.din};
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
+
+  ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
+    props.game === 'eb' && EarthBoundWindowDecoration};
 `;
 
 const Content = styled.div`

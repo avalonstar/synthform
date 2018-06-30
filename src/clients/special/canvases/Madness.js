@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import styled from 'styled-components';
 
@@ -7,21 +8,35 @@ import {
   Progression,
   MadnessNotifier as Notifier
 } from 'clients/special/components';
+import { GameProvider } from 'clients/special/components/Madness';
 
-const propTypes = {};
+const propTypes = {
+  location: PropTypes.shape({
+    search: PropTypes.string
+  }).isRequired
+};
 
-const Madness = () => (
-  <Wrapper>
-    <Providers.Madness>
-      {(state, notifierPool, onComplete) => (
-        <Container>
-          <StyledProgression payload={state.bits} />
-          <StyledNotifier notifierPool={notifierPool} onComplete={onComplete} />
-        </Container>
-      )}
-    </Providers.Madness>
-  </Wrapper>
-);
+const Madness = props => {
+  const query = new URLSearchParams(props.location.search);
+  const game = query.get('game') || 'ffv';
+  return (
+    <GameProvider value={game}>
+      <Wrapper>
+        <Providers.Madness>
+          {(state, notifierPool, onComplete) => (
+            <Container>
+              <StyledProgression payload={state.bits} />
+              <StyledNotifier
+                notifierPool={notifierPool}
+                onComplete={onComplete}
+              />
+            </Container>
+          )}
+        </Providers.Madness>
+      </Wrapper>
+    </GameProvider>
+  );
+};
 
 Madness.propTypes = propTypes;
 
