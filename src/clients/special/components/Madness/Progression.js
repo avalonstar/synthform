@@ -7,7 +7,11 @@ import styled from 'styled-components';
 import { rgba } from 'polished';
 
 import { GameContext } from 'clients/special/components/Madness';
-import { EBWindowDecoration, FF5WindowDecoration } from './Styles';
+import {
+  EBWindowDecoration,
+  FF5WindowDecoration,
+  SMRPGWindowDecoration
+} from './Styles';
 
 import Incentive from './Incentive';
 import Detail from './Cheers/Detail';
@@ -64,6 +68,7 @@ class Progression extends Component {
                       name={broadcaster}
                       cheers={cheers[broadcaster]}
                       goal={goal}
+                      selectedGame={selectedGame}
                     />
                   ))}
                 </BroadcasterContainer>
@@ -95,7 +100,8 @@ const Wrapper = styled.div`
   text-shadow: 0 1px 0 ${rgba('#000', 0.4)};
 
   ${props => props.game === 'ffv' && FF5WindowDecoration} ${props =>
-    props.game === 'eb' && EBWindowDecoration};
+  props.game === 'eb' && EBWindowDecoration} ${props =>
+  props.game === 'smrpg' && SMRPGWindowDecoration};
 `;
 
 const BroadcasterContainer = styled.div`

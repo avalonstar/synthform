@@ -9,7 +9,8 @@ import styled from 'styled-components';
 const propTypes = {
   cheers: PropTypes.number,
   goal: PropTypes.number,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  selectedGame: PropTypes.string.isRequired
 };
 
 const defaultProps = {
@@ -18,15 +19,16 @@ const defaultProps = {
 };
 
 const progressionPropTypes = {
-  progress: PropTypes.number.isRequired
+  progress: PropTypes.number.isRequired,
+  selectedGame: PropTypes.string.isRequired
 };
 
 const getWidth = (span, end) => Math.min(span / end * 100, 100);
 
-const Progression = ({ progress }) => (
+const Progression = ({ progress, selectedGame }) => (
   <Motion defaultStyle={{ x: 0 }} style={{ x: spring(progress) }}>
     {({ x }) => (
-      <ProgressBar>
+      <ProgressBar selectedGame={selectedGame}>
         <Progress style={{ width: `${x}%` }} width={x} />
       </ProgressBar>
     )}
@@ -35,7 +37,10 @@ const Progression = ({ progress }) => (
 
 const Detail = props => (
   <Broadcaster>
-    <Progression progress={getWidth(props.cheers, props.goal)} />
+    <Progression
+      progress={getWidth(props.cheers, props.goal)}
+      selectedGame={props.selectedGame}
+    />
     <Details key={props.name}>
       <Name>{props.name}</Name>
       <AnimatedNumber
@@ -61,6 +66,8 @@ const ProgressBar = styled.div`
 
   border: 2px solid #ffffff;
   border-radius: 100px;
+
+  ${props => props.selectedGame === 'smrpg' && `border-color: #d0d0f8`};
 `;
 
 const Progress = styled.div`
