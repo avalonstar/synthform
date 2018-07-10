@@ -38,7 +38,7 @@ const getEventType = (game, eventData, visibility) => ({
 const specialAmounts = {
   eb: ['411', '420', '666', '1337', '2001'],
   ffv: ['404', '420', '776', '1337', '6969'],
-  smrpg: ['411', '420', '666', '1337', '2001']
+  smrpg: ['420', '777', '888']
 };
 
 const getSoundUrl = (game, eventData) => {
